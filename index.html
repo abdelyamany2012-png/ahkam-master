@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ahkam Master</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #fdf6e3;
+      color: #2c3e50;
+    }
+
+    header {
+      background: #2c3e50;
+      color: #fff;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    nav button {
+      margin-left: 6px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: none;
+      background: #3498db;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    nav button.active {
+      background: #f39c12;
+    }
+
+    main {
+      padding: 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      margin-bottom: 16px;
+    }
+
+    .big-arabic {
+      font-size: 72px;
+      text-align: center;
+      margin: 12px 0;
+    }
+
+    .rule-label {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      margin: 4px;
+      color: #fff;
+    }
+
+    .rule-izhar { background: #27ae60; }
+    .rule-idgham-ghunnah { background: #2980b9; }
+    .rule-idgham-no-ghunnah { background: #e67e22; }
+    .rule-iqlab { background: #e84393; }
+    .rule-ikhfa { background: #8e44ad; }
+
+    .btn {
+      display: inline-block;
+      margin: 6px;
+      padding: 10px 16px;
+      background: #3498db;
+      color: #fff;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .btn.secondary {
+      background: #95a5a6;
+    }
+
+    .btn.correct {
+      background: #27ae60;
+    }
+
+    .btn.wrong {
+      background: #c0392b;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-size: 16px;
+      min-height: 22px;
+    }
+
+    .stars {
+      margin-top: 8px;
+      font-size: 18px;
+      color: #f1c40f;
+    }
+
+    .level-title {
+      font-size: 20px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .small-note {
+      font-size: 13px;
+      color: #7f8c8d;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 12px;
+      font-size: 13px;
+      color: #7f8c8d;
+    }
+
+    @media (max-width: 600px) {
+      .big-arabic {
+        font-size: 56px;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        margin-top: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Ahkam Master</div>
+    <nav>
+      <button onclick="showScreen('home')" id="nav-home" class="active">Home</button>
+      <button onclick="showScreen('noon')" id="nav-noon">Noon & Tanween</button>
+      <button onclick="showScreen('meem')" id="nav-meem">Meem Sakinah</button>
+      <button onclick="showScreen('madd')" id="nav-madd">Madd</button>
+      <button onclick="showScreen('extras')" id="nav-extras">More Ahkam</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HOME SCREEN -->
+    <section id="screen-home">
+      <h1>Welcome to Ahkam Master</h1>
+      <p class="subtitle">
+        A fun Tajweed & Ahkam game for young Muslims. Big Arabic letters, short levels, and lots of stars ⭐
+      </p>
+
+      <div class="card">
+        <div class="level-title">Choose a World</div>
+        <div class="grid">
+          <div class="card">
+            <strong>Noon Sakinah & Tanween</strong>
+            <p class="small-note">Learn Izhar, Idgham, Iqlab, Ikhfa with games.</p>
+            <button class="btn" onclick="showScreen('noon')">Play Noon World</button>
+          </div>
+          <div class="card">
+            <strong>Meem Sakinah</strong>
+            <p class="small-note">Ikhfa Shafawi, Idgham Shafawi, Izhar Shafawi.</p>
+            <button class="btn" onclick="showScreen('meem')">Play Meem World</button>
+          </div>
+          <div class="card">
+            <strong>Madd (Elongation)</strong>
+            <p class="small-note">Stretch sounds and count beats.</p>
+            <button class="btn" onclick="showScreen('madd')">Play Madd World</button>
+          </div>
+          <div class="card">
+            <strong>More Ahkam</strong>
+            <p class="small-note">Qalqalah, Laam rules, Waqf, Sifaat & more.</p>
+            <button class="btn" onclick="showScreen('extras')">Explore More</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="level-title">Your Progress</div>
+        <p class="small-note">Stars are saved in your browser (this device only).</p>
+        <p>Noon World Stars: <span id="stars-noon">0</span> ⭐</p>
+        <p>Meem World Stars: <span id="stars-meem">0</span> ⭐</p>
+        <p>Madd World Stars: <span id="stars-madd">0</span> ⭐</p>
+      </div>
+    </section>
+
+    <!-- NOON & TANWEEN SCREEN -->
+    <section id="screen-noon" style="display:none;">
+      <h1>Noon Sakinah & Tanween World</h1>
+      <p class="subtitle">Learn the rules with big letters and quick games.</p>
+
+      <div class="card">
+        <div class="level-title">Mini Lesson</div>
+        <div class="big-arabic">نْ</div>
+        <p style="text-align:center;">Rules of Noon Sakinah (نْ) and Tanween (ــًــٍــٌ):</p>
+        <div style="text-align:center;">
+          <span class="rule-label rule-izhar">Izhar – Clear</span>
+          <span class="rule-label rule-idgham-ghunnah">Idgham (with Ghunnah) – ي ن م و</span>
+          <span class="rule-label rule-idgham-no-ghunnah">Idgham (no Ghunnah) – ل ر</span>
+          <span class="rule-label rule-iqlab">Iqlab – to Meem</span>
+          <span class="rule-label rule-ikhfa">Ikhfa – Concealment</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="level-title">Game 1 – Rule Catcher</div>
+        <p>Look at the word and choose the correct rule.</p>
+        <div class="big-arabic" id="noon-word">مَنْ</div>
+        <div style="text-align:center;">
+          <button class="btn" onclick="checkNoon('izhar')">Izhar</button>
+          <button class="btn" onclick="checkNoon('idgham-ghunnah')">Idgham (with Ghunnah)</button>
+          <button class="btn" onclick="checkNoon('idgham-no-ghunnah')">Idgham (no Ghunnah)</button>
+          <button class="btn" onclick="checkNoon('iqlab')">Iqlab</button>
+          <button class="btn" onclick="checkNoon('ikhfa')">Ikhfa</button>
+        </div>
+        <div class="result" id="noon-result"></div>
+        <div class="stars">Stars in this world: <span id="stars-noon-local">0</span> ⭐</div>
+        <button class="btn secondary" onclick="nextNoonWord()">Next Word</button>
+      </div>
+
+      <button class="btn secondary" onclick="showScreen('home')">Back to Home</button>
+    </section>
+
+    <!-- MEEM SAKINAH SCREEN -->
+    <section id="screen-meem" style="display:none;">
+      <h1>Meem Sakinah World</h1>
+      <p class="subtitle">Labial rules with lips and fun choices.</p>
+
+      <div class="card">
+        <div class="level-title">Mini Lesson</div>
+        <div class="big-arabic">مْ</div>
+        <p style="text-align:center;">Rules of Meem Sakinah (مْ):</p>
+        <p style="text-align:center;">
+          Ikhfa Shafawi – concealment<br/>
+          Idgham Shafawi – merging<br/>
+          Izhar Shafawi – clear
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="level-title">Game – Lip Lock</div>
+        <p>Look at the word and choose the correct Meem rule.</p>
+        <div class="big-arabic" id="meem-word">كُمْ بِ</div>
+        <div style="text-align:center;">
+          <button class="btn" onclick="checkMeem('ikhfa')">Ikhfa Shafawi</button>
+          <button class="btn" onclick="checkMeem('idgham')">Idgham Shafawi</button>
+          <button class="btn" onclick="checkMeem('izhar')">Izhar Shafawi</button>
+        </div>
+        <div class="result" id="meem-result"></div>
+        <div class="stars">Stars in this world: <span id="stars-meem-local">0</span> ⭐</div>
+        <button class="btn secondary" onclick="nextMeemWord()">Next Word</button>
+      </div>
+
+      <button class="btn secondary" onclick="showScreen('home')">Back to Home</button>
+    </section>
+
+    <!-- MADD SCREEN -->
+    <section id="screen-madd" style="display:none;">
+      <h1>Madd (Elongation) World</h1>
+      <p class="subtitle">Stretch the sound and count the beats.</p>
+
+      <div class="card">
+        <div class="level-title">Mini Lesson</div>
+        <div class="big-arabic">قَالُوا</div>
+        <p style="text-align:center;">
+          Natural Madd (Madd Tabee’i / Asli) – basic 2 counts.<br/>
+          Secondary Madd: Jaiz Munfasil, Wajib Muttasil, Lazim, ‘Arid Lissukoon.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="level-title">Game – Madd Meter</div>
+        <p>Choose how many counts this word should be.</p>
+        <div class="big-arabic" id="madd-word">قَالُوا</div>
+        <div style="text-align:center;">
+          <button class="btn" onclick="checkMadd(2)">2 counts</button>
+          <button class="btn" onclick="checkMadd(4)">4 counts</button>
+          <button class="btn" onclick="checkMadd(6)">6 counts</button>
+        </div>
+        <div class="result" id="madd-result"></div>
+        <div class="stars">Stars in this world: <span id="stars-madd-local">0</span> ⭐</div>
+        <button class="btn secondary" onclick="nextMaddWord()">Next Word</button>
+      </div>
+
+      <button class="btn secondary" onclick="showScreen('home')">Back to Home</button>
+    </section>
+
+    <!-- EXTRAS SCREEN -->
+    <section id="screen-extras" style="display:none;">
+      <h1>More Ahkam</h1>
+      <p class="subtitle">Qalqalah, Laam rules, Waqf, Sifaat, and foundational rules.</p>
+
+      <div class="card">
+        <div class="level-title">Qalqalah</div>
+        <div class="big-arabic">ق ط ب ج د</div>
+        <p>Qalqalah Sughra (minor echo) and Qalqalah Kubra (major echo).</p>
+      </div>
+
+      <div class="card">
+        <div class="level-title">Laam Rules</div>
+        <p>
+          Laam Shamsiyyah (Solar Lam – assimilated) 🌞<br/>
+          Laam Qamariyyah (Lunar Lam – pronounced) 🌙
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="level-title">Waqf (Stopping)</div>
+        <p>Stopping signs and how to stop or continue when reciting.</p>
+      </div>
+
+      <div class="card">
+        <div class="level-title">Sifaat (Characteristics)</div>
+        <p>
+          Tafkheem – heavy pronunciation.<br/>
+          Tarqeeq – light pronunciation.<br/>
+          Plus hams, jahr, shiddah, rikhwah, etc.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="level-title">Foundational Rules</div>
+        <p>
+          Hamzat al-Wasl, silent letters, connection & assimilation rules.
+        </p>
+      </div>
+
+      <button class="btn secondary" onclick="showScreen('home')">Back to Home</button>
+    </section>
+  </main>
+
+  <footer>
+    Ahkam Master – Tajweed learning for kids. Built with love and big Arabic letters.
+  </footer>
+
+  <script>
+    // Simple state
+    const stars = {
+      noon: Number(localStorage.getItem('stars-noon') || 0),
+      meem: Number(localStorage.getItem('stars-meem') || 0),
+      madd: Number(localStorage.getItem('stars-madd') || 0),
+    };
+
+    function updateStarsUI() {
+      document.getElementById('stars-noon').textContent = stars.noon;
+      document.getElementById('stars-meem').textContent = stars.meem;
+      document.getElementById('stars-madd').textContent = stars.madd;
+
+      document.getElementById('stars-noon-local').textContent = stars.noon;
+      document.getElementById('stars-meem-local').textContent = stars.meem;
+      document.getElementById('stars-madd-local').textContent = stars.madd;
+    }
+
+    updateStarsUI();
+
+    function saveStars() {
+      localStorage.setItem('stars-noon', stars.noon);
+      localStorage.setItem('stars-meem', stars.meem);
+      localStorage.setItem('stars-madd', stars.madd);
+      updateStarsUI();
+    }
+
+    // Navigation
+    function showScreen(name) {
+      const screens = ['home', 'noon', 'meem', 'madd', 'extras'];
+      screens.forEach(s => {
+        document.getElementById('screen-' + s).style.display = (s === name) ? 'block' : 'none';
+        document.getElementById('nav-' + s).classList.toggle('active', s === name);
+      });
+    }
+
+    // Noon game data
+    const noonWords = [
+      { text: 'مَنْ', rule: 'ikhfa' },
+      { text: 'مِنْ رَبِّهِمْ', rule: 'idgham-no-ghunnah' },
+      { text: 'أَنْعَمْتَ', rule: 'idgham-ghunnah' },
+      { text: 'مِنْ بَعْدِ', rule: 'iqlab' },
+      { text: 'أَنْتُمْ', rule: 'izhar' },
+    ];
+    let noonIndex = 0;
+
+    function nextNoonWord() {
+      noonIndex = (noonIndex + 1) % noonWords.length;
+      document.getElementById('noon-word').textContent = noonWords[noonIndex].text;
+      document.getElementById('noon-result').textContent = '';
+    }
+
+    function checkNoon(answer) {
+      const current = noonWords[noonIndex];
+      const result = document.getElementById('noon-result');
+      if (answer === current.rule) {
+        result.textContent = '🎉 Correct! You earned a star!';
+        result.style.color = 'green';
+        stars.noon += 1;
+        saveStars();
+      } else {
+        result.textContent = '❌ Not this time. Try another word!';
+        result.style.color = 'red';
+      }
+    }
+
+    // Meem game data
+    const meemWords = [
+      { text: 'كُمْ بِ', rule: 'ikhfa' },
+      { text: 'لَكُمْ مَا', rule: 'idgham' },
+      { text: 'هُمْ فِيهِ', rule: 'izhar' },
+    ];
+    let meemIndex = 0;
+
+    function nextMeemWord() {
+      meemIndex = (meemIndex + 1) % meemWords.length;
+      document.getElementById('meem-word').textContent = meemWords[meemIndex].text;
+      document.getElementById('meem-result').textContent = '';
+    }
+
+    function checkMeem(answer) {
+      const current = meemWords[meemIndex];
+      const result = document.getElementById('meem-result');
+      if (answer === current.rule) {
+        result.textContent = '🎉 Correct! You earned a star!';
+        result.style.color = 'green';
+        stars.meem += 1;
+        saveStars();
+      } else {
+        result.textContent = '❌ Try again, look at the letters carefully.';
+        result.style.color = 'red';
+      }
+    }
+
+    // Madd game data
+    const maddWords = [
+      { text: 'قَالُوا', counts: 2 },
+      { text: 'جَاءَ', counts: 4 },
+      { text: 'الضَّالِّينَ', counts: 6 },
+    ];
+    let maddIndex = 0;
+
+    function nextMaddWord() {
+      maddIndex = (maddIndex + 1) % maddWords.length;
+      document.getElementById('madd-word').textContent = maddWords[maddIndex].text;
+      document.getElementById('madd-result').textContent = '';
+    }
+
+    function checkMadd(choice) {
+      const current = maddWords[maddIndex];
+      const result = document.getElementById('madd-result');
+      if (choice === current.counts) {
+        result.textContent = '🎉 Correct length! You earned a star!';
+        result.style.color = 'green';
+        stars.madd += 1;
+        saveStars();
+      } else {
+        result.textContent = '❌ That is not the usual count for this Madd.';
+        result.style.color = 'red';
+      }
+    }
+  </script>
+</body>
+</html>
