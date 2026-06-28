@@ -2,16 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Ahkam Master – Gold Rush</title>
+  <title>Ahkam Master</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
+    /* ====== GLOBAL ====== */
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
-      font-family: system-ui, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: radial-gradient(circle at top, #0f172a, #020617);
       color: #f9fafb;
     }
-
     header {
       display: flex;
       justify-content: space-between;
@@ -22,24 +25,108 @@
       top: 0;
       z-index: 10;
     }
-
     .logo {
       font-size: 1.4rem;
       font-weight: 700;
       color: #22c55e;
     }
-
     .author {
       font-size: 0.7rem;
       opacity: 0.7;
     }
-
     main {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 14px;
     }
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      padding: 14px;
+      opacity: 0.7;
+    }
 
+    /* ====== MODE BUTTONS ====== */
+    .mode-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .mode-button {
+      border: none;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #1d4ed8;
+      color: #f9fafb;
+      cursor: pointer;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mode-button.active {
+      background: #22c55e;
+      color: #022c22;
+    }
+
+    /* ====== CARDS ====== */
+    .card {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      color: #38bdf8;
+    }
+    .card h3 {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      color: #a5b4fc;
+    }
+    .lesson-text {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* ====== TAGS ====== */
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0 12px;
+    }
+    .tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      background: #0f766e;
+    }
+    .tag.red { background: #b91c1c; }
+    .tag.green { background: #15803d; }
+    .tag.blue { background: #1d4ed8; }
+    .tag.yellow { background: #ca8a04; }
+
+    /* ====== ARABIC ====== */
+    .arabic-big {
+      font-size: 3rem;
+      line-height: 1.6;
+      text-align: center;
+      margin: 10px 0;
+      font-family: "Scheherazade New", "Amiri", system-ui;
+    }
+    .arabic-medium {
+      font-size: 2rem;
+      text-align: center;
+      margin: 6px 0;
+      font-family: "Scheherazade New", "Amiri", system-ui;
+    }
+
+    /* ====== TOP BAR / HUD ====== */
     .top-bar {
       display: flex;
       flex-wrap: wrap;
@@ -47,7 +134,6 @@
       align-items: center;
       margin-bottom: 12px;
     }
-
     .pill {
       padding: 6px 12px;
       border-radius: 999px;
@@ -57,12 +143,10 @@
       align-items: center;
       gap: 6px;
     }
-
     .pill span.value {
       color: #22c55e;
       font-weight: 600;
     }
-
     .difficulty-select {
       border: none;
       background: #0f172a;
@@ -73,6 +157,7 @@
       cursor: pointer;
     }
 
+    /* ====== BUTTONS ====== */
     .btn {
       border: none;
       padding: 8px 14px;
@@ -85,50 +170,25 @@
       align-items: center;
       gap: 6px;
     }
-
     .btn.secondary {
       background: #1d4ed8;
       color: #e5e7eb;
     }
-
     .btn.danger {
       background: #b91c1c;
       color: #fee2e2;
     }
 
-    .card {
-      background: rgba(15, 23, 42, 0.95);
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 14px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .card h2 {
-      margin-top: 0;
-      font-size: 1.3rem;
-      color: #38bdf8;
-    }
-
-    .arabic-big {
-      font-size: 3rem;
-      line-height: 1.6;
-      text-align: center;
-      margin: 10px 0;
-      font-family: "Scheherazade New", "Amiri", system-ui;
-    }
-
+    /* ====== QUIZ ====== */
     .question-text {
       font-size: 1rem;
       margin-bottom: 10px;
     }
-
     .options-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 8px;
     }
-
     .option-btn {
       border: none;
       padding: 10px;
@@ -140,449 +200,718 @@
       text-align: center;
       transition: background 0.1s, transform 0.1s;
     }
-
     .option-btn:hover {
       background: #1e293b;
       transform: translateY(-1px);
     }
-
     .option-btn.correct {
       background: #16a34a;
     }
-
     .option-btn.wrong {
       background: #b91c1c;
     }
-
     .status-line {
       margin-top: 8px;
       font-size: 0.9rem;
     }
-
     .event-log {
       margin-top: 6px;
       font-size: 0.85rem;
       opacity: 0.8;
     }
 
-    .shop-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 8px;
+    /* ====== GOLD RUSH BAR ====== */
+    .gold-bar {
       margin-top: 10px;
-    }
-
-    .shop-item {
-      background: #0f172a;
-      border-radius: 14px;
-      padding: 10px;
-      font-size: 0.85rem;
-    }
-
-    .shop-item-title {
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: #a5b4fc;
-    }
-
-    .shop-item button {
-      margin-top: 6px;
-      border: none;
-      padding: 6px 10px;
+      height: 16px;
       border-radius: 999px;
-      background: #22c55e;
-      color: #022c22;
-      cursor: pointer;
-      font-size: 0.8rem;
+      background: #0f172a;
+      overflow: hidden;
+      position: relative;
+    }
+    .gold-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #facc15, #f97316);
+      width: 0%;
+      transition: width 0.3s;
+    }
+    .gold-label {
+      position: absolute;
+      top: -18px;
+      right: 0;
+      font-size: 0.75rem;
+      opacity: 0.8;
     }
 
+    /* ====== MUSIC ====== */
     .music-controls {
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 0.8rem;
     }
-
     .music-controls input[type="range"] {
       width: 100px;
     }
 
-    footer {
-      text-align: center;
-      font-size: 0.8rem;
-      padding: 14px;
-      opacity: 0.7;
-    }
-
+    /* ====== RESPONSIVE ====== */
     @media (max-width: 600px) {
       .arabic-big {
         font-size: 2.4rem;
+      }
+      .arabic-medium {
+        font-size: 1.8rem;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">Ahkam Master – Gold Rush</div>
+    <div class="logo">Ahkam Master</div>
     <div class="author">by Abdelrahman Yamany</div>
   </header>
 
   <main>
-    <div class="top-bar">
-      <div class="pill">💰 Coins: <span class="value" id="coins">0</span></div>
-      <div class="pill">⭐ XP: <span class="value" id="xp">0</span></div>
-      <div class="pill">🔥 Streak: <span class="value" id="streak">0</span></div>
-      <div class="pill">
-        🎚 Difficulty:
-        <select id="difficulty" class="difficulty-select">
-          <option value="beginner">Beginner (letters)</option>
-          <option value="medium">Medium (words)</option>
-          <option value="advanced">Advanced (sentences)</option>
-          <option value="mixed">Mixed</option>
-        </select>
-      </div>
-      <button class="btn secondary" id="new-round">New Gold Rush Round ▶</button>
-      <div class="music-controls">
-        🎵 Soft Nasheed
-        <button class="btn" id="music-toggle">Mute</button>
-        <input type="range" id="music-volume" min="0" max="1" step="0.05" value="0.4" />
-      </div>
-    </div>
-
+    <!-- INTRO -->
     <div class="card">
-      <h2>Gold Rush Mode 🎮</h2>
-      <p>
-        Answer Ahkam questions to collect coins. Random events can double your coins, steal them,
-        or give you special power-ups. Try to build a huge treasure and become a true Ahkam Master!
+      <h2>Welcome to Ahkam Master</h2>
+      <p class="lesson-text">
+        This app is for young Muslims to learn Tajweed (Ahkam) in a fun and simple way.
+        First, learn the rules. Then practice with quizzes. Finally, play games to show what you know.
       </p>
     </div>
 
-    <div class="card" id="question-card">
-      <h2>Question</h2>
-      <div class="arabic-big" id="question-arabic">نْ</div>
-      <div class="question-text" id="question-text">
-        What is the Ahkam rule here?
-      </div>
-      <div class="options-grid" id="options-grid"></div>
-      <div class="status-line" id="status-line"></div>
-      <div class="event-log" id="event-log"></div>
-      <button class="btn" id="next-question">Next Question ▶</button>
+    <!-- MODE SWITCH -->
+    <div class="mode-buttons">
+      <button class="mode-button active" data-mode="learn">📚 Learn Ahkam</button>
+      <button class="mode-button" data-mode="practice">📝 Practice & Quizzes</button>
+      <button class="mode-button" data-mode="games">🎮 Games (Gold Rush)</button>
     </div>
 
-    <div class="card">
-      <h2>Shop & Power-Ups 🛒</h2>
-      <p>Use your coins to buy upgrades that help you in Gold Rush mode.</p>
-      <div class="shop-grid">
-        <div class="shop-item">
-          <div class="shop-item-title">Double XP (this round)</div>
-          <div>Cost: 20 coins. XP from correct answers is doubled.</div>
-          <button data-item="doubleXP">Buy</button>
+    <!-- LEARN MODE -->
+    <section id="learn" class="card">
+      <h2>Learn Ahkam</h2>
+
+      <div class="card">
+        <h3>1. Noon Sakinah (نْ) & Tanween (ــًــٍــٌ)</h3>
+        <div class="arabic-big">نْ ــًــٍــٌ</div>
+        <div class="tag-row">
+          <span class="tag green">إظهار – قراءة واضحة</span>
+          <span class="tag blue">إدغام – إدخال حرف في حرف</span>
+          <span class="tag yellow">إقلاب – قلب النون إلى ميم</span>
+          <span class="tag red">إخفاء – إخفاء النون مع غنة</span>
         </div>
-        <div class="shop-item">
-          <div class="shop-item-title">Double Coins (this round)</div>
-          <div>Cost: 30 coins. Coins from correct answers are doubled.</div>
-          <button data-item="doubleCoins">Buy</button>
+        <p class="lesson-text">
+          <strong>إظهار:</strong> نقرأ النون الساكنة أو التنوين بوضوح بدون إدغام أو إخفاء.<br>
+          <strong>إدغام بغنة:</strong> إذا جاء بعد النون الساكنة أو التنوين أحد حروف: <span class="arabic-medium">ي ن م و</span> نُدغم مع غنة.<br>
+          <strong>إدغام بغير غنة:</strong> إذا جاء بعد النون الساكنة أو التنوين: <span class="arabic-medium">ل ر</span> نُدغم بدون غنة.<br>
+          <strong>إقلاب:</strong> إذا جاء بعد النون الساكنة أو التنوين حرف ب، تُقلب النون إلى ميم مع غنة.<br>
+          <strong>إخفاء:</strong> إذا جاء بعد النون الساكنة أو التنوين أحد حروف الإخفاء، نُخفي النون مع غنة خفيفة.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>2. Meem Sakinah (مْ)</h3>
+        <div class="arabic-big">مْ</div>
+        <div class="tag-row">
+          <span class="tag red">إخفاء شفوي</span>
+          <span class="tag blue">إدغام شفوي</span>
+          <span class="tag green">إظهار شفوي</span>
         </div>
-        <div class="shop-item">
-          <div class="shop-item-title">Hint Reveal (one use)</div>
-          <div>Cost: 15 coins. Shows a small hint for the current question.</div>
-          <button data-item="hint">Buy</button>
+        <p class="lesson-text">
+          <strong>إخفاء شفوي:</strong> إذا جاء بعد مْ حرف ب، نُخفي الميم قليلاً مع غنة.<br>
+          <strong>إدغام شفوي:</strong> إذا جاء بعد مْ حرف م، نُدغم الميمين مع غنة.<br>
+          <strong>إظهار شفوي:</strong> في باقي الحروف، نُظهر الميم بوضوح.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>3. Madd (المد)</h3>
+        <div class="arabic-big">مــد</div>
+        <p class="lesson-text">
+          <strong>مد طبيعي (أصلي):</strong> مد بسيط بمقدار حركتين على حروف المد: ا و ي.<br>
+          <strong>مد جائز منفصل:</strong> المد في آخر كلمة والسبب في أول الكلمة التالية، غالباً 4–5 حركات.<br>
+          <strong>مد واجب متصل:</strong> المد والسبب في نفس الكلمة، غالباً 4–5 حركات.<br>
+          <strong>مد لازم:</strong> مد يجب إطالته غالباً 6 حركات.<br>
+          <strong>مد عارض للسكون:</strong> عند الوقف على كلمة، يمكن أن يكون 2 أو 4 أو 6 حركات.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>4. Ghunnah (الغنة)</h3>
+        <div class="arabic-big">ن م</div>
+        <p class="lesson-text">
+          الغنة صوت يخرج من الأنف، غالباً بمقدار حركتين، ويظهر بقوة في النون والميم خاصة في الإدغام والإخفاء.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>5. Qalqalah (القلقلة)</h3>
+        <div class="arabic-big">ق ط ب ج د</div>
+        <p class="lesson-text">
+          القلقلة اهتزاز في صوت الحرف عند السكون.<br>
+          <strong>قلقلة صغرى:</strong> داخل الكلمة.<br>
+          <strong>قلقلة كبرى:</strong> عند الوقف في آخر الكلمة، يكون الصوت أقوى.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>6. Laam Shamsiyyah & Qamariyyah (لام شمسية وقمرية)</h3>
+        <div class="arabic-big">الشَّمس – القَمَر</div>
+        <p class="lesson-text">
+          <strong>لام شمسية:</strong> اللام لا تُنطق، والحرف بعدها يُشدّد مثل «الشَّمس».<br>
+          <strong>لام قمرية:</strong> اللام تُنطق بوضوح مثل «القَمَر».
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>7. Waqf (الوقف)</h3>
+        <div class="arabic-big">الــوقــف</div>
+        <p class="lesson-text">
+          الوقف هو التوقف عند كلمة. نختار أماكن الوقف بحيث يكتمل المعنى، ونستخدم علامات الوقف في المصحف لمعرفة الأفضل.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>8. Sifaat (صفات الحروف)</h3>
+        <div class="arabic-big">ص ض ط ظ ق</div>
+        <p class="lesson-text">
+          <strong>تفخيم:</strong> حروف ثقيلة مثل ص ض ط ظ ق، يكون الصوت غليظاً.<br>
+          <strong>ترقيق:</strong> باقي الحروف يكون الصوت فيها رقيقاً.<br>
+          وهناك صفات أخرى مثل: الهمس، الجهر، الشدة، الرخاوة، وغيرها.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>9. قواعد إضافية</h3>
+        <p class="lesson-text">
+          <strong>همزة الوصل:</strong> تُقرأ في بداية الكلام، وتسقط عند الوصل.<br>
+          <strong>الحروف غير الملفوظة:</strong> حروف تُكتب ولا تُنطق في بعض الكلمات.<br>
+          <strong>الاتصال والإدغام:</strong> كيف تتصل الحروف وتندمج عند القراءة.
+        </p>
+      </div>
+    </section>
+
+    <!-- PRACTICE MODE -->
+    <section id="practice" class="card" style="display:none;">
+      <h2>Practice & Quizzes</h2>
+      <p class="lesson-text">
+        Choose a level, answer questions, and see if you remember the Ahkam correctly.
+      </p>
+
+      <div class="top-bar">
+        <div class="pill">
+          🎚 Level:
+          <select id="practice-difficulty" class="difficulty-select">
+            <option value="beginner">Beginner (letters)</option>
+            <option value="medium">Medium (words)</option>
+            <option value="advanced">Advanced (sentences)</option>
+            <option value="mixed">Mixed</option>
+          </select>
         </div>
-        <div class="shop-item">
-          <div class="shop-item-title">Shield (protect coins)</div>
-          <div>Cost: 25 coins. Protects you from one bad random event.</div>
-          <button data-item="shield">Buy</button>
+        <div class="pill">✅ Correct: <span class="value" id="practice-correct">0</span></div>
+        <div class="pill">❌ Wrong: <span class="value" id="practice-wrong">0</span></div>
+        <button class="btn secondary" id="practice-new">New Practice Round ▶</button>
+      </div>
+
+      <div class="card">
+        <div class="arabic-big" id="practice-arabic">نْ + ي</div>
+        <div class="question-text" id="practice-text">ما الحكم هنا؟</div>
+        <div class="options-grid" id="practice-options"></div>
+        <div class="status-line" id="practice-status"></div>
+        <button class="btn" id="practice-next">Next Question ▶</button>
+      </div>
+    </section>
+
+    <!-- GAMES MODE -->
+    <section id="games" class="card" style="display:none;">
+      <h2>Games – Gold Rush 🎮</h2>
+      <p class="lesson-text">
+        Use what you learned! Answer Ahkam questions to collect gold coins.
+        The more correct answers, the more treasure you get.
+      </p>
+
+      <div class="top-bar">
+        <div class="pill">💰 Coins: <span class="value" id="coins">0</span></div>
+        <div class="pill">⭐ XP: <span class="value" id="xp">0</span></div>
+        <div class="pill">🔥 Streak: <span class="value" id="streak">0</span></div>
+        <div class="pill">
+          🎚 Difficulty:
+          <select id="game-difficulty" class="difficulty-select">
+            <option value="beginner">Beginner</option>
+            <option value="medium">Medium</option>
+            <option value="advanced">Advanced</option>
+            <option value="mixed">Mixed</option>
+          </select>
+        </div>
+        <button class="btn secondary" id="start-round">Start Gold Rush ▶</button>
+        <div class="music-controls">
+          🎵 Soft Nasheed
+          <button class="btn" id="music-toggle">Mute</button>
+          <input type="range" id="music-volume" min="0" max="1" step="0.05" value="0.4" />
         </div>
       </div>
-    </div>
+
+      <div class="card" id="game-question-card">
+        <div class="gold-bar">
+          <div class="gold-fill" id="gold-fill"></div>
+          <div class="gold-label" id="gold-label">Treasure: 0%</div>
+        </div>
+        <div class="arabic-big" id="game-arabic">نْ</div>
+        <div class="question-text" id="game-text">ما الحكم هنا؟</div>
+        <div class="options-grid" id="game-options"></div>
+        <div class="status-line" id="game-status"></div>
+        <div class="event-log" id="game-event"></div>
+        <button class="btn" id="game-next">Next Question ▶</button>
+      </div>
+    </section>
   </main>
 
   <footer>
-    Ahkam Master – Gold Rush Mode with soft nasheed and randomized Tajweed practice.
+    Ahkam Master – Learn, practice, then play.
   </footer>
 
-  <!-- Background nasheed (replace src with your own halal, no-instrument loop) -->
+  <!-- Background nasheed (you provide nasheed.mp3 in the same folder) -->
   <audio id="nasheed" loop>
-    <!-- You can replace this with your own file, e.g. nasheed.mp3 in the same folder -->
     <source src="nasheed.mp3" type="audio/mpeg" />
   </audio>
 
   <script>
-    // ====== GAME STATE ======
-    let coins = 0;
-    let xp = 0;
-    let streak = 0;
-    let doubleXP = false;
-    let doubleCoins = false;
-    let hasShield = false;
-    let hintAvailable = false;
+    // ============================================================
+    // MODULE: MODE SWITCHING
+    // ============================================================
+    const modeButtons = document.querySelectorAll('.mode-button');
+    const sections = {
+      learn: document.getElementById('learn'),
+      practice: document.getElementById('practice'),
+      games: document.getElementById('games')
+    };
 
-    const coinsEl = document.getElementById('coins');
-    const xpEl = document.getElementById('xp');
-    const streakEl = document.getElementById('streak');
-    const difficultyEl = document.getElementById('difficulty');
-    const statusEl = document.getElementById('status-line');
-    const eventEl = document.getElementById('event-log');
-    const qArabicEl = document.getElementById('question-arabic');
-    const qTextEl = document.getElementById('question-text');
-    const optionsGrid = document.getElementById('options-grid');
-    const nextBtn = document.getElementById('next-question');
-    const newRoundBtn = document.getElementById('new-round');
+    modeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const mode = btn.dataset.mode;
+        modeButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        Object.keys(sections).forEach(key => {
+          sections[key].style.display = key === mode ? 'block' : 'none';
+        });
+      });
+    });
 
-    const nasheed = document.getElementById('nasheed');
-    const musicToggle = document.getElementById('music-toggle');
-    const musicVolume = document.getElementById('music-volume');
-
-    // ====== QUESTION BANK ======
-    // You can keep adding more questions here to reach 300+.
-    // BEGINNER: letters only
+    // ============================================================
+    // MODULE: QUESTION BANK (BEGINNER / MEDIUM / ADVANCED)
+    // ============================================================
     const beginnerQuestions = [
+      // Noon Sakinah & Tanween
       {
         arabic: "نْ + ي",
-        text: "Noon Sakinah (نْ) followed by ي. What is the rule?",
-        options: ["Izhar", "Idgham with Ghunnah", "Iqlab", "Ikhfa"],
+        text: "نْ متبوعة بـ ي في تركيب مثل: «مَنْ يَقول». ما الحكم؟",
+        options: ["إظهار", "إدغام بغنة", "إقلاب", "إخفاء"],
         correct: 1,
-        hint: "Think of merging with Ghunnah letters."
+        rule: "إدغام بغنة مع حرف الياء."
+      },
+      {
+        arabic: "نْ + ن",
+        text: "نْ متبوعة بـ ن في تركيب مثل: «مِنْ نِعمة». ما الحكم؟",
+        options: ["إظهار", "إدغام بغنة", "إقلاب", "إخفاء"],
+        correct: 1,
+        rule: "إدغام بغنة مع حرف النون."
+      },
+      {
+        arabic: "نْ + م",
+        text: "نْ متبوعة بـ م في تركيب مثل: «مِنْ مَال». ما الحكم؟",
+        options: ["إظهار", "إدغام بغنة", "إقلاب", "إخفاء"],
+        correct: 1,
+        rule: "إدغام بغنة مع حرف الميم."
+      },
+      {
+        arabic: "نْ + و",
+        text: "نْ متبوعة بـ و في تركيب مثل: «مِنْ وَقْت». ما الحكم؟",
+        options: ["إظهار", "إدغام بغنة", "إقلاب", "إخفاء"],
+        correct: 1,
+        rule: "إدغام بغنة مع حرف الواو."
+      },
+      {
+        arabic: "نْ + ل",
+        text: "نْ متبوعة بـ ل في تركيب مثل: «مِنْ لَدُن». ما الحكم؟",
+        options: ["إدغام بغير غنة", "إدغام بغنة", "إخفاء", "إقلاب"],
+        correct: 0,
+        rule: "إدغام بغير غنة مع حرف اللام."
       },
       {
         arabic: "نْ + ر",
-        text: "Noon Sakinah (نْ) followed by ر. What is the rule?",
-        options: ["Idgham without Ghunnah", "Idgham with Ghunnah", "Ikhfa", "Iqlab"],
+        text: "نْ متبوعة بـ ر في تركيب مثل: «مِنْ رَبِّه». ما الحكم؟",
+        options: ["إدغام بغير غنة", "إدغام بغنة", "إخفاء", "إقلاب"],
         correct: 0,
-        hint: "Lam and Ra are special Idgham letters."
+        rule: "إدغام بغير غنة مع حرف الراء."
       },
       {
         arabic: "نْ + ب",
-        text: "Noon Sakinah (نْ) followed by ب. What is the rule?",
-        options: ["Ikhfa", "Iqlab to Meem", "Izhar", "Idgham"],
+        text: "نْ متبوعة بـ ب في تركيب مثل: «مِنْ بَعْد». ما الحكم؟",
+        options: ["إخفاء", "إقلاب إلى ميم", "إظهار", "إدغام"],
         correct: 1,
-        hint: "This one changes to Meem."
+        rule: "إقلاب النون إلى ميم مع غنة."
       },
       {
+        arabic: "نْ + ت",
+        text: "نْ متبوعة بـ ت في تركيب مثل: «مِنْ تَحت». ما الحكم؟",
+        options: ["إظهار", "إخفاء", "إدغام", "إقلاب"],
+        correct: 1,
+        rule: "إخفاء مع غنة لأن التاء من حروف الإخفاء."
+      },
+      {
+        arabic: "نْ + د",
+        text: "نْ متبوعة بـ د في تركيب مثل: «مِنْ دُون». ما الحكم؟",
+        options: ["إظهار", "إخفاء", "إدغام", "إقلاب"],
+        correct: 1,
+        rule: "إخفاء مع غنة لأن الدال من حروف الإخفاء."
+      },
+      {
+        arabic: "نْ + س",
+        text: "نْ متبوعة بـ س في تركيب مثل: «مِنْ سَبيل». ما الحكم؟",
+        options: ["إظهار", "إخفاء", "إدغام", "إقلاب"],
+        correct: 1,
+        rule: "إخفاء مع غنة لأن السين من حروف الإخفاء."
+      },
+
+      // Meem Sakinah
+      {
         arabic: "مْ + ب",
-        text: "Meem Sakinah (مْ) followed by ب. What is the rule?",
-        options: ["Ikhfa Shafawi", "Idgham Shafawi", "Izhar Shafawi", "Qalqalah"],
+        text: "مْ متبوعة بـ ب في تركيب مثل: «يُمْبِر». ما الحكم؟",
+        options: ["إخفاء شفوي", "إدغام شفوي", "إظهار شفوي", "قلقلة"],
         correct: 0,
-        hint: "Lips hide slightly with Ghunnah."
+        rule: "إخفاء شفوي مع غنة عند الميم قبل الباء."
       },
       {
         arabic: "مْ + م",
-        text: "Meem Sakinah (مْ) followed by م. What is the rule?",
-        options: ["Ikhfa Shafawi", "Idgham Shafawi", "Izhar Shafawi", "Qalqalah"],
+        text: "مْ متبوعة بـ م في تركيب مثل: «عَمْمَال». ما الحكم؟",
+        options: ["إخفاء شفوي", "إدغام شفوي", "إظهار شفوي", "قلقلة"],
         correct: 1,
-        hint: "Two Meems merge together."
+        rule: "إدغام شفوي للميمين مع غنة."
       },
       {
-        arabic: "قْ",
-        text: "Letter ق with sukoon. What special rule can appear?",
-        options: ["Ghunnah", "Qalqalah", "Madd", "Ikhfa"],
-        correct: 1,
-        hint: "Echoing sound."
-      },
-      {
-        arabic: "ل + ش",
-        text: "Lam before ش in a definite word (like الشمس). What is the Lam type?",
-        options: ["Laam Qamariyyah", "Laam Shamsiyyah", "Izhar", "Ikhfa"],
-        correct: 1,
-        hint: "The Lam is hidden, sun letter is doubled."
-      },
-      {
-        arabic: "ل + ق",
-        text: "Lam before ق in a definite word (like القمر). What is the Lam type?",
-        options: ["Laam Shamsiyyah", "Laam Qamariyyah", "Ikhfa", "Idgham"],
-        correct: 1,
-        hint: "Lam is clearly pronounced."
-      },
-      {
-        arabic: "ا (مد طبيعي)",
-        text: "A simple Madd letter with no extra cause. What kind of Madd?",
-        options: ["Madd Tabee'i (Natural)", "Madd Lazim", "Madd Jaiz Munfasil", "Madd Wajib Muttasil"],
-        correct: 0,
-        hint: "The basic 2-count Madd."
-      },
-      {
-        arabic: "ن / م",
-        text: "Which letters are most known for Ghunnah?",
-        options: ["ق ط ب ج د", "ن و", "ن م", "ل ر"],
+        arabic: "مْ + ق",
+        text: "مْ متبوعة بـ ق في تركيب مثل: «يَمْقُول». ما الحكم؟",
+        options: ["إخفاء شفوي", "إدغام شفوي", "إظهار شفوي", "قلقلة"],
         correct: 2,
-        hint: "Nasal sound from nose."
-      }
-    ];
+        rule: "إظهار شفوي لأن الحرف بعد الميم ليس باء ولا ميم."
+      },
 
-    // MEDIUM: words (original practice words, not Quran text)
-    const mediumQuestions = [
+      // Qalqalah letters
       {
-        arabic: "منْوَر",
-        text: "In the word منْوَر, Noon Sakinah (نْ) is followed by و. What is the rule?",
-        options: ["Izhar", "Idgham with Ghunnah", "Ikhfa", "Iqlab"],
-        correct: 1,
-        hint: "و is one of the Ghunnah Idgham letters."
-      },
-      {
-        arabic: "قمْبَر",
-        text: "In the word قمْبَر, Meem Sakinah (مْ) is followed by ب. What is the rule?",
-        options: ["Ikhfa Shafawi", "Idgham Shafawi", "Izhar Shafawi", "Qalqalah"],
+        arabic: "قْ (وسط الكلمة)",
+        text: "حرف ق ساكن في وسط كلمة مثل: «أَقْطع». ما نوع القلقلة؟",
+        options: ["قلقلة صغرى", "قلقلة كبرى", "غنة", "مد"],
         correct: 0,
-        hint: "Hide Meem with lips before ب."
+        rule: "قلقلة صغرى داخل الكلمة."
       },
       {
-        arabic: "أقْطع",
-        text: "In the word أقْطع, ق has sukoon. What rule applies?",
-        options: ["Ghunnah", "Qalqalah", "Madd", "Ikhfa"],
-        correct: 1,
-        hint: "Echo on ق."
+        arabic: "قْ (نهاية الكلمة)",
+        text: "حرف ق ساكن في آخر كلمة عند الوقف مثل: «الحَقْ». ما نوع القلقلة؟",
+        options: ["قلقلة كبرى", "قلقلة صغرى", "غنة", "مد لازم"],
+        correct: 0,
+        rule: "قلقلة كبرى عند الوقف."
       },
+
+      // Laam Shamsiyyah & Qamariyyah
       {
         arabic: "الشَّمس",
-        text: "In the word الشَّمس, what type of Lam is used?",
-        options: ["Laam Qamariyyah", "Laam Shamsiyyah", "Ikhfa", "Idgham"],
+        text: "في كلمة «الشَّمس»، ما نوع اللام؟",
+        options: ["لام قمرية", "لام شمسية", "إخفاء", "إدغام"],
         correct: 1,
-        hint: "Lam is hidden, ش is doubled."
+        rule: "لام شمسية، لا تُنطق والسين تُشدّد."
       },
       {
         arabic: "القَمَر",
-        text: "In the word القَمَر, what type of Lam is used?",
-        options: ["Laam Shamsiyyah", "Laam Qamariyyah", "Ikhfa", "Idgham"],
+        text: "في كلمة «القَمَر»، ما نوع اللام؟",
+        options: ["لام شمسية", "لام قمرية", "إخفاء", "إدغام"],
         correct: 1,
-        hint: "Lam is clearly pronounced."
+        rule: "لام قمرية تُنطق بوضوح."
       },
+
+      // Madd
       {
-        arabic: "نُنْمي",
-        text: "In the word نُنْمي, Noon Sakinah (نْ) is followed by م. What is the rule?",
-        options: ["Izhar", "Idgham with Ghunnah", "Ikhfa", "Iqlab"],
-        correct: 1,
-        hint: "Merging with Ghunnah."
-      },
-      {
-        arabic: "يُنْرِد",
-        text: "In the word يُنْرِد, Noon Sakinah (نْ) is followed by ر. What is the rule?",
-        options: ["Idgham without Ghunnah", "Idgham with Ghunnah", "Ikhfa", "Iqlab"],
+        arabic: "قَالَ",
+        text: "في كلمة «قَالَ»، الألف فيها أي نوع من المد؟",
+        options: ["مد طبيعي", "مد لازم", "مد جائز منفصل", "مد واجب متصل"],
         correct: 0,
-        hint: "Lam and Ra are special."
+        rule: "مد طبيعي بمقدار حركتين."
       },
       {
-        arabic: "قَدْر",
-        text: "In the word قَدْر, د has sukoon at stop. What rule can appear?",
-        options: ["Qalqalah Kubra", "Qalqalah Sughra", "Ghunnah", "Madd"],
+        arabic: "يَقُولُونَ",
+        text: "في كلمة «يَقُولُونَ»، الواو فيها أي نوع من المد؟",
+        options: ["مد طبيعي", "مد لازم", "مد جائز منفصل", "مد واجب متصل"],
         correct: 0,
-        hint: "Strong echo at end when stopping."
+        rule: "مد طبيعي على الواو."
       }
     ];
 
-    // ADVANCED: sentences (original, Quran-inspired style, not actual verses)
+    const mediumQuestions = [
+      {
+        arabic: "مَنْيَقول",
+        text: "في كلمة «مَنْيَقول»، نْ متبوعة بـ ي. ما الحكم؟",
+        options: ["إظهار", "إدغام بغنة", "إقلاب", "إخفاء"],
+        correct: 1,
+        rule: "إدغام بغنة مع الياء."
+      },
+      {
+        arabic: "مِنْرَبِّه",
+        text: "في كلمة «مِنْرَبِّه»، نْ متبوعة بـ ر. ما الحكم؟",
+        options: ["إدغام بغير غنة", "إدغام بغنة", "إخفاء", "إقلاب"],
+        correct: 0,
+        rule: "إدغام بغير غنة مع الراء."
+      },
+      {
+        arabic: "مِنْبَعْد",
+        text: "في كلمة «مِنْبَعْد»، نْ متبوعة بـ ب. ما الحكم؟",
+        options: ["إخفاء", "إقلاب إلى ميم", "إظهار", "إدغام"],
+        correct: 1,
+        rule: "إقلاب النون إلى ميم."
+      },
+      {
+        arabic: "يُمْبِر",
+        text: "في كلمة «يُمْبِر»، مْ متبوعة بـ ب. ما الحكم؟",
+        options: ["إخفاء شفوي", "إدغام شفوي", "إظهار شفوي", "قلقلة"],
+        correct: 0,
+        rule: "إخفاء شفوي."
+      },
+      {
+        arabic: "عَمْمَال",
+        text: "في كلمة «عَمْمَال»، مْ متبوعة بـ م. ما الحكم؟",
+        options: ["إخفاء شفوي", "إدغام شفوي", "إظهار شفوي", "قلقلة"],
+        correct: 1,
+        rule: "إدغام شفوي."
+      },
+      {
+        arabic: "أَقْطع",
+        text: "في كلمة «أَقْطع»، ق ساكن في الوسط. ما نوع القلقلة؟",
+        options: ["قلقلة صغرى", "قلقلة كبرى", "غنة", "مد لازم"],
+        correct: 0,
+        rule: "قلقلة صغرى."
+      },
+      {
+        arabic: "الحَقْ",
+        text: "في كلمة «الحَقْ» عند الوقف، ما نوع القلقلة؟",
+        options: ["قلقلة كبرى", "قلقلة صغرى", "غنة", "مد طبيعي"],
+        correct: 0,
+        rule: "قلقلة كبرى."
+      },
+      {
+        arabic: "الشَّمس",
+        text: "في كلمة «الشَّمس»، ما نوع اللام؟",
+        options: ["لام قمرية", "لام شمسية", "إخفاء", "إدغام"],
+        correct: 1,
+        rule: "لام شمسية."
+      },
+      {
+        arabic: "القَمَر",
+        text: "في كلمة «القَمَر»، ما نوع اللام؟",
+        options: ["لام شمسية", "لام قمرية", "إخفاء", "إدغام"],
+        correct: 1,
+        rule: "لام قمرية."
+      },
+      {
+        arabic: "قَالَ",
+        text: "في كلمة «قَالَ»، الألف فيها أي نوع من المد؟",
+        options: ["مد طبيعي", "مد لازم", "مد جائز منفصل", "مد واجب متصل"],
+        correct: 0,
+        rule: "مد طبيعي."
+      }
+    ];
+
     const advancedQuestions = [
       {
-        arabic: "من يعملْ خيرًا يجدْه",
-        text: "In this sentence, what rules can you find on the sukoon letters?",
-        options: ["Only Ghunnah", "Madd + Qalqalah", "Qalqalah + Izhar", "Ikhfa + Idgham"],
-        correct: 2,
-        hint: "Look at دْ sounds."
-      },
-      {
-        arabic: "والنجمُ إذا هوى",
-        text: "In this sentence, which group of rules appears strongly?",
-        options: ["Tafkheem + Tarqeeq + Madd", "Only Ghunnah", "Only Qalqalah", "Only Ikhfa"],
-        correct: 0,
-        hint: "Heavy and light letters plus elongation."
-      },
-      {
-        arabic: "قال الرجلُ الحقَّ",
-        text: "In this sentence, what rule appears on ق with sukoon at stop?",
-        options: ["Ghunnah", "Qalqalah Kubra", "Ikhfa", "Madd Lazim"],
+        arabic: "مَنْ يَعملْ خيرًا يَجِدْه",
+        text: "في هذه الجملة، ما الحكم على الدال الساكنة في «يَجِدْه» عند الوقف؟",
+        options: ["غنة", "قلقلة كبرى", "إخفاء", "مد لازم"],
         correct: 1,
-        hint: "Strong echo at end."
+        rule: "قلقلة كبرى عند الوقف على الدال."
+      },
+      {
+        arabic: "والنَّجمُ إذا هَوَى",
+        text: "في هذه الجملة، ما المجموعة الأبرز من الأحكام؟",
+        options: ["تفخيم + ترقيق + مد", "غنة فقط", "قلقلة فقط", "إخفاء فقط"],
+        correct: 0,
+        rule: "تفخيم في بعض الحروف، ترقيق في أخرى، مع وجود مد."
+      },
+      {
+        arabic: "قالَ الرَّجلُ الحَقَّ",
+        text: "في هذه الجملة، ما الحكم على القاف الساكنة في «الحَقَّ» عند الوقف؟",
+        options: ["غنة", "قلقلة كبرى", "إخفاء", "مد لازم"],
+        correct: 1,
+        rule: "قلقلة كبرى على القاف."
       },
       {
         arabic: "إنَّما المؤمنونَ إخوةٌ",
-        text: "In this sentence, what rule appears on نّ?",
-        options: ["Madd", "Shiddah + Ghunnah", "Qalqalah", "Ikhfa"],
+        text: "في هذه الجملة، ما الحكم على النون المشددة في «إنَّما»؟",
+        options: ["مد", "شدة مع غنة", "قلقلة", "إخفاء"],
         correct: 1,
-        hint: "Double Noon with Ghunnah."
+        rule: "شدة مع غنة في النون المشددة."
       },
       {
-        arabic: "اهدنا الصِّراطَ المستقيمَ",
-        text: "In this sentence, what rule appears on ص?",
-        options: ["Tarqeeq", "Tafkheem", "Ikhfa", "Izhar"],
+        arabic: "اهدِنا الصِّراطَ المستقيمَ",
+        text: "في هذه الجملة، ما الحكم على الصاد في «الصِّراط»؟",
+        options: ["ترقيق", "تفخيم", "إخفاء", "إظهار"],
         correct: 1,
-        hint: "Heavy letter group."
+        rule: "تفخيم حرف الصاد."
       }
     ];
 
-    // ====== UTILITIES ======
-    function updateHUD() {
-      coinsEl.textContent = coins;
-      xpEl.textContent = xp;
-      streakEl.textContent = streak;
+    function getPool(level) {
+      if (level === "beginner") return beginnerQuestions;
+      if (level === "medium") return mediumQuestions;
+      if (level === "advanced") return advancedQuestions;
+      return beginnerQuestions.concat(mediumQuestions, advancedQuestions);
     }
 
     function randomFrom(arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    function getQuestionPool() {
-      const diff = difficultyEl.value;
-      if (diff === "beginner") return beginnerQuestions;
-      if (diff === "medium") return mediumQuestions;
-      if (diff === "advanced") return advancedQuestions;
-      // mixed
-      return beginnerQuestions.concat(mediumQuestions, advancedQuestions);
-    }
+    // ============================================================
+    // MODULE: QUIZ ENGINE (PRACTICE)
+    // ============================================================
+    const practiceDifficultyEl = document.getElementById('practice-difficulty');
+    const practiceArabicEl = document.getElementById('practice-arabic');
+    const practiceTextEl = document.getElementById('practice-text');
+    const practiceOptionsEl = document.getElementById('practice-options');
+    const practiceStatusEl = document.getElementById('practice-status');
+    const practiceNextBtn = document.getElementById('practice-next');
+    const practiceNewBtn = document.getElementById('practice-new');
+    const practiceCorrectEl = document.getElementById('practice-correct');
+    const practiceWrongEl = document.getElementById('practice-wrong');
 
-    let currentQuestion = null;
+    let practiceCorrect = 0;
+    let practiceWrong = 0;
+    let practiceQuestion = null;
 
-    function pickRandomQuestion() {
-      const pool = getQuestionPool();
-      currentQuestion = randomFrom(pool);
-      renderQuestion();
-    }
-
-    function renderQuestion() {
-      if (!currentQuestion) return;
-      qArabicEl.textContent = currentQuestion.arabic;
-      qTextEl.textContent = currentQuestion.text;
-      statusEl.textContent = "";
-      eventEl.textContent = "";
-      optionsGrid.innerHTML = "";
-      currentQuestion.options.forEach((opt, idx) => {
+    function renderPracticeQuestion() {
+      const pool = getPool(practiceDifficultyEl.value);
+      practiceQuestion = randomFrom(pool);
+      practiceArabicEl.textContent = practiceQuestion.arabic;
+      practiceTextEl.textContent = practiceQuestion.text;
+      practiceStatusEl.textContent = "";
+      practiceOptionsEl.innerHTML = "";
+      practiceQuestion.options.forEach((opt, idx) => {
         const btn = document.createElement('button');
         btn.className = 'option-btn';
         btn.textContent = opt;
-        btn.addEventListener('click', () => handleAnswer(idx, btn));
-        optionsGrid.appendChild(btn);
+        btn.addEventListener('click', () => handlePracticeAnswer(idx, btn));
+        practiceOptionsEl.appendChild(btn);
       });
     }
 
-    function handleAnswer(idx, btn) {
-      const allButtons = optionsGrid.querySelectorAll('.option-btn');
+    function handlePracticeAnswer(idx, btn) {
+      const allButtons = practiceOptionsEl.querySelectorAll('.option-btn');
       allButtons.forEach(b => b.disabled = true);
 
-      if (idx === currentQuestion.correct) {
+      if (idx === practiceQuestion.correct) {
+        btn.classList.add('correct');
+        practiceCorrect++;
+        practiceStatusEl.textContent = "صحيح! أحسنت 👏 القاعدة: " + practiceQuestion.rule;
+      } else {
+        btn.classList.add('wrong');
+        practiceWrong++;
+        practiceStatusEl.textContent = "خطأ، القاعدة الصحيحة: " + practiceQuestion.rule;
+      }
+      practiceCorrectEl.textContent = practiceCorrect;
+      practiceWrongEl.textContent = practiceWrong;
+    }
+
+    practiceNextBtn.addEventListener('click', renderPracticeQuestion);
+    practiceNewBtn.addEventListener('click', () => {
+      practiceCorrect = 0;
+      practiceWrong = 0;
+      practiceCorrectEl.textContent = "0";
+      practiceWrongEl.textContent = "0";
+      renderPracticeQuestion();
+    });
+
+    renderPracticeQuestion();
+
+    // ============================================================
+    // MODULE: GAMES (GOLD RUSH) USING SAME QUIZ ENGINE
+    // ============================================================
+    const coinsEl = document.getElementById('coins');
+    const xpEl = document.getElementById('xp');
+    const streakEl = document.getElementById('streak');
+    const gameDifficultyEl = document.getElementById('game-difficulty');
+    const gameArabicEl = document.getElementById('game-arabic');
+    const gameTextEl = document.getElementById('game-text');
+    const gameOptionsEl = document.getElementById('game-options');
+    const gameStatusEl = document.getElementById('game-status');
+    const gameEventEl = document.getElementById('game-event');
+    const gameNextBtn = document.getElementById('game-next');
+    const startRoundBtn = document.getElementById('start-round');
+    const goldFill = document.getElementById('gold-fill');
+    const goldLabel = document.getElementById('gold-label');
+
+    let coins = 0;
+    let xp = 0;
+    let streak = 0;
+    let gameQuestion = null;
+    let roundQuestions = 15;
+    let answeredThisRound = 0;
+
+    function updateHUD() {
+      coinsEl.textContent = coins;
+      xpEl.textContent = xp;
+      streakEl.textContent = streak;
+      const percent = Math.min(100, Math.floor((coins / 200) * 100));
+      goldFill.style.width = percent + "%";
+      goldLabel.textContent = "Treasure: " + percent + "%";
+    }
+
+    function renderGameQuestion() {
+      const pool = getPool(gameDifficultyEl.value);
+      gameQuestion = randomFrom(pool);
+      gameArabicEl.textContent = gameQuestion.arabic;
+      gameTextEl.textContent = gameQuestion.text;
+      gameStatusEl.textContent = "";
+      gameEventEl.textContent = "";
+      gameOptionsEl.innerHTML = "";
+      gameQuestion.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.textContent = opt;
+        btn.addEventListener('click', () => handleGameAnswer(idx, btn));
+        gameOptionsEl.appendChild(btn);
+      });
+    }
+
+    function handleGameAnswer(idx, btn) {
+      const allButtons = gameOptionsEl.querySelectorAll('.option-btn');
+      allButtons.forEach(b => b.disabled = true);
+
+      answeredThisRound++;
+
+      if (idx === gameQuestion.correct) {
         btn.classList.add('correct');
         streak++;
-        let gainedXP = 5;
-        let gainedCoins = 10;
-        if (doubleXP) gainedXP *= 2;
-        if (doubleCoins) gainedCoins *= 2;
+        let gainedXP = 5 + streak;
+        let gainedCoins = 10 + streak * 2;
         xp += gainedXP;
         coins += gainedCoins;
-        statusEl.textContent = `Correct! 🎉 +${gainedXP} XP, +${gainedCoins} coins.`;
-        triggerRandomEvent(true);
+        gameStatusEl.textContent = `صحيح! 🎉 +${gainedXP} خبرة، +${gainedCoins} عملة ذهبية. القاعدة: ${gameQuestion.rule}`;
+        triggerGameEvent(true);
       } else {
         btn.classList.add('wrong');
         streak = 0;
-        statusEl.textContent = "Wrong! 💡 Learn and try again.";
-        triggerRandomEvent(false);
+        gameStatusEl.textContent = "خطأ! 💡 القاعدة الصحيحة: " + gameQuestion.rule;
+        triggerGameEvent(false);
       }
+
+      if (answeredThisRound >= roundQuestions) {
+        gameStatusEl.textContent += " 🎯 نهاية الجولة! اضغط «Start Gold Rush» لجولة جديدة.";
+      }
+
       updateHUD();
     }
 
-    // ====== RANDOM EVENTS (Gold Rush style) ======
-    function triggerRandomEvent(correct) {
-      // small chance of event
+    function triggerGameEvent(correct) {
       const roll = Math.random();
-      if (roll > 0.6) {
-        // no event
-        eventEl.textContent = "";
+      if (roll > 0.7) {
+        gameEventEl.textContent = "";
         return;
       }
 
@@ -591,44 +920,26 @@
           () => {
             const bonus = 10;
             coins += bonus;
-            eventEl.textContent = `✨ Bonus treasure! +${bonus} coins.`;
+            gameEventEl.textContent = `✨ كنز إضافي! +${bonus} عملة ذهبية.`;
           },
           () => {
             const bonus = 8;
             xp += bonus;
-            eventEl.textContent = `📘 Knowledge boost! +${bonus} XP.`;
-          },
-          () => {
-            doubleCoins = true;
-            eventEl.textContent = "💰 Double coins activated for this round!";
-          },
-          () => {
-            doubleXP = true;
-            eventEl.textContent = "⭐ Double XP activated for this round!";
+            gameEventEl.textContent = `📘 زيادة في العلم! +${bonus} خبرة.`;
           }
         ];
         randomFrom(goodEvents)();
       } else {
         const badEvents = [
           () => {
-            if (hasShield) {
-              hasShield = false;
-              eventEl.textContent = "🛡 Shield protected you from losing coins!";
-              return;
-            }
             const loss = Math.min(coins, 10);
             coins -= loss;
-            eventEl.textContent = `💥 Ouch! You lost ${loss} coins.`;
+            gameEventEl.textContent = `💥 خسرت ${loss} من الذهب بسبب خطأ.`;
           },
           () => {
-            if (hasShield) {
-              hasShield = false;
-              eventEl.textContent = "🛡 Shield blocked a bad event!";
-              return;
-            }
-            const lossXP = Math.min(xp, 8);
+            const lossXP = Math.min(xp, 6);
             xp -= lossXP;
-            eventEl.textContent = `📉 You forgot some knowledge… -${lossXP} XP.`;
+            gameEventEl.textContent = `📉 نقص في الخبرة: -${lossXP}.`;
           }
         ];
         randomFrom(badEvents)();
@@ -636,89 +947,22 @@
       updateHUD();
     }
 
-    // ====== SHOP ======
-    document.querySelectorAll('.shop-item button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const item = btn.dataset.item;
-        if (item === "doubleXP") {
-          if (coins >= 20) {
-            coins -= 20;
-            doubleXP = true;
-            eventEl.textContent = "⭐ Double XP purchased for this round!";
-          } else {
-            eventEl.textContent = "Not enough coins for Double XP.";
-          }
-        } else if (item === "doubleCoins") {
-          if (coins >= 30) {
-            coins -= 30;
-            doubleCoins = true;
-            eventEl.textContent = "💰 Double Coins purchased for this round!";
-          } else {
-            eventEl.textContent = "Not enough coins for Double Coins.";
-          }
-        } else if (item === "hint") {
-          if (coins >= 15) {
-            coins -= 15;
-            hintAvailable = true;
-            eventEl.textContent = "💡 Hint purchased! Click 'Next Question' to see it on the new question.";
-          } else {
-            eventEl.textContent = "Not enough coins for Hint.";
-          }
-        } else if (item === "shield") {
-          if (coins >= 25) {
-            coins -= 25;
-            hasShield = true;
-            eventEl.textContent = "🛡 Shield purchased! Protects from one bad event.";
-          } else {
-            eventEl.textContent = "Not enough coins for Shield.";
-          }
-        }
-        updateHUD();
-      });
-    });
-
-    // ====== ROUND & QUESTION FLOW ======
-    newRoundBtn.addEventListener('click', () => {
+    startRoundBtn.addEventListener('click', () => {
+      answeredThisRound = 0;
       streak = 0;
-      doubleXP = false;
-      doubleCoins = false;
-      eventEl.textContent = "New Gold Rush round started! Power-ups reset.";
-      statusEl.textContent = "";
-      pickRandomQuestion();
+      gameStatusEl.textContent = "جولة Gold Rush جديدة بدأت! ✨";
+      gameEventEl.textContent = "";
+      renderGameQuestion();
+      updateHUD();
     });
 
-    nextBtn.addEventListener('click', () => {
-      pickRandomQuestion();
-      if (hintAvailable && currentQuestion && currentQuestion.hint) {
-        statusEl.textContent = "Hint: " + currentQuestion.hint;
-        hintAvailable = false;
+    gameNextBtn.addEventListener('click', () => {
+      if (answeredThisRound >= roundQuestions) {
+        gameStatusEl.textContent = "الجولة انتهت. اضغط «Start Gold Rush» لجولة جديدة.";
+        return;
       }
+      renderGameQuestion();
     });
 
-    // ====== MUSIC CONTROLS ======
-    // Try to play automatically (may require user interaction)
-    nasheed.volume = parseFloat(musicVolume.value);
-    nasheed.play().catch(() => {
-      // Some browsers block autoplay; user will start it by toggling.
-    });
-
-    musicToggle.addEventListener('click', () => {
-      if (nasheed.paused) {
-        nasheed.play();
-        musicToggle.textContent = "Mute";
-      } else {
-        nasheed.pause();
-        musicToggle.textContent = "Play";
-      }
-    });
-
-    musicVolume.addEventListener('input', () => {
-      nasheed.volume = parseFloat(musicVolume.value);
-    });
-
-    // Start with a random question
-    pickRandomQuestion();
-    updateHUD();
-  </script>
-</body>
-</html>
+    // ============================================================
+    // MODULE: MUSIC (
