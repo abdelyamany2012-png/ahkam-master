@@ -6,7 +6,11 @@
 
 <style>
   :root {
-    --bg: #0f172a;
+    --bg-space: radial-gradient(circle at top, #1d283a 0, #020617 60%);
+    --bg-candy: radial-gradient(circle at top, #fecdd3 0, #4c1d95 60%);
+    --bg-islamic: radial-gradient(circle at top, #0f766e 0, #022c22 60%);
+    --bg-cartoon: radial-gradient(circle at top, #fef3c7 0, #1f2937 60%);
+    --bg-gamer: radial-gradient(circle at top, #020617 0, #0f172a 60%);
     --card: #1e293b;
     --accent: #f97316;
     --accent2: #22c55e;
@@ -21,14 +25,14 @@
   body {
     margin: 0;
     font-family: "Nunito", system-ui, sans-serif;
-    background: radial-gradient(circle at top, #1d283a 0, #020617 60%);
+    background: var(--bg-gamer);
     color: var(--text);
   }
 
   header {
     background: linear-gradient(90deg, #f97316, #ec4899, #3b82f6);
     color: #fff;
-    padding: 10px 16px;
+    padding: 8px 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -62,14 +66,14 @@
   }
 
   nav button {
-    padding: 6px 12px;
+    padding: 6px 10px;
     border-radius: 999px;
     border: none;
     background: rgba(15,23,42,0.2);
     color: #fff;
     font-weight: 700;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 12px;
     transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
   }
 
@@ -84,22 +88,71 @@
     color: #0f172a;
   }
 
+  .top-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(15,23,42,0.8);
+    border-bottom: 1px solid rgba(148,163,184,0.4);
+  }
+
+  .top-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #cbd5f5;
+  }
+
+  .top-select {
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .score-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #facc15;
+    font-size: 13px;
+  }
+
+  .xp-bar {
+    width: 140px;
+    height: 8px;
+    border-radius: 999px;
+    background: #0f172a;
+    overflow: hidden;
+    border: 1px solid #334155;
+  }
+
+  .xp-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #22c55e, #f97316);
+    transition: width 0.2s;
+  }
+
   main {
-    padding: 20px;
+    padding: 16px;
     max-width: 1100px;
     margin: 0 auto;
   }
 
   h1 {
-    font-size: 28px;
-    margin-bottom: 10px;
+    font-size: 26px;
+    margin-bottom: 8px;
     color: #f97316;
     text-align: center;
   }
 
   .subtitle {
-    font-size: 16px;
-    margin-bottom: 20px;
+    font-size: 15px;
+    margin-bottom: 16px;
     text-align: center;
     color: #cbd5f5;
   }
@@ -111,9 +164,9 @@
   .card {
     background: var(--card);
     border-radius: 18px;
-    padding: 18px;
+    padding: 16px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     border: 1px solid rgba(148,163,184,0.4);
     position: relative;
     overflow: hidden;
@@ -156,13 +209,13 @@
   .btn {
     display: inline-block;
     margin: 6px;
-    padding: 10px 16px;
+    padding: 9px 14px;
     background: #f97316;
     color: #0f172a;
     border-radius: 14px;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 800;
     transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
   }
@@ -183,23 +236,23 @@
   }
 
   .result {
-    margin-top: 10px;
-    font-size: 17px;
+    margin-top: 8px;
+    font-size: 16px;
     min-height: 24px;
     text-align: center;
     font-weight: 700;
   }
 
   .stars {
-    margin-top: 6px;
+    margin-top: 4px;
     font-size: 18px;
     color: #facc15;
     text-align: center;
   }
 
   .level-title {
-    font-size: 20px;
-    margin-bottom: 8px;
+    font-size: 19px;
+    margin-bottom: 6px;
     font-weight: 800;
     color: #f97316;
     text-align: center;
@@ -218,13 +271,13 @@
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 16px;
+    gap: 12px;
   }
 
   .question-text {
     text-align: center;
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 17px;
+    margin-bottom: 8px;
   }
 
   .options {
@@ -236,10 +289,10 @@
 
   footer {
     text-align: center;
-    padding: 14px;
-    font-size: 14px;
+    padding: 12px;
+    font-size: 13px;
     color: #9ca3af;
-    margin-top: 40px;
+    margin-top: 30px;
   }
 
   footer::before {
@@ -259,11 +312,11 @@
   }
 
   .correct-anim {
-    animation: correctPulse 0.4s ease;
+    animation: correctPulse 0.3s ease;
   }
 
   .wrong-anim {
-    animation: wrongShake 0.4s ease;
+    animation: wrongShake 0.3s ease;
   }
 
   @media (max-width: 600px) {
@@ -277,6 +330,10 @@
     }
     nav {
       margin-top: 4px;
+    }
+    .top-bar {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 </style>
@@ -302,12 +359,52 @@
   </nav>
 </header>
 
+<div class="top-bar">
+  <div class="top-group">
+    <span>Game Mode:</span>
+    <select class="top-select" id="mode-select" onchange="changeMode()">
+      <option value="classic">Classic Quiz</option>
+      <option value="battle">Battle Mode</option>
+      <option value="adventure">Adventure Mode</option>
+    </select>
+  </div>
+  <div class="top-group">
+    <span>Theme:</span>
+    <select class="top-select" id="theme-select" onchange="changeTheme()">
+      <option value="gamer">Gamer</option>
+      <option value="space">Space Galaxy</option>
+      <option value="candy">Candyland</option>
+      <option value="islamic">Islamic</option>
+      <option value="cartoon">Cartoon</option>
+    </select>
+  </div>
+  <div class="top-group">
+    <span>Music:</span>
+    <select class="top-select" id="music-select" onchange="changeMusic()">
+      <option value="none">No Music</option>
+      <option value="nasheed">Nasheed</option>
+      <option value="duff">Duff Beat</option>
+      <option value="calm">Calm Humming</option>
+      <option value="kids">Kids Rhythm</option>
+    </select>
+    <button class="btn secondary" style="padding:4px 10px;font-size:11px;" onclick="toggleMusic()">Play / Pause</button>
+  </div>
+  <div class="score-box">
+    <span id="score-label">Score: <span id="score">0</span></span>
+    <span>| Streak: <span id="streak">0</span></span>
+    <span>| XP: <span id="xp">0</span></span>
+    <div class="xp-bar">
+      <div class="xp-fill" id="xp-fill"></div>
+    </div>
+  </div>
+</div>
+
 <main>
 
 <!-- HOME -->
 <section id="screen-home">
   <h1>Welcome to Ahkam Master</h1>
-  <p class="subtitle">A fun Tajweed & Ahkam game for kids (7–14).</p>
+  <p class="subtitle">A fun Tajweed & Ahkam game for kids (7–14) with multiple game modes.</p>
 
   <div class="card">
     <div class="level-title">Choose Your Ahkam World</div>
@@ -358,6 +455,15 @@
         <button class="btn" onclick="showScreen('foundations')">Practice Foundations</button>
       </div>
     </div>
+  </div>
+
+  <div class="card">
+    <div class="level-title">Game Modes</div>
+    <p class="small-note">
+      Classic Quiz: normal questions, points, streaks.<br>
+      Battle Mode: faster points, streak bonus, more XP.<br>
+      Adventure Mode: higher XP, bigger rewards per correct answer.
+    </p>
   </div>
 </section>
 
@@ -643,24 +749,68 @@
   Made for kids learning Tajweed ❤️
 </footer>
 
-<!-- SOUND EFFECTS -->
+<!-- SHORT SOUND EFFECTS -->
 <audio id="sound-correct">
-  <source src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" type="audio/ogg">
-</audio>
-<audio id="sound-wrong">
   <source src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg" type="audio/ogg">
 </audio>
+<audio id="sound-wrong">
+  <source src="https://actions.google.com/sounds/v1/cartoon/boing.ogg" type="audio/ogg">
+</audio>
 <audio id="sound-click">
+  <source src="https://actions.google.com/sounds/v1/cartoon/pop.ogg" type="audio/ogg">
+</audio>
+
+<!-- HALAL MUSIC (LOOPS) -->
+<audio id="music-nasheed" loop>
+  <source src="https://actions.google.com/sounds/v1/ambiences/peaceful_nature.ogg" type="audio/ogg">
+</audio>
+<audio id="music-duff" loop>
+  <source src="https://actions.google.com/sounds/v1/foley/wooden_door_close.ogg" type="audio/ogg">
+</audio>
+<audio id="music-calm" loop>
+  <source src="https://actions.google.com/sounds/v1/ambiences/wind_chimes.ogg" type="audio/ogg">
+</audio>
+<audio id="music-kids" loop>
   <source src="https://actions.google.com/sounds/v1/cartoon/slide_whistle.ogg" type="audio/ogg">
 </audio>
 
 <script>
+/* GLOBAL GAME STATE */
+let score = 0;
+let streak = 0;
+let xp = 0;
+let mode = "classic"; // classic, battle, adventure
+
 function playSound(id) {
   const audio = document.getElementById(id);
   if (audio) {
     audio.currentTime = 0;
     audio.play();
   }
+}
+
+function updateHUD() {
+  document.getElementById("score").textContent = score;
+  document.getElementById("streak").textContent = streak;
+  document.getElementById("xp").textContent = xp;
+  const levelXP = Math.min(100, xp % 100);
+  document.getElementById("xp-fill").style.width = levelXP + "%";
+}
+
+function addPoints(correct) {
+  if (correct) {
+    streak++;
+    let base = 10;
+    if (mode === "battle") base = 15;
+    if (mode === "adventure") base = 20;
+    const bonus = streak > 3 ? 5 : 0;
+    score += base + bonus;
+    xp += base;
+  } else {
+    streak = 0;
+    if (mode === "battle") score = Math.max(0, score - 5);
+  }
+  updateHUD();
 }
 
 function showScreen(id) {
@@ -672,6 +822,53 @@ function showScreen(id) {
   document.getElementById("nav-" + id).classList.add("active");
 }
 
+/* THEME & MUSIC */
+function changeTheme() {
+  const theme = document.getElementById("theme-select").value;
+  if (theme === "space") {
+    document.body.style.background = "var(--bg-space)";
+  } else if (theme === "candy") {
+    document.body.style.background = "var(--bg-candy)";
+  } else if (theme === "islamic") {
+    document.body.style.background = "var(--bg-islamic)";
+  } else if (theme === "cartoon") {
+    document.body.style.background = "var(--bg-cartoon)";
+  } else {
+    document.body.style.background = "var(--bg-gamer)";
+  }
+}
+
+function stopAllMusic() {
+  ["music-nasheed","music-duff","music-calm","music-kids"].forEach(id => {
+    const a = document.getElementById(id);
+    a.pause();
+    a.currentTime = 0;
+  });
+}
+
+function changeMusic() {
+  stopAllMusic();
+  const choice = document.getElementById("music-select").value;
+  if (choice === "nasheed") document.getElementById("music-nasheed").play();
+  else if (choice === "duff") document.getElementById("music-duff").play();
+  else if (choice === "calm") document.getElementById("music-calm").play();
+  else if (choice === "kids") document.getElementById("music-kids").play();
+}
+
+function toggleMusic() {
+  const choice = document.getElementById("music-select").value;
+  if (choice === "none") return;
+  const a = document.getElementById("music-" + choice);
+  if (a.paused) a.play(); else a.pause();
+}
+
+function changeMode() {
+  mode = document.getElementById("mode-select").value;
+  playSound('sound-click');
+}
+
+/* QUESTION POOLS (RANDOM) */
+
 /* NOON GAME */
 const noonQuestions = [
   { text: "نْ + ب", rule: "ikhfa", explain: "ب after Noon → Ikhfa." },
@@ -681,11 +878,14 @@ const noonQuestions = [
   { text: "نْ + ل", rule: "idgham-no-ghunnah", explain: "ل → Idgham without Ghunnah." },
   { text: "ــٌ + ب", rule: "ikhfa", explain: "Tanween + ب → Ikhfa." },
   { text: "نْ + ء", rule: "izhar", explain: "Throat letters → Izhar." },
-  { text: "ــٍ + م", rule: "iqlab", explain: "Tanween + ب (or Meem conversion) → Iqlab." }
+  { text: "ــٍ + م", rule: "iqlab", explain: "Tanween + ب (Meem conversion) → Iqlab." },
+  { text: "نْ + ح", rule: "izhar", explain: "ح is throat letter → Izhar." },
+  { text: "ــً + ن", rule: "idgham-ghunnah", explain: "Tanween + ن → Idgham with Ghunnah." }
 ];
 let noonIndex = 0;
 
-function updateNoon() {
+function randomNoon() {
+  noonIndex = Math.floor(Math.random() * noonQuestions.length);
   const q = noonQuestions[noonIndex];
   document.getElementById("noon-question").textContent = q.text;
   document.getElementById("noon-question-text").textContent = "What is the rule here?";
@@ -700,30 +900,34 @@ function answerNoon(rule) {
     playSound('sound-correct');
     result.textContent = "Correct! " + q.explain;
     result.classList.add("correct-anim");
-    setTimeout(() => result.classList.remove("correct-anim"), 400);
+    addPoints(true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
   } else {
     playSound('sound-wrong');
     result.textContent = "Try again! " + q.explain;
     result.classList.add("wrong-anim");
-    setTimeout(() => result.classList.remove("wrong-anim"), 400);
+    addPoints(false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
     document.getElementById("noon-stars").textContent = "⭐ ⭐";
   }
 }
 
 function nextNoonQuestion() {
-  noonIndex = (noonIndex + 1) % noonQuestions.length;
-  updateNoon();
+  randomNoon();
 }
 
 /* MEEM GAME */
 const meemQuestions = [
   { text: "مْ + ب", rule: "ikhfa", explain: "ب after Meem → Ikhfa Shafawi." },
   { text: "مْ + م", rule: "idgham", explain: "Meem + Meem → Idgham Shafawi." },
-  { text: "مْ + أ", rule: "izhar", explain: "Other letters → Izhar Shafawi." }
+  { text: "مْ + أ", rule: "izhar", explain: "Other letters → Izhar Shafawi." },
+  { text: "مْ + و", rule: "izhar", explain: "و → Izhar Shafawi." },
+  { text: "مْ + ف", rule: "ikhfa", explain: "ف after Meem → Ikhfa Shafawi." }
 ];
 let meemIndex = 0;
 
-function updateMeem() {
+function randomMeem() {
+  meemIndex = Math.floor(Math.random() * meemQuestions.length);
   const q = meemQuestions[meemIndex];
   document.getElementById("meem-question").textContent = q.text;
   document.getElementById("meem-question-text").textContent = "What is the rule here?";
@@ -738,19 +942,20 @@ function answerMeem(rule) {
     playSound('sound-correct');
     result.textContent = "Correct! " + q.explain;
     result.classList.add("correct-anim");
-    setTimeout(() => result.classList.remove("correct-anim"), 400);
+    addPoints(true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
   } else {
     playSound('sound-wrong');
     result.textContent = "Try again! " + q.explain;
     result.classList.add("wrong-anim");
-    setTimeout(() => result.classList.remove("wrong-anim"), 400);
+    addPoints(false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
     document.getElementById("meem-stars").textContent = "⭐ ⭐";
   }
 }
 
 function nextMeemQuestion() {
-  meemIndex = (meemIndex + 1) % meemQuestions.length;
-  updateMeem();
+  randomMeem();
 }
 
 /* MADD GAME */
@@ -759,11 +964,13 @@ const maddQuestions = [
   { text: "جَاءَ", rule: "muttasil", explain: "Madd + hamzah in same word → Madd Wajib Muttasil." },
   { text: "فِي أَنْفُسِكُمْ", rule: "munfasil", explain: "Madd at end of word + hamzah in next → Madd Jaiz Munfasil." },
   { text: "الصَّاخَّةُ", rule: "lazim", explain: "Permanent sukoon after Madd → Madd Lazim." },
-  { text: "قَالُواْ", rule: "arid", explain: "Stopping on sukoon after Madd → Madd ‘Arid Lissukoon." }
+  { text: "قَالُواْ", rule: "arid", explain: "Stopping on sukoon after Madd → Madd ‘Arid Lissukoon." },
+  { text: "آمَنُوا", rule: "tabeei", explain: "Simple Madd on alif → Madd Tabee’i." }
 ];
 let maddIndex = 0;
 
-function updateMadd() {
+function randomMadd() {
+  maddIndex = Math.floor(Math.random() * maddQuestions.length);
   const q = maddQuestions[maddIndex];
   document.getElementById("madd-question").textContent = q.text;
   document.getElementById("madd-question-text").textContent = "What type of Madd is used?";
@@ -778,30 +985,34 @@ function answerMadd(rule) {
     playSound('sound-correct');
     result.textContent = "Correct! " + q.explain;
     result.classList.add("correct-anim");
-    setTimeout(() => result.classList.remove("correct-anim"), 400);
+    addPoints(true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
   } else {
     playSound('sound-wrong');
     result.textContent = "Try again! " + q.explain;
     result.classList.add("wrong-anim");
-    setTimeout(() => result.classList.remove("wrong-anim"), 400);
+    addPoints(false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
     document.getElementById("madd-stars").textContent = "⭐ ⭐";
   }
 }
 
 function nextMaddQuestion() {
-  maddIndex = (maddIndex + 1) % maddQuestions.length;
-  updateMadd();
+  randomMadd();
 }
 
 /* GHUNNAH GAME */
 const ghunnahQuestions = [
   { text: "إِنَّا", has: true, explain: "Double Noon → Ghunnah." },
   { text: "ثُمَّ", has: true, explain: "Double Meem → Ghunnah." },
-  { text: "قَالُوا", has: false, explain: "No Noon/Meem with shaddah → no Ghunnah." }
+  { text: "قَالُوا", has: false, explain: "No Noon/Meem with shaddah → no Ghunnah." },
+  { text: "إِنَّكُمْ", has: true, explain: "Shaddah on Noon → Ghunnah." },
+  { text: "هُمْ", has: false, explain: "Single Meem without shaddah → no Ghunnah." }
 ];
 let ghunnahIndex = 0;
 
-function updateGhunnah() {
+function randomGhunnah() {
+  ghunnahIndex = Math.floor(Math.random() * ghunnahQuestions.length);
   const q = ghunnahQuestions[ghunnahIndex];
   document.getElementById("ghunnah-question").textContent = q.text;
   document.getElementById("ghunnah-question-text").textContent = "Is there Ghunnah here?";
@@ -816,30 +1027,34 @@ function answerGhunnah(ans) {
     playSound('sound-correct');
     result.textContent = "Correct! " + q.explain;
     result.classList.add("correct-anim");
-    setTimeout(() => result.classList.remove("correct-anim"), 400);
+    addPoints(true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
   } else {
     playSound('sound-wrong');
     result.textContent = "Try again! " + q.explain;
     result.classList.add("wrong-anim");
-    setTimeout(() => result.classList.remove("wrong-anim"), 400);
+    addPoints(false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
     document.getElementById("ghunnah-stars").textContent = "⭐ ⭐";
   }
 }
 
 function nextGhunnahQuestion() {
-  ghunnahIndex = (ghunnahIndex + 1) % ghunnahQuestions.length;
-  updateGhunnah();
+  randomGhunnah();
 }
 
 /* QALQALAH GAME */
 const qalqalahQuestions = [
   { text: "أَحَدْ", type: "kubra", explain: "Stopping on د with sukoon → Qalqalah Kubra." },
   { text: "يَقْطَعُونَ", type: "sughra", explain: "Moving letter with qalqalah inside word → Qalqalah Sughra." },
-  { text: "قَالُوا", type: "none", explain: "No qalqalah letter with sukoon → no Qalqalah." }
+  { text: "قَالُوا", type: "none", explain: "No qalqalah letter with sukoon → no Qalqalah." },
+  { text: "الْحَقُّ", type: "sughra", explain: "ق with sukoon inside word → Qalqalah Sughra." },
+  { text: "الْفَلَقْ", type: "kubra", explain: "Stopping on ق with sukoon → Qalqalah Kubra." }
 ];
 let qalqalahIndex = 0;
 
-function updateQalqalah() {
+function randomQalqalah() {
+  qalqalahIndex = Math.floor(Math.random() * qalqalahQuestions.length);
   const q = qalqalahQuestions[qalqalahIndex];
   document.getElementById("qalqalah-question").textContent = q.text;
   document.getElementById("qalqalah-question-text").textContent = "What type of Qalqalah?";
@@ -854,29 +1069,33 @@ function answerQalqalah(type) {
     playSound('sound-correct');
     result.textContent = "Correct! " + q.explain;
     result.classList.add("correct-anim");
-    setTimeout(() => result.classList.remove("correct-anim"), 400);
+    addPoints(true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
   } else {
     playSound('sound-wrong');
     result.textContent = "Try again! " + q.explain;
     result.classList.add("wrong-anim");
-    setTimeout(() => result.classList.remove("wrong-anim"), 400);
+    addPoints(false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
     document.getElementById("qalqalah-stars").textContent = "⭐ ⭐";
   }
 }
 
 function nextQalqalahQuestion() {
-  qalqalahIndex = (qalqalahIndex + 1) % qalqalahQuestions.length;
-  updateQalqalah();
+  randomQalqalah();
 }
 
 /* LAAM GAME */
 const laamQuestions = [
   { text: "الشَّمْسُ", type: "shamsiyyah", explain: "Laam is assimilated → Shamsiyyah." },
-  { text: "القَمَرُ", type: "qamariyyah", explain: "Laam is pronounced → Qamariyyah." }
+  { text: "القَمَرُ", type: "qamariyyah", explain: "Laam is pronounced → Qamariyyah." },
+  { text: "الْبَيْتُ", type: "qamariyyah", explain: "Laam pronounced → Qamariyyah." },
+  { text: "النَّاسُ", type: "shamsiyyah", explain: "Laam assimilated → Shamsiyyah." }
 ];
 let laamIndex = 0;
 
-function updateLaam() {
+function randomLaam() {
+  laamIndex = Math.floor(Math.random() * laamQuestions.length);
   const q = laamQuestions[laamIndex];
   document.getElementById("laam-question").textContent = q.text;
   document.getElementById("laam-question-text").textContent = "What type of Laam?";
@@ -891,30 +1110,34 @@ function answerLaam(type) {
     playSound('sound-correct');
     result.textContent = "Correct! " + q.explain;
     result.classList.add("correct-anim");
-    setTimeout(() => result.classList.remove("correct-anim"), 400);
+    addPoints(true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
   } else {
     playSound('sound-wrong');
     result.textContent = "Try again! " + q.explain;
     result.classList.add("wrong-anim");
-    setTimeout(() => result.classList.remove("wrong-anim"), 400);
+    addPoints(false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
     document.getElementById("laam-stars").textContent = "⭐ ⭐";
   }
 }
 
 function nextLaamQuestion() {
-  laamIndex = (laamIndex + 1) % laamQuestions.length;
-  updateLaam();
+  randomLaam();
 }
 
 /* WAQF GAME */
 const waqfQuestions = [
   { text: "مـ", rule: "stop", explain: "مـ → must stop." },
   { text: "ج", rule: "optional", explain: "ج → optional stop." },
-  { text: "لا", rule: "continue", explain: "لا → do not stop." }
+  { text: "لا", rule: "continue", explain: "لا → do not stop." },
+  { text: "قلى", rule: "stop", explain: "قلى → better to stop." },
+  { text: "صلى", rule: "continue", explain: "صلى → better to continue." }
 ];
 let waqfIndex = 0;
 
-function updateWaqf() {
+function randomWaqf() {
+  waqfIndex = Math.floor(Math.random() * waqfQuestions.length);
   const q = waqfQuestions[waqfIndex];
   document.getElementById("waqf-question").textContent = q.text;
   document.getElementById("waqf-question-text").textContent = "What should you do?";
@@ -929,29 +1152,33 @@ function answerWaqf(rule) {
     playSound('sound-correct');
     result.textContent = "Correct! " + q.explain;
     result.classList.add("correct-anim");
-    setTimeout(() => result.classList.remove("correct-anim"), 400);
+    addPoints(true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
   } else {
     playSound('sound-wrong');
     result.textContent = "Try again! " + q.explain;
     result.classList.add("wrong-anim");
-    setTimeout(() => result.classList.remove("wrong-anim"), 400);
+    addPoints(false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
     document.getElementById("waqf-stars").textContent = "⭐ ⭐";
   }
 }
 
 function nextWaqfQuestion() {
-  waqfIndex = (waqfIndex + 1) % waqfQuestions.length;
-  updateWaqf();
+  randomWaqf();
 }
 
 /* SIFAAT GAME */
 const sifaatQuestions = [
   { text: "ص", type: "tafkheem", explain: "ص is heavy → Tafkheem." },
-  { text: "س", type: "tarqeeq", explain: "س is light → Tarqeeq." }
+  { text: "س", type: "tarqeeq", explain: "س is light → Tarqeeq." },
+  { text: "ط", type: "tafkheem", explain: "ط is heavy → Tafkheem." },
+  { text: "ز", type: "tarqeeq", explain: "ز is light → Tarqeeq." }
 ];
 let sifaatIndex = 0;
 
-function updateSifaat() {
+function randomSifaat() {
+  sifaatIndex = Math.floor(Math.random() * sifaatQuestions.length);
   const q = sifaatQuestions[sifaatIndex];
   document.getElementById("sifaat-question").textContent = q.text;
   document.getElementById("sifaat-question-text").textContent = "Tafkheem or Tarqeeq?";
@@ -966,30 +1193,34 @@ function answerSifaat(type) {
     playSound('sound-correct');
     result.textContent = "Correct! " + q.explain;
     result.classList.add("correct-anim");
-    setTimeout(() => result.classList.remove("correct-anim"), 400);
+    addPoints(true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
   } else {
     playSound('sound-wrong');
     result.textContent = "Try again! " + q.explain;
     result.classList.add("wrong-anim");
-    setTimeout(() => result.classList.remove("wrong-anim"), 400);
+    addPoints(false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
     document.getElementById("sifaat-stars").textContent = "⭐ ⭐";
   }
 }
 
 function nextSifaatQuestion() {
-  sifaatIndex = (sifaatIndex + 1) % sifaatQuestions.length;
-  updateSifaat();
+  randomSifaat();
 }
 
 /* FOUNDATIONS GAME */
 const foundationsQuestions = [
   { text: "ٱسْمُ", rule: "hamzat", explain: "Hamzat al-Wasl at start." },
   { text: "هٰذَا", rule: "silent", explain: "Silent alif in some words." },
-  { text: "يَدْخُلُونَ", rule: "connection", explain: "Connection & assimilation in recitation." }
+  { text: "يَدْخُلُونَ", rule: "connection", explain: "Connection & assimilation in recitation." },
+  { text: "ٱلْحَمْدُ", rule: "hamzat", explain: "Hamzat al-Wasl at start." },
+  { text: "ذٰلِكَ", rule: "silent", explain: "Silent alif in some words." }
 ];
 let foundationsIndex = 0;
 
-function updateFoundations() {
+function randomFoundations() {
+  foundationsIndex = Math.floor(Math.random() * foundationsQuestions.length);
   const q = foundationsQuestions[foundationsIndex];
   document.getElementById("foundations-question").textContent = q.text;
   document.getElementById("foundations-question-text").textContent = "Which foundational rule?";
@@ -1004,31 +1235,34 @@ function answerFoundations(rule) {
     playSound('sound-correct');
     result.textContent = "Correct! " + q.explain;
     result.classList.add("correct-anim");
-    setTimeout(() => result.classList.remove("correct-anim"), 400);
+    addPoints(true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
   } else {
     playSound('sound-wrong');
     result.textContent = "Try again! " + q.explain;
     result.classList.add("wrong-anim");
-    setTimeout(() => result.classList.remove("wrong-anim"), 400);
+    addPoints(false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
     document.getElementById("foundations-stars").textContent = "⭐ ⭐";
   }
 }
 
 function nextFoundationsQuestion() {
-  foundationsIndex = (foundationsIndex + 1) % foundationsQuestions.length;
-  updateFoundations();
+  randomFoundations();
 }
 
 /* INIT */
-updateNoon();
-updateMeem();
-updateMadd();
-updateGhunnah();
-updateQalqalah();
-updateLaam();
-updateWaqf();
-updateSifaat();
-updateFoundations();
+updateHUD();
+changeTheme();
+randomNoon();
+randomMeem();
+randomMadd();
+randomGhunnah();
+randomQalqalah();
+randomLaam();
+randomWaqf();
+randomSifaat();
+randomFoundations();
 </script>
 
 </body>
