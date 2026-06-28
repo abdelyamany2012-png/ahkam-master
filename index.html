@@ -18,9 +18,7 @@
     --text: #e5e7eb;
   }
 
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
 
   body {
     margin: 0;
@@ -55,9 +53,7 @@
     letter-spacing: 1px;
   }
 
-  .logo::before {
-    content: "🎮 ";
-  }
+  .logo::before { content: "🎮 "; }
 
   nav {
     display: flex;
@@ -133,9 +129,7 @@
     color: #cbd5f5;
   }
 
-  .subtitle::before {
-    content: "⭐ ";
-  }
+  .subtitle::before { content: "⭐ "; }
 
   .card {
     background: var(--card);
@@ -207,9 +201,7 @@
     color: #e5e7eb;
   }
 
-  .btn.secondary:hover {
-    background: #94a3b8;
-  }
+  .btn.secondary:hover { background: #94a3b8; }
 
   .result {
     margin-top: 8px;
@@ -234,9 +226,7 @@
     text-align: center;
   }
 
-  .level-title::before {
-    content: "🎯 ";
-  }
+  .level-title::before { content: "🎯 "; }
 
   .small-note {
     font-size: 13px;
@@ -353,9 +343,7 @@
     margin-top: 30px;
   }
 
-  footer::before {
-    content: "👨‍👩‍👧 ";
-  }
+  footer::before { content: "👨‍👩‍👧 "; }
 
   @keyframes correctPulse {
     0% { transform: scale(1); }
@@ -369,13 +357,8 @@
     75% { transform: translateX(4px); }
   }
 
-  .correct-anim {
-    animation: correctPulse 0.3s ease;
-  }
-
-  .wrong-anim {
-    animation: wrongShake 0.3s ease;
-  }
+  .correct-anim { animation: correctPulse 0.3s ease; }
+  .wrong-anim { animation: wrongShake 0.3s ease; }
 
   .popup {
     position: fixed;
@@ -392,17 +375,13 @@
   }
 
   @media (max-width: 600px) {
-    .big-arabic {
-      font-size: 50px;
-    }
+    .big-arabic { font-size: 50px; }
     header {
       flex-direction: column;
       align-items: flex-start;
       gap: 6px;
     }
-    nav {
-      margin-top: 4px;
-    }
+    nav { margin-top: 4px; }
     .top-bar {
       flex-direction: column;
       align-items: flex-start;
@@ -443,7 +422,7 @@
     </select>
   </div>
   <div class="top-group">
-    <span>Random Nasheed-style background playing automatically 🎵</span>
+    <span>Random nasheed-style background playing automatically 🎵</span>
   </div>
   <div class="top-group">
     <span class="coins-badge">Coins: <span id="global-coins">0</span></span>
@@ -456,14 +435,14 @@
 <!-- HOME -->
 <section id="screen-home">
   <h1>Welcome to Ahkam Master</h1>
-  <p class="subtitle">Fun Tajweed worlds with game modes, coins, XP, and power-ups like Blooket & Gimkit.</p>
+  <p class="subtitle">Tap a world, then choose your game mode inside that world.</p>
 
   <div class="card">
-    <div class="level-title">Choose Your Ahkam World</div>
+    <div class="level-title">Ahkam Worlds</div>
     <div class="grid">
       <div class="card">
         <strong>Noon Sakinah & Tanween</strong>
-        <p class="small-note">Izhar, Idgham (with & without Ghunnah), Iqlab, Ikhfa.</p>
+        <p class="small-note">Izhar, Idgham, Iqlab, Ikhfa.</p>
         <button class="btn" onclick="showScreen('noon')">Enter Noon World</button>
       </div>
       <div class="card">
@@ -510,17 +489,7 @@
   </div>
 
   <div class="card">
-    <div class="level-title">Game Modes (inside each world)</div>
-    <p class="small-note">
-      In every world, you can choose:<br>
-      Classic Quiz — normal points & coins.<br>
-      Battle Mode — faster points, small penalty on wrong.<br>
-      Adventure Mode — big XP, streak multipliers, more coins.
-    </p>
-  </div>
-
-  <div class="card">
-    <div class="level-title">Power-Up Shop (Global)</div>
+    <div class="level-title">Power-Up Shop</div>
     <p class="small-note">Buy power-ups with coins and use them inside any world.</p>
     <div class="shop-grid">
       <div class="shop-item">
@@ -571,7 +540,7 @@
 
   <div class="card">
     <div class="level-title">Noon & Tanween Game</div>
-    <p class="small-note">Choose a game mode and play rounds with timer, coins, and power-ups.</p>
+    <p class="small-note">Choose a game mode, then answer as many as you can.</p>
 
     <div style="text-align:center; margin-bottom:8px;">
       <label style="font-size:13px;color:#cbd5f5;">Game Mode:
@@ -581,7 +550,7 @@
           <option value="adventure">Adventure Mode</option>
         </select>
       </label>
-      <button class="btn secondary" onclick="startWorld('noon')">Start Game</button>
+      <button class="btn secondary" onclick="startWorld('noon'); randomNoon();">Start Game</button>
     </div>
 
     <div class="game-hud">
@@ -634,7 +603,7 @@
 
   <div class="card">
     <div class="level-title">Meem Game</div>
-    <p class="small-note">Timer, coins, streaks, and power-ups.</p>
+    <p class="small-note">Choose a mode, then start.</p>
 
     <div style="text-align:center; margin-bottom:8px;">
       <label style="font-size:13px;color:#cbd5f5;">Game Mode:
@@ -644,7 +613,7 @@
           <option value="adventure">Adventure Mode</option>
         </select>
       </label>
-      <button class="btn secondary" onclick="startWorld('meem')">Start Game</button>
+      <button class="btn secondary" onclick="startWorld('meem'); randomMeem();">Start Game</button>
     </div>
 
     <div class="game-hud">
@@ -696,7 +665,7 @@
 
   <div class="card">
     <div class="level-title">Madd Game</div>
-    <p class="small-note">Timer, coins, streaks, and power-ups.</p>
+    <p class="small-note">Choose a mode, then start.</p>
 
     <div style="text-align:center; margin-bottom:8px;">
       <label style="font-size:13px;color:#cbd5f5;">Game Mode:
@@ -706,7 +675,7 @@
           <option value="adventure">Adventure Mode</option>
         </select>
       </label>
-      <button class="btn secondary" onclick="startWorld('madd')">Start Game</button>
+      <button class="btn secondary" onclick="startWorld('madd'); randomMadd();">Start Game</button>
     </div>
 
     <div class="game-hud">
@@ -754,7 +723,7 @@
 
   <div class="card">
     <div class="level-title">Ghunnah Game</div>
-    <p class="small-note">Timer, coins, streaks, and power-ups.</p>
+    <p class="small-note">Choose a mode, then start.</p>
 
     <div style="text-align:center; margin-bottom:8px;">
       <label style="font-size:13px;color:#cbd5f5;">Game Mode:
@@ -764,7 +733,7 @@
           <option value="adventure">Adventure Mode</option>
         </select>
       </label>
-      <button class="btn secondary" onclick="startWorld('ghunnah')">Start Game</button>
+      <button class="btn secondary" onclick="startWorld('ghunnah'); randomGhunnah();">Start Game</button>
     </div>
 
     <div class="game-hud">
@@ -809,7 +778,7 @@
 
   <div class="card">
     <div class="level-title">Qalqalah Game</div>
-    <p class="small-note">Timer, coins, streaks, and power-ups.</p>
+    <p class="small-note">Choose a mode, then start.</p>
 
     <div style="text-align:center; margin-bottom:8px;">
       <label style="font-size:13px;color:#cbd5f5;">Game Mode:
@@ -819,7 +788,7 @@
           <option value="adventure">Adventure Mode</option>
         </select>
       </label>
-      <button class="btn secondary" onclick="startWorld('qalqalah')">Start Game</button>
+      <button class="btn secondary" onclick="startWorld('qalqalah'); randomQalqalah();">Start Game</button>
     </div>
 
     <div class="game-hud">
@@ -866,7 +835,7 @@
 
   <div class="card">
     <div class="level-title">Laam Game</div>
-    <p class="small-note">Timer, coins, streaks, and power-ups.</p>
+    <p class="small-note">Choose a mode, then start.</p>
 
     <div style="text-align:center; margin-bottom:8px;">
       <label style="font-size:13px;color:#cbd5f5;">Game Mode:
@@ -876,7 +845,7 @@
           <option value="adventure">Adventure Mode</option>
         </select>
       </label>
-      <button class="btn secondary" onclick="startWorld('laam')">Start Game</button>
+      <button class="btn secondary" onclick="startWorld('laam'); randomLaam();">Start Game</button>
     </div>
 
     <div class="game-hud">
@@ -921,7 +890,7 @@
 
   <div class="card">
     <div class="level-title">Waqf Game</div>
-    <p class="small-note">Timer, coins, streaks, and power-ups.</p>
+    <p class="small-note">Choose a mode, then start.</p>
 
     <div style="text-align:center; margin-bottom:8px;">
       <label style="font-size:13px;color:#cbd5f5;">Game Mode:
@@ -931,7 +900,7 @@
           <option value="adventure">Adventure Mode</option>
         </select>
       </label>
-      <button class="btn secondary" onclick="startWorld('waqf')">Start Game</button>
+      <button class="btn secondary" onclick="startWorld('waqf'); randomWaqf();">Start Game</button>
     </div>
 
     <div class="game-hud">
@@ -979,7 +948,7 @@
 
   <div class="card">
     <div class="level-title">Sifaat Game</div>
-    <p class="small-note">Timer, coins, streaks, and power-ups.</p>
+    <p class="small-note">Choose a mode, then start.</p>
 
     <div style="text-align:center; margin-bottom:8px;">
       <label style="font-size:13px;color:#cbd5f5;">Game Mode:
@@ -989,7 +958,7 @@
           <option value="adventure">Adventure Mode</option>
         </select>
       </label>
-      <button class="btn secondary" onclick="startWorld('sifaat')">Start Game</button>
+      <button class="btn secondary" onclick="startWorld('sifaat'); randomSifaat();">Start Game</button>
     </div>
 
     <div class="game-hud">
@@ -1036,7 +1005,7 @@
 
   <div class="card">
     <div class="level-title">Foundations Game</div>
-    <p class="small-note">Timer, coins, streaks, and power-ups.</p>
+    <p class="small-note">Choose a mode, then start.</p>
 
     <div style="text-align:center; margin-bottom:8px;">
       <label style="font-size:13px;color:#cbd5f5;">Game Mode:
@@ -1046,7 +1015,7 @@
           <option value="adventure">Adventure Mode</option>
         </select>
       </label>
-      <button class="btn secondary" onclick="startWorld('foundations')">Start Game</button>
+      <button class="btn secondary" onclick="startWorld('foundations'); randomFoundations();">Start Game</button>
     </div>
 
     <div class="game-hud">
@@ -1107,7 +1076,6 @@
 </audio>
 
 <script>
-/* GLOBAL: theme + random nasheed */
 function playSound(id) {
   const audio = document.getElementById(id);
   if (audio) {
@@ -1136,10 +1104,9 @@ function startRandomNasheed() {
   const pick = ids[Math.floor(Math.random() * ids.length)];
   const a = document.getElementById(pick);
   a.volume = 0.4;
-  a.play();
+  a.play().catch(() => {});
 }
 
-/* SCREEN NAVIGATION */
 function showScreen(id) {
   playSound('sound-click');
   document.querySelectorAll("section").forEach(s => s.style.display = "none");
@@ -1235,4 +1202,535 @@ function startWorld(world) {
   w.timer = 15;
   w.doubleActive = false;
   updateWorldHUD(world);
-  resetTimer(world
+  resetTimer(world);
+  playSound('sound-click');
+  showPopup("Game started in " + world + " (" + mode + " mode)");
+}
+
+function updateWorldHUD(world) {
+  const w = worlds[world];
+  document.getElementById(world + "-score").textContent = w.score;
+  document.getElementById(world + "-streak").textContent = w.streak;
+  document.getElementById(world + "-xp").textContent = w.xp;
+  document.getElementById(world + "-timer").textContent = w.timer;
+  const levelXP = Math.min(100, w.xp % 100);
+  document.getElementById(world + "-xp-fill").style.width = levelXP + "%";
+}
+
+function resetTimer(world) {
+  const w = worlds[world];
+  if (w.timerId) clearInterval(w.timerId);
+  w.timer = 15;
+  updateWorldHUD(world);
+  w.timerId = setInterval(() => {
+    if (w.timer > 0) {
+      w.timer--;
+      updateWorldHUD(world);
+    } else {
+      clearInterval(w.timerId);
+      showPopup("Time up in " + world + "!");
+    }
+  }, 1000);
+}
+
+function addWorldPoints(world, correct) {
+  const w = worlds[world];
+  if (correct) {
+    w.streak++;
+    let base = 10;
+    if (w.mode === "battle") base = 15;
+    if (w.mode === "adventure") base = 20;
+    const bonus = w.streak > 3 ? 5 : 0;
+    let total = base + bonus;
+    if (w.doubleActive) {
+      total *= 2;
+      w.doubleActive = false;
+      showPopup("Double points used!");
+    }
+    w.score += total;
+    w.xp += base;
+    addGlobalXP(base);
+    addCoins(3);
+  } else {
+    w.streak = 0;
+    if (w.mode === "battle") w.score = Math.max(0, w.score - 5);
+  }
+  updateWorldHUD(world);
+}
+
+/* POWER-UPS USE */
+function usePowerUp(type, world) {
+  if (powerUps[type] <= 0) {
+    showPopup("You don't own that power-up.");
+    return;
+  }
+  const w = worlds[world];
+  if (type === "double") {
+    w.doubleActive = true;
+    powerUps.double--;
+    showPopup("Double points activated for next correct answer!");
+  } else if (type === "hint") {
+    powerUps.hint--;
+    showHint(world);
+  } else if (type === "freeze") {
+    powerUps.freeze--;
+    freezeTimer(world);
+  }
+  updateGlobalHUD();
+}
+
+function freezeTimer(world) {
+  const w = worlds[world];
+  if (!w.timerId) return;
+  clearInterval(w.timerId);
+  showPopup("Timer frozen for 5 seconds!");
+  setTimeout(() => {
+    resetTimer(world);
+  }, 5000);
+}
+
+/* HINTS */
+function showHint(world) {
+  let hintText = "";
+  if (world === "noon") {
+    hintText = "Remember: ب → Ikhfa, ي ن م و → Idgham with Ghunnah, ل ر → without Ghunnah.";
+    document.getElementById("noon-hint").textContent = hintText;
+  } else if (world === "meem") {
+    hintText = "ب and ف after Meem → Ikhfa Shafawi. Meem + Meem → Idgham Shafawi.";
+    document.getElementById("meem-hint").textContent = hintText;
+  } else if (world === "madd") {
+    hintText = "Look for hamzah or sukoon after the Madd letter.";
+    document.getElementById("madd-hint").textContent = hintText;
+  } else if (world === "ghunnah") {
+    hintText = "Ghunnah usually on Noon/Meem with shaddah.";
+    document.getElementById("ghunnah-hint").textContent = hintText;
+  } else if (world === "qalqalah") {
+    hintText = "Qalqalah letters: ق ط ب ج د.";
+    document.getElementById("qalqalah-hint").textContent = hintText;
+  } else if (world === "laam") {
+    hintText = "Solar letters make Laam assimilated; lunar letters keep Laam pronounced.";
+    document.getElementById("laam-hint").textContent = hintText;
+  } else if (world === "waqf") {
+    hintText = "مـ must stop, لا do not stop, ج optional.";
+    document.getElementById("waqf-hint").textContent = hintText;
+  } else if (world === "sifaat") {
+    hintText = "Heavy letters: خص ضغط قظ.";
+    document.getElementById("sifaat-hint").textContent = hintText;
+  } else if (world === "foundations") {
+    hintText = "Hamzat al-Wasl appears at beginning; silent letters are not pronounced.";
+    document.getElementById("foundations-hint").textContent = hintText;
+  }
+  showPopup("Hint revealed!");
+}
+
+/* QUESTION POOLS (RANDOM) */
+
+/* NOON GAME */
+const noonQuestions = [
+  { text: "نْ + ب", rule: "ikhfa", explain: "ب after Noon → Ikhfa." },
+  { text: "نْ + ر", rule: "idgham-no-ghunnah", explain: "ر → Idgham without Ghunnah." },
+  { text: "نْ + ي", rule: "idgham-ghunnah", explain: "ي → Idgham with Ghunnah." },
+  { text: "ــً + م", rule: "idgham-ghunnah", explain: "Tanween + م → Idgham with Ghunnah." },
+  { text: "نْ + ل", rule: "idgham-no-ghunnah", explain: "ل → Idgham without Ghunnah." },
+  { text: "ــٌ + ب", rule: "ikhfa", explain: "Tanween + ب → Ikhfa." },
+  { text: "نْ + ء", rule: "izhar", explain: "Throat letters → Izhar." },
+  { text: "ــٍ + ب", rule: "iqlab", explain: "Tanween + ب (Meem conversion) → Iqlab." },
+  { text: "نْ + ح", rule: "izhar", explain: "ح is throat letter → Izhar." },
+  { text: "ــً + ن", rule: "idgham-ghunnah", explain: "Tanween + ن → Idgham with Ghunnah." }
+];
+let noonIndex = 0;
+
+function randomNoon() {
+  noonIndex = Math.floor(Math.random() * noonQuestions.length);
+  const q = noonQuestions[noonIndex];
+  document.getElementById("noon-question").textContent = q.text;
+  document.getElementById("noon-question-text").textContent = "What is the rule here?";
+  document.getElementById("noon-result").textContent = "";
+  document.getElementById("noon-stars").textContent = "⭐ ⭐ ⭐";
+  document.getElementById("noon-hint").textContent = "";
+  resetTimer("noon");
+}
+
+function answerNoon(rule) {
+  const q = noonQuestions[noonIndex];
+  const result = document.getElementById("noon-result");
+  if (rule === q.rule) {
+    playSound('sound-correct');
+    result.textContent = "Correct! " + q.explain;
+    result.classList.add("correct-anim");
+    addWorldPoints("noon", true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
+  } else {
+    playSound('sound-wrong');
+    result.textContent = "Try again! " + q.explain;
+    result.classList.add("wrong-anim");
+    addWorldPoints("noon", false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
+    document.getElementById("noon-stars").textContent = "⭐ ⭐";
+  }
+}
+
+function nextNoonQuestion() {
+  randomNoon();
+}
+
+/* MEEM GAME */
+const meemQuestions = [
+  { text: "مْ + ب", rule: "ikhfa", explain: "ب after Meem → Ikhfa Shafawi." },
+  { text: "مْ + م", rule: "idgham", explain: "Meem + Meem → Idgham Shafawi." },
+  { text: "مْ + أ", rule: "izhar", explain: "Other letters → Izhar Shafawi." },
+  { text: "مْ + و", rule: "izhar", explain: "و → Izhar Shafawi." },
+  { text: "مْ + ف", rule: "ikhfa", explain: "ف after Meem → Ikhfa Shafawi." }
+];
+let meemIndex = 0;
+
+function randomMeem() {
+  meemIndex = Math.floor(Math.random() * meemQuestions.length);
+  const q = meemQuestions[meemIndex];
+  document.getElementById("meem-question").textContent = q.text;
+  document.getElementById("meem-question-text").textContent = "What is the rule here?";
+  document.getElementById("meem-result").textContent = "";
+  document.getElementById("meem-stars").textContent = "⭐ ⭐ ⭐";
+  document.getElementById("meem-hint").textContent = "";
+  resetTimer("meem");
+}
+
+function answerMeem(rule) {
+  const q = meemQuestions[meemIndex];
+  const result = document.getElementById("meem-result");
+  if (rule === q.rule) {
+    playSound('sound-correct');
+    result.textContent = "Correct! " + q.explain;
+    result.classList.add("correct-anim");
+    addWorldPoints("meem", true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
+  } else {
+    playSound('sound-wrong');
+    result.textContent = "Try again! " + q.explain;
+    result.classList.add("wrong-anim");
+    addWorldPoints("meem", false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
+    document.getElementById("meem-stars").textContent = "⭐ ⭐";
+  }
+}
+
+function nextMeemQuestion() {
+  randomMeem();
+}
+
+/* MADD GAME */
+const maddQuestions = [
+  { text: "قَالُوا", rule: "tabeei", explain: "Simple Madd on alif → Madd Tabee’i." },
+  { text: "جَاءَ", rule: "muttasil", explain: "Madd + hamzah in same word → Madd Wajib Muttasil." },
+  { text: "فِي أَنْفُسِكُمْ", rule: "munfasil", explain: "Madd at end of word + hamzah in next → Madd Jaiz Munfasil." },
+  { text: "الصَّاخَّةُ", rule: "lazim", explain: "Permanent sukoon after Madd → Madd Lazim." },
+  { text: "قَالُواْ", rule: "arid", explain: "Stopping on sukoon after Madd → Madd ‘Arid Lissukoon." },
+  { text: "آمَنُوا", rule: "tabeei", explain: "Simple Madd on alif → Madd Tabee’i." }
+];
+let maddIndex = 0;
+
+function randomMadd() {
+  maddIndex = Math.floor(Math.random() * maddQuestions.length);
+  const q = maddQuestions[maddIndex];
+  document.getElementById("madd-question").textContent = q.text;
+  document.getElementById("madd-question-text").textContent = "What type of Madd is used?";
+  document.getElementById("madd-result").textContent = "";
+  document.getElementById("madd-stars").textContent = "⭐ ⭐ ⭐";
+  document.getElementById("madd-hint").textContent = "";
+  resetTimer("madd");
+}
+
+function answerMadd(rule) {
+  const q = maddQuestions[maddIndex];
+  const result = document.getElementById("madd-result");
+  if (rule === q.rule) {
+    playSound('sound-correct');
+    result.textContent = "Correct! " + q.explain;
+    result.classList.add("correct-anim");
+    addWorldPoints("madd", true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
+  } else {
+    playSound('sound-wrong');
+    result.textContent = "Try again! " + q.explain;
+    result.classList.add("wrong-anim");
+    addWorldPoints("madd", false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
+    document.getElementById("madd-stars").textContent = "⭐ ⭐";
+  }
+}
+
+function nextMaddQuestion() {
+  randomMadd();
+}
+
+/* GHUNNAH GAME */
+const ghunnahQuestions = [
+  { text: "إِنَّا", has: true, explain: "Double Noon → Ghunnah." },
+  { text: "ثُمَّ", has: true, explain: "Double Meem → Ghunnah." },
+  { text: "قَالُوا", has: false, explain: "No Noon/Meem with shaddah → no Ghunnah." },
+  { text: "إِنَّكُمْ", has: true, explain: "Shaddah on Noon → Ghunnah." },
+  { text: "هُمْ", has: false, explain: "Single Meem without shaddah → no Ghunnah." }
+];
+let ghunnahIndex = 0;
+
+function randomGhunnah() {
+  ghunnahIndex = Math.floor(Math.random() * ghunnahQuestions.length);
+  const q = ghunnahQuestions[ghunnahIndex];
+  document.getElementById("ghunnah-question").textContent = q.text;
+  document.getElementById("ghunnah-question-text").textContent = "Is there Ghunnah here?";
+  document.getElementById("ghunnah-result").textContent = "";
+  document.getElementById("ghunnah-stars").textContent = "⭐ ⭐ ⭐";
+  document.getElementById("ghunnah-hint").textContent = "";
+  resetTimer("ghunnah");
+}
+
+function answerGhunnah(ans) {
+  const q = ghunnahQuestions[ghunnahIndex];
+  const result = document.getElementById("ghunnah-result");
+  if (ans === q.has) {
+    playSound('sound-correct');
+    result.textContent = "Correct! " + q.explain;
+    result.classList.add("correct-anim");
+    addWorldPoints("ghunnah", true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
+  } else {
+    playSound('sound-wrong');
+    result.textContent = "Try again! " + q.explain;
+    result.classList.add("wrong-anim");
+    addWorldPoints("ghunnah", false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
+    document.getElementById("ghunnah-stars").textContent = "⭐ ⭐";
+  }
+}
+
+function nextGhunnahQuestion() {
+  randomGhunnah();
+}
+
+/* QALQALAH GAME */
+const qalqalahQuestions = [
+  { text: "أَحَدْ", type: "kubra", explain: "Stopping on د with sukoon → Qalqalah Kubra." },
+  { text: "يَقْطَعُونَ", type: "sughra", explain: "Moving letter with qalqalah inside word → Qalqalah Sughra." },
+  { text: "قَالُوا", type: "none", explain: "No qalqalah letter with sukoon → no Qalqalah." },
+  { text: "الْحَقُّ", type: "sughra", explain: "ق with sukoon inside word → Qalqalah Sughra." },
+  { text: "الْفَلَقْ", type: "kubra", explain: "Stopping on ق with sukoon → Qalqalah Kubra." }
+];
+let qalqalahIndex = 0;
+
+function randomQalqalah() {
+  qalqalahIndex = Math.floor(Math.random() * qalqalahQuestions.length);
+  const q = qalqalahQuestions[qalqalahIndex];
+  document.getElementById("qalqalah-question").textContent = q.text;
+  document.getElementById("qalqalah-question-text").textContent = "What type of Qalqalah?";
+  document.getElementById("qalqalah-result").textContent = "";
+  document.getElementById("qalqalah-stars").textContent = "⭐ ⭐ ⭐";
+  document.getElementById("qalqalah-hint").textContent = "";
+  resetTimer("qalqalah");
+}
+
+function answerQalqalah(type) {
+  const q = qalqalahQuestions[qalqalahIndex];
+  const result = document.getElementById("qalqalah-result");
+  if (type === q.type) {
+    playSound('sound-correct');
+    result.textContent = "Correct! " + q.explain;
+    result.classList.add("correct-anim");
+    addWorldPoints("qalqalah", true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
+  } else {
+    playSound('sound-wrong');
+    result.textContent = "Try again! " + q.explain;
+    result.classList.add("wrong-anim");
+    addWorldPoints("qalqalah", false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
+    document.getElementById("qalqalah-stars").textContent = "⭐ ⭐";
+  }
+}
+
+function nextQalqalahQuestion() {
+  randomQalqalah();
+}
+
+/* LAAM GAME */
+const laamQuestions = [
+  { text: "الشَّمْسُ", type: "shamsiyyah", explain: "Laam is assimilated → Shamsiyyah." },
+  { text: "القَمَرُ", type: "qamariyyah", explain: "Laam is pronounced → Qamariyyah." },
+  { text: "الْبَيْتُ", type: "qamariyyah", explain: "Laam pronounced → Qamariyyah." },
+  { text: "النَّاسُ", type: "shamsiyyah", explain: "Laam assimilated → Shamsiyyah." }
+];
+let laamIndex = 0;
+
+function randomLaam() {
+  laamIndex = Math.floor(Math.random() * laamQuestions.length);
+  const q = laamQuestions[laamIndex];
+  document.getElementById("laam-question").textContent = q.text;
+  document.getElementById("laam-question-text").textContent = "What type of Laam?";
+  document.getElementById("laam-result").textContent = "";
+  document.getElementById("laam-stars").textContent = "⭐ ⭐ ⭐";
+  document.getElementById("laam-hint").textContent = "";
+  resetTimer("laam");
+}
+
+function answerLaam(type) {
+  const q = laamQuestions[laamIndex];
+  const result = document.getElementById("laam-result");
+  if (type === q.type) {
+    playSound('sound-correct');
+    result.textContent = "Correct! " + q.explain;
+    result.classList.add("correct-anim");
+    addWorldPoints("laam", true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
+  } else {
+    playSound('sound-wrong');
+    result.textContent = "Try again! " + q.explain;
+    result.classList.add("wrong-anim");
+    addWorldPoints("laam", false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
+    document.getElementById("laam-stars").textContent = "⭐ ⭐";
+  }
+}
+
+function nextLaamQuestion() {
+  randomLaam();
+}
+
+/* WAQF GAME */
+const waqfQuestions = [
+  { text: "مـ", rule: "stop", explain: "مـ → must stop." },
+  { text: "ج", rule: "optional", explain: "ج → optional stop." },
+  { text: "لا", rule: "continue", explain: "لا → do not stop." },
+  { text: "قلى", rule: "stop", explain: "قلى → better to stop." },
+  { text: "صلى", rule: "continue", explain: "صلى → better to continue." }
+];
+let waqfIndex = 0;
+
+function randomWaqf() {
+  waqfIndex = Math.floor(Math.random() * waqfQuestions.length);
+  const q = waqfQuestions[waqfIndex];
+  document.getElementById("waqf-question").textContent = q.text;
+  document.getElementById("waqf-question-text").textContent = "What should you do?";
+  document.getElementById("waqf-result").textContent = "";
+  document.getElementById("waqf-stars").textContent = "⭐ ⭐ ⭐";
+  document.getElementById("waqf-hint").textContent = "";
+  resetTimer("waqf");
+}
+
+function answerWaqf(rule) {
+  const q = waqfQuestions[waqfIndex];
+  const result = document.getElementById("waqf-result");
+  if (rule === q.rule) {
+    playSound('sound-correct');
+    result.textContent = "Correct! " + q.explain;
+    result.classList.add("correct-anim");
+    addWorldPoints("waqf", true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
+  } else {
+    playSound('sound-wrong');
+    result.textContent = "Try again! " + q.explain;
+    result.classList.add("wrong-anim");
+    addWorldPoints("waqf", false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
+    document.getElementById("waqf-stars").textContent = "⭐ ⭐";
+  }
+}
+
+function nextWaqfQuestion() {
+  randomWaqf();
+}
+
+/* SIFAAT GAME */
+const sifaatQuestions = [
+  { text: "ص", type: "tafkheem", explain: "ص is heavy → Tafkheem." },
+  { text: "س", type: "tarqeeq", explain: "س is light → Tarqeeq." },
+  { text: "ط", type: "tafkheem", explain: "ط is heavy → Tafkheem." },
+  { text: "ز", type: "tarqeeq", explain: "ز is light → Tarqeeq." }
+];
+let sifaatIndex = 0;
+
+function randomSifaat() {
+  sifaatIndex = Math.floor(Math.random() * sifaatQuestions.length);
+  const q = sifaatQuestions[sifaatIndex];
+  document.getElementById("sifaat-question").textContent = q.text;
+  document.getElementById("sifaat-question-text").textContent = "Tafkheem or Tarqeeq?";
+  document.getElementById("sifaat-result").textContent = "";
+  document.getElementById("sifaat-stars").textContent = "⭐ ⭐ ⭐";
+  document.getElementById("sifaat-hint").textContent = "";
+  resetTimer("sifaat");
+}
+
+function answerSifaat(type) {
+  const q = sifaatQuestions[sifaatIndex];
+  const result = document.getElementById("sifaat-result");
+  if (type === q.type) {
+    playSound('sound-correct');
+    result.textContent = "Correct! " + q.explain;
+    result.classList.add("correct-anim");
+    addWorldPoints("sifaat", true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
+  } else {
+    playSound('sound-wrong');
+    result.textContent = "Try again! " + q.explain;
+    result.classList.add("wrong-anim");
+    addWorldPoints("sifaat", false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
+    document.getElementById("sifaat-stars").textContent = "⭐ ⭐";
+  }
+}
+
+function nextSifaatQuestion() {
+  randomSifaat();
+}
+
+/* FOUNDATIONS GAME */
+const foundationsQuestions = [
+  { text: "ٱسْمُ", rule: "hamzat", explain: "Hamzat al-Wasl at start." },
+  { text: "هٰذَا", rule: "silent", explain: "Silent alif in some words." },
+  { text: "يَدْخُلُونَ", rule: "connection", explain: "Connection & assimilation in recitation." },
+  { text: "ٱلْحَمْدُ", rule: "hamzat", explain: "Hamzat al-Wasl at start." },
+  { text: "ذٰلِكَ", rule: "silent", explain: "Silent alif in some words." }
+];
+let foundationsIndex = 0;
+
+function randomFoundations() {
+  foundationsIndex = Math.floor(Math.random() * foundationsQuestions.length);
+  const q = foundationsQuestions[foundationsIndex];
+  document.getElementById("foundations-question").textContent = q.text;
+  document.getElementById("foundations-question-text").textContent = "Which foundational rule?";
+  document.getElementById("foundations-result").textContent = "";
+  document.getElementById("foundations-stars").textContent = "⭐ ⭐ ⭐";
+  document.getElementById("foundations-hint").textContent = "";
+  resetTimer("foundations");
+}
+
+function answerFoundations(rule) {
+  const q = foundationsQuestions[foundationsIndex];
+  const result = document.getElementById("foundations-result");
+  if (rule === q.rule) {
+    playSound('sound-correct');
+    result.textContent = "Correct! " + q.explain;
+    result.classList.add("correct-anim");
+    addWorldPoints("foundations", true);
+    setTimeout(() => result.classList.remove("correct-anim"), 300);
+  } else {
+    playSound('sound-wrong');
+    result.textContent = "Try again! " + q.explain;
+    result.classList.add("wrong-anim");
+    addWorldPoints("foundations", false);
+    setTimeout(() => result.classList.remove("wrong-anim"), 300);
+    document.getElementById("foundations-stars").textContent = "⭐ ⭐";
+  }
+}
+
+function nextFoundationsQuestion() {
+  randomFoundations();
+}
+
+/* INIT */
+changeTheme();
+startRandomNasheed();
+updateGlobalHUD();
+showScreen('home');
+</script>
+
+</body>
+</html>
