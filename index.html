@@ -5,964 +5,492 @@
   <title>Ahkam Master</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    /* ====== GLOBAL ====== */
-    * {
-      box-sizing: border-box;
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:radial-gradient(circle at top,#0f172a,#020617);
+      color:#f9fafb;
     }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #0f172a, #020617);
-      color: #f9fafb;
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:10px 18px;
+      background:rgba(15,23,42,0.95);
+      position:sticky;
+      top:0;
+      z-index:10;
     }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 18px;
-      background: rgba(15, 23, 42, 0.95);
-      position: sticky;
-      top: 0;
-      z-index: 10;
+    .logo{
+      font-size:1.4rem;
+      font-weight:700;
+      color:#22c55e;
     }
-    .logo {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #22c55e;
+    .author{
+      font-size:0.7rem;
+      opacity:0.7;
     }
-    .author {
-      font-size: 0.7rem;
-      opacity: 0.7;
+    main{
+      max-width:1200px;
+      margin:0 auto;
+      padding:14px;
     }
-    main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 14px;
+    footer{
+      text-align:center;
+      font-size:0.8rem;
+      padding:14px;
+      opacity:0.7;
     }
-    footer {
-      text-align: center;
-      font-size: 0.8rem;
-      padding: 14px;
-      opacity: 0.7;
+    .card{
+      background:rgba(15,23,42,0.95);
+      border-radius:18px;
+      padding:16px;
+      margin-bottom:14px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.5);
     }
-
-    /* ====== MODE BUTTONS ====== */
-    .mode-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 14px 0;
+    .card h2{
+      margin-top:0;
+      font-size:1.3rem;
+      color:#38bdf8;
     }
-    .mode-button {
-      border: none;
-      padding: 10px 16px;
-      border-radius: 999px;
-      background: #1d4ed8;
-      color: #f9fafb;
-      cursor: pointer;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    .card h3{
+      margin-top:10px;
+      font-size:1.1rem;
+      color:#a5b4fc;
     }
-    .mode-button.active {
-      background: #22c55e;
-      color: #022c22;
+    .lesson-text{
+      font-size:0.95rem;
+      line-height:1.5;
     }
-
-    /* ====== CARDS ====== */
-    .card {
-      background: rgba(15, 23, 42, 0.95);
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 14px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    .mode-buttons{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:14px 0;
     }
-    .card h2 {
-      margin-top: 0;
-      font-size: 1.3rem;
-      color: #38bdf8;
+    .mode-button{
+      border:none;
+      padding:10px 16px;
+      border-radius:999px;
+      background:#1d4ed8;
+      color:#f9fafb;
+      cursor:pointer;
+      font-size:0.95rem;
+      display:flex;
+      align-items:center;
+      gap:6px;
     }
-    .card h3 {
-      margin-top: 10px;
-      font-size: 1.1rem;
-      color: #a5b4fc;
+    .mode-button.active{
+      background:#22c55e;
+      color:#022c22;
     }
-    .lesson-text {
-      font-size: 0.95rem;
-      line-height: 1.5;
+    .tag-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:8px 0 12px;
     }
-
-    /* ====== TAGS ====== */
-    .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 8px 0 12px;
+    .tag{
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:0.8rem;
+      background:#0f766e;
     }
-    .tag {
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      background: #0f766e;
+    .tag.red{background:#b91c1c;}
+    .tag.green{background:#15803d;}
+    .tag.blue{background:#1d4ed8;}
+    .tag.yellow{background:#ca8a04;}
+    .arabic-big{
+      font-size:3rem;
+      line-height:1.6;
+      text-align:center;
+      margin:10px 0;
+      font-family:"Scheherazade New","Amiri",system-ui;
     }
-    .tag.red { background: #b91c1c; }
-    .tag.green { background: #15803d; }
-    .tag.blue { background: #1d4ed8; }
-    .tag.yellow { background: #ca8a04; }
-
-    /* ====== ARABIC ====== */
-    .arabic-big {
-      font-size: 3rem;
-      line-height: 1.6;
-      text-align: center;
-      margin: 10px 0;
-      font-family: "Scheherazade New", "Amiri", system-ui;
+    .arabic-medium{
+      font-size:2rem;
+      text-align:center;
+      margin:6px 0;
+      font-family:"Scheherazade New","Amiri",system-ui;
     }
-    .arabic-medium {
-      font-size: 2rem;
-      text-align: center;
-      margin: 6px 0;
-      font-family: "Scheherazade New", "Amiri", system-ui;
+    .top-bar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      margin-bottom:12px;
     }
-
-    /* ====== TOP BAR / HUD ====== */
-    .top-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 12px;
+    .pill{
+      padding:6px 12px;
+      border-radius:999px;
+      background:#1e293b;
+      font-size:0.85rem;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
     }
-    .pill {
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: #1e293b;
-      font-size: 0.85rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .pill .value{
+      color:#22c55e;
+      font-weight:600;
     }
-    .pill span.value {
-      color: #22c55e;
-      font-weight: 600;
+    .difficulty-select{
+      border:none;
+      background:#0f172a;
+      color:#f9fafb;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:0.85rem;
+      cursor:pointer;
     }
-    .difficulty-select {
-      border: none;
-      background: #0f172a;
-      color: #f9fafb;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      cursor: pointer;
+    .btn{
+      border:none;
+      padding:8px 14px;
+      border-radius:999px;
+      background:#22c55e;
+      color:#022c22;
+      cursor:pointer;
+      font-size:0.9rem;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
     }
-
-    /* ====== BUTTONS ====== */
-    .btn {
-      border: none;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: #22c55e;
-      color: #022c22;
-      cursor: pointer;
-      font-size: 0.9rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .btn.secondary{
+      background:#1d4ed8;
+      color:#e5e7eb;
     }
-    .btn.secondary {
-      background: #1d4ed8;
-      color: #e5e7eb;
+    .btn.danger{
+      background:#b91c1c;
+      color:#fee2e2;
     }
-    .btn.danger {
-      background: #b91c1c;
-      color: #fee2e2;
+    .question-text{
+      font-size:1rem;
+      margin-bottom:10px;
     }
-
-    /* ====== QUIZ ====== */
-    .question-text {
-      font-size: 1rem;
-      margin-bottom: 10px;
+    .options-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+      gap:8px;
     }
-    .options-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 8px;
+    .option-btn{
+      border:none;
+      padding:10px;
+      border-radius:12px;
+      background:#0f172a;
+      color:#f9fafb;
+      cursor:pointer;
+      font-size:0.9rem;
+      text-align:center;
+      transition:background 0.1s,transform 0.1s;
     }
-    .option-btn {
-      border: none;
-      padding: 10px;
-      border-radius: 12px;
-      background: #0f172a;
-      color: #f9fafb;
-      cursor: pointer;
-      font-size: 0.9rem;
-      text-align: center;
-      transition: background 0.1s, transform 0.1s;
+    .option-btn:hover{
+      background:#1e293b;
+      transform:translateY(-1px);
     }
-    .option-btn:hover {
-      background: #1e293b;
-      transform: translateY(-1px);
+    .option-btn.correct{
+      background:#16a34a;
     }
-    .option-btn.correct {
-      background: #16a34a;
+    .option-btn.wrong{
+      background:#b91c1c;
     }
-    .option-btn.wrong {
-      background: #b91c1c;
+    .status-line{
+      margin-top:8px;
+      font-size:0.9rem;
     }
-    .status-line {
-      margin-top: 8px;
-      font-size: 0.9rem;
+    .event-log{
+      margin-top:6px;
+      font-size:0.85rem;
+      opacity:0.8;
     }
-    .event-log {
-      margin-top: 6px;
-      font-size: 0.85rem;
-      opacity: 0.8;
+    .gold-bar{
+      margin-top:10px;
+      height:16px;
+      border-radius:999px;
+      background:#0f172a;
+      overflow:hidden;
+      position:relative;
     }
-
-    /* ====== GOLD RUSH BAR ====== */
-    .gold-bar {
-      margin-top: 10px;
-      height: 16px;
-      border-radius: 999px;
-      background: #0f172a;
-      overflow: hidden;
-      position: relative;
+    .gold-fill{
+      height:100%;
+      background:linear-gradient(90deg,#facc15,#f97316);
+      width:0%;
+      transition:width 0.3s;
     }
-    .gold-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #facc15, #f97316);
-      width: 0%;
-      transition: width 0.3s;
+    .gold-label{
+      position:absolute;
+      top:-18px;
+      right:0;
+      font-size:0.75rem;
+      opacity:0.8;
     }
-    .gold-label {
-      position: absolute;
-      top: -18px;
-      right: 0;
-      font-size: 0.75rem;
-      opacity: 0.8;
+    .music-controls{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:0.8rem;
     }
-
-    /* ====== MUSIC ====== */
-    .music-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.8rem;
+    .music-controls input[type="range"]{
+      width:100px;
     }
-    .music-controls input[type="range"] {
-      width: 100px;
-    }
-
-    /* ====== RESPONSIVE ====== */
-    @media (max-width: 600px) {
-      .arabic-big {
-        font-size: 2.4rem;
-      }
-      .arabic-medium {
-        font-size: 1.8rem;
-      }
+    @media(max-width:600px){
+      .arabic-big{font-size:2.4rem;}
+      .arabic-medium{font-size:1.8rem;}
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">Ahkam Master</div>
-    <div class="author">by Abdelrahman Yamany</div>
-  </header>
+<header>
+  <div class="logo">Ahkam Master</div>
+  <div class="author">by Abdelrahman Yamany</div>
+</header>
 
-  <main>
-    <!-- INTRO -->
+<main>
+  <section class="card">
+    <h2>Welcome to Ahkam Master</h2>
+    <p class="lesson-text">
+      Learn Tajweed (Ahkam) step by step, then test yourself with quizzes and games.
+      Big Arabic letters, simple rules, and fun modes for young Muslims.
+    </p>
+  </section>
+
+  <div class="mode-buttons">
+    <button class="mode-button active" data-mode="learn">📚 Learn Ahkam</button>
+    <button class="mode-button" data-mode="practice">📝 Practice & Quizzes</button>
+    <button class="mode-button" data-mode="games">🎮 Games (Gold Rush)</button>
+  </div>
+
+  <section id="learn" class="card">
+    <h2>Learn Ahkam</h2>
+
+    <article class="card">
+      <h3>1. Rules of Noon Sakinah (نْ) and Tanween (ــًــٍــٌ)</h3>
+      <div class="arabic-big">نْ ــًــٍــٌ</div>
+      <div class="tag-row">
+        <span class="tag green">إظهار – Clear pronunciation</span>
+        <span class="tag blue">إدغام – Merging</span>
+        <span class="tag yellow">إقلاب – Conversion to Meem</span>
+        <span class="tag red">إخفاء – Concealment</span>
+      </div>
+      <p class="lesson-text">
+        <strong>إظهار:</strong> نقرأ النون الساكنة أو التنوين بوضوح بدون إدغام أو إخفاء.<br />
+        <strong>إدغام بغنة:</strong> إذا جاء بعد النون الساكنة أو التنوين أحد حروف:
+        <span class="arabic-medium">ي ن م و</span> نُدغم مع غنة.<br />
+        <strong>إدغام بغير غنة:</strong> إذا جاء بعد النون الساكنة أو التنوين:
+        <span class="arabic-medium">ل ر</span> نُدغم بدون غنة.<br />
+        <strong>إقلاب:</strong> إذا جاء بعد النون الساكنة أو التنوين حرف ب، تُقلب النون إلى ميم مع غنة.<br />
+        <strong>إخفاء:</strong> إذا جاء بعد النون الساكنة أو التنوين أحد حروف الإخفاء، نُخفي النون مع غنة خفيفة.
+      </p>
+    </article>
+
+    <article class="card">
+      <h3>2. Rules of Meem Sakinah (مْ)</h3>
+      <div class="arabic-big">مْ</div>
+      <div class="tag-row">
+        <span class="tag red">إخفاء شفوي – Labial concealment</span>
+        <span class="tag blue">إدغام شفوي – Labial merging</span>
+        <span class="tag green">إظهار شفوي – Clear labial pronunciation</span>
+      </div>
+      <p class="lesson-text">
+        <strong>إخفاء شفوي:</strong> إذا جاء بعد مْ حرف ب، نُخفي الميم قليلاً مع غنة.<br />
+        <strong>إدغام شفوي:</strong> إذا جاء بعد مْ حرف م، نُدغم الميمين مع غنة.<br />
+        <strong>إظهار شفوي:</strong> في باقي الحروف، نُظهر الميم بوضوح.
+      </p>
+    </article>
+
+    <article class="card">
+      <h3>3. Rules of Madd (Elongation)</h3>
+      <div class="arabic-big">مــد</div>
+      <p class="lesson-text">
+        <strong>مد طبيعي (مد أصلي):</strong> مد بسيط بمقدار حركتين على حروف المد: ا و ي.<br />
+        <strong>مد جائز منفصل:</strong> المد في آخر كلمة والسبب في أول الكلمة التالية، غالباً 4–5 حركات.<br />
+        <strong>مد واجب متصل:</strong> المد والسبب في نفس الكلمة، غالباً 4–5 حركات.<br />
+        <strong>مد لازم:</strong> مد يجب إطالته غالباً 6 حركات.<br />
+        <strong>مد عارض للسكون:</strong> عند الوقف على كلمة، يمكن أن يكون 2 أو 4 أو 6 حركات.
+      </p>
+    </article>
+
+    <article class="card">
+      <h3>4. Ghunnah (Nasalization)</h3>
+      <div class="arabic-big">ن م</div>
+      <p class="lesson-text">
+        الغنة صوت يخرج من الأنف، غالباً بمقدار حركتين، ويظهر بقوة في النون والميم خاصة في الإدغام والإخفاء.
+      </p>
+    </article>
+
+    <article class="card">
+      <h3>5. Qalqalah (Echoing Sound)</h3>
+      <div class="arabic-big">ق ط ب ج د</div>
+      <p class="lesson-text">
+        القلقلة اهتزاز في صوت الحرف عند السكون.<br />
+        <strong>قلقلة صغرى:</strong> داخل الكلمة.<br />
+        <strong>قلقلة كبرى:</strong> عند الوقف في آخر الكلمة، يكون الصوت أقوى.
+      </p>
+    </article>
+
+    <article class="card">
+      <h3>6. Rules of Laam (ل)</h3>
+      <div class="arabic-big">الشَّمس – القَمَر</div>
+      <p class="lesson-text">
+        <strong>لام شمسية:</strong> اللام لا تُنطق، والحرف بعدها يُشدّد مثل «الشَّمس».<br />
+        <strong>لام قمرية:</strong> اللام تُنطق بوضوح مثل «القَمَر».
+      </p>
+    </article>
+
+    <article class="card">
+      <h3>7. Rules of Waqf (Stopping)</h3>
+      <div class="arabic-big">الــوقــف</div>
+      <p class="lesson-text">
+        الوقف هو التوقف عند كلمة. نختار أماكن الوقف بحيث يكتمل المعنى، ونستخدم علامات الوقف في المصحف لمعرفة الأفضل.
+      </p>
+    </article>
+
+    <article class="card">
+      <h3>8. Sifaat (Characteristics of Letters)</h3>
+      <div class="arabic-big">ص ض ط ظ ق</div>
+      <p class="lesson-text">
+        <strong>تفخيم:</strong> حروف ثقيلة مثل ص ض ط ظ ق، يكون الصوت غليظاً.<br />
+        <strong>ترقيق:</strong> باقي الحروف يكون الصوت فيها رقيقاً.<br />
+        وهناك صفات أخرى مثل: الهمس، الجهر، الشدة، الرخاوة، وغيرها.
+      </p>
+    </article>
+
+    <article class="card">
+      <h3>9. Additional Foundational Rules</h3>
+      <p class="lesson-text">
+        <strong>همزة الوصل:</strong> تُقرأ في بداية الكلام، وتسقط عند الوصل.<br />
+        <strong>الحروف غير الملفوظة:</strong> حروف تُكتب ولا تُنطق في بعض الكلمات.<br />
+        <strong>الاتصال والإدغام:</strong> كيف تتصل الحروف وتندمج عند القراءة.
+      </p>
+    </article>
+  </section>
+
+  <section id="practice" class="card" style="display:none;">
+    <h2>Practice & Quizzes</h2>
+    <p class="lesson-text">
+      Each quiz has 8–14 questions. Different questions every time. At the end, you see your score.
+    </p>
+
+    <div class="top-bar">
+      <div class="pill">
+        🎚 Level:
+        <select id="practice-difficulty" class="difficulty-select">
+          <option value="beginner">Beginner (letters)</option>
+          <option value="medium">Medium (words)</option>
+          <option value="advanced">Advanced (sentences)</option>
+          <option value="mixed">Mixed</option>
+        </select>
+      </div>
+      <div class="pill">✅ Correct: <span class="value" id="practice-correct">0</span></div>
+      <div class="pill">❌ Wrong: <span class="value" id="practice-wrong">0</span></div>
+      <button class="btn secondary" id="practice-start">Start Quiz ▶</button>
+    </div>
+
     <div class="card">
-      <h2>Welcome to Ahkam Master</h2>
-      <p class="lesson-text">
-        This app is for young Muslims to learn Tajweed (Ahkam) in a fun and simple way.
-        First, learn the rules. Then practice with quizzes. Finally, play games to show what you know.
-      </p>
+      <div class="arabic-big" id="practice-arabic">نْ + ي</div>
+      <div class="question-text" id="practice-text">ما الحكم هنا؟</div>
+      <div class="options-grid" id="practice-options"></div>
+      <div class="status-line" id="practice-status"></div>
+      <button class="btn" id="practice-next">Next Question ▶</button>
+      <div class="status-line" id="practice-final"></div>
+    </div>
+  </section>
+
+  <section id="games" class="card" style="display:none;">
+    <h2>Games – Gold Rush 🎮</h2>
+    <p class="lesson-text">
+      Answer Ahkam questions to collect gold coins. The more correct answers, the more treasure you get.
+    </p>
+
+    <div class="top-bar">
+      <div class="pill">💰 Coins: <span class="value" id="coins">0</span></div>
+      <div class="pill">⭐ XP: <span class="value" id="xp">0</span></div>
+      <div class="pill">🔥 Streak: <span class="value" id="streak">0</span></div>
+      <div class="pill">
+        🎚 Difficulty:
+        <select id="game-difficulty" class="difficulty-select">
+          <option value="beginner">Beginner</option>
+          <option value="medium">Medium</option>
+          <option value="advanced">Advanced</option>
+          <option value="mixed">Mixed</option>
+        </select>
+      </div>
+      <button class="btn secondary" id="start-round">Start Gold Rush ▶</button>
+      <div class="music-controls">
+        🎵 Soft Nasheed
+        <button class="btn" id="music-toggle">Mute</button>
+        <input type="range" id="music-volume" min="0" max="1" step="0.05" value="0.4" />
+      </div>
     </div>
 
-    <!-- MODE SWITCH -->
-    <div class="mode-buttons">
-      <button class="mode-button active" data-mode="learn">📚 Learn Ahkam</button>
-      <button class="mode-button" data-mode="practice">📝 Practice & Quizzes</button>
-      <button class="mode-button" data-mode="games">🎮 Games (Gold Rush)</button>
+    <div class="card">
+      <div class="gold-bar">
+        <div class="gold-fill" id="gold-fill"></div>
+        <div class="gold-label" id="gold-label">Treasure: 0%</div>
+      </div>
+      <div class="arabic-big" id="game-arabic">نْ</div>
+      <div class="question-text" id="game-text">ما الحكم هنا؟</div>
+      <div class="options-grid" id="game-options"></div>
+      <div class="status-line" id="game-status"></div>
+      <div class="event-log" id="game-event"></div>
+      <button class="btn" id="game-next">Next Question ▶</button>
     </div>
+  </section>
+</main>
 
-    <!-- LEARN MODE -->
-    <section id="learn" class="card">
-      <h2>Learn Ahkam</h2>
+<footer>
+  Ahkam Master – Learn, practice, then play.
+</footer>
 
-      <div class="card">
-        <h3>1. Noon Sakinah (نْ) & Tanween (ــًــٍــٌ)</h3>
-        <div class="arabic-big">نْ ــًــٍــٌ</div>
-        <div class="tag-row">
-          <span class="tag green">إظهار – قراءة واضحة</span>
-          <span class="tag blue">إدغام – إدخال حرف في حرف</span>
-          <span class="tag yellow">إقلاب – قلب النون إلى ميم</span>
-          <span class="tag red">إخفاء – إخفاء النون مع غنة</span>
-        </div>
-        <p class="lesson-text">
-          <strong>إظهار:</strong> نقرأ النون الساكنة أو التنوين بوضوح بدون إدغام أو إخفاء.<br>
-          <strong>إدغام بغنة:</strong> إذا جاء بعد النون الساكنة أو التنوين أحد حروف: <span class="arabic-medium">ي ن م و</span> نُدغم مع غنة.<br>
-          <strong>إدغام بغير غنة:</strong> إذا جاء بعد النون الساكنة أو التنوين: <span class="arabic-medium">ل ر</span> نُدغم بدون غنة.<br>
-          <strong>إقلاب:</strong> إذا جاء بعد النون الساكنة أو التنوين حرف ب، تُقلب النون إلى ميم مع غنة.<br>
-          <strong>إخفاء:</strong> إذا جاء بعد النون الساكنة أو التنوين أحد حروف الإخفاء، نُخفي النون مع غنة خفيفة.
-        </p>
-      </div>
+<audio id="nasheed" loop>
+  <source src="nasheed.mp3" type="audio/mpeg" />
+</audio>
 
-      <div class="card">
-        <h3>2. Meem Sakinah (مْ)</h3>
-        <div class="arabic-big">مْ</div>
-        <div class="tag-row">
-          <span class="tag red">إخفاء شفوي</span>
-          <span class="tag blue">إدغام شفوي</span>
-          <span class="tag green">إظهار شفوي</span>
-        </div>
-        <p class="lesson-text">
-          <strong>إخفاء شفوي:</strong> إذا جاء بعد مْ حرف ب، نُخفي الميم قليلاً مع غنة.<br>
-          <strong>إدغام شفوي:</strong> إذا جاء بعد مْ حرف م، نُدغم الميمين مع غنة.<br>
-          <strong>إظهار شفوي:</strong> في باقي الحروف، نُظهر الميم بوضوح.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>3. Madd (المد)</h3>
-        <div class="arabic-big">مــد</div>
-        <p class="lesson-text">
-          <strong>مد طبيعي (أصلي):</strong> مد بسيط بمقدار حركتين على حروف المد: ا و ي.<br>
-          <strong>مد جائز منفصل:</strong> المد في آخر كلمة والسبب في أول الكلمة التالية، غالباً 4–5 حركات.<br>
-          <strong>مد واجب متصل:</strong> المد والسبب في نفس الكلمة، غالباً 4–5 حركات.<br>
-          <strong>مد لازم:</strong> مد يجب إطالته غالباً 6 حركات.<br>
-          <strong>مد عارض للسكون:</strong> عند الوقف على كلمة، يمكن أن يكون 2 أو 4 أو 6 حركات.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>4. Ghunnah (الغنة)</h3>
-        <div class="arabic-big">ن م</div>
-        <p class="lesson-text">
-          الغنة صوت يخرج من الأنف، غالباً بمقدار حركتين، ويظهر بقوة في النون والميم خاصة في الإدغام والإخفاء.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>5. Qalqalah (القلقلة)</h3>
-        <div class="arabic-big">ق ط ب ج د</div>
-        <p class="lesson-text">
-          القلقلة اهتزاز في صوت الحرف عند السكون.<br>
-          <strong>قلقلة صغرى:</strong> داخل الكلمة.<br>
-          <strong>قلقلة كبرى:</strong> عند الوقف في آخر الكلمة، يكون الصوت أقوى.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>6. Laam Shamsiyyah & Qamariyyah (لام شمسية وقمرية)</h3>
-        <div class="arabic-big">الشَّمس – القَمَر</div>
-        <p class="lesson-text">
-          <strong>لام شمسية:</strong> اللام لا تُنطق، والحرف بعدها يُشدّد مثل «الشَّمس».<br>
-          <strong>لام قمرية:</strong> اللام تُنطق بوضوح مثل «القَمَر».
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>7. Waqf (الوقف)</h3>
-        <div class="arabic-big">الــوقــف</div>
-        <p class="lesson-text">
-          الوقف هو التوقف عند كلمة. نختار أماكن الوقف بحيث يكتمل المعنى، ونستخدم علامات الوقف في المصحف لمعرفة الأفضل.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>8. Sifaat (صفات الحروف)</h3>
-        <div class="arabic-big">ص ض ط ظ ق</div>
-        <p class="lesson-text">
-          <strong>تفخيم:</strong> حروف ثقيلة مثل ص ض ط ظ ق، يكون الصوت غليظاً.<br>
-          <strong>ترقيق:</strong> باقي الحروف يكون الصوت فيها رقيقاً.<br>
-          وهناك صفات أخرى مثل: الهمس، الجهر، الشدة، الرخاوة، وغيرها.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>9. قواعد إضافية</h3>
-        <p class="lesson-text">
-          <strong>همزة الوصل:</strong> تُقرأ في بداية الكلام، وتسقط عند الوصل.<br>
-          <strong>الحروف غير الملفوظة:</strong> حروف تُكتب ولا تُنطق في بعض الكلمات.<br>
-          <strong>الاتصال والإدغام:</strong> كيف تتصل الحروف وتندمج عند القراءة.
-        </p>
-      </div>
-    </section>
-
-    <!-- PRACTICE MODE -->
-    <section id="practice" class="card" style="display:none;">
-      <h2>Practice & Quizzes</h2>
-      <p class="lesson-text">
-        Choose a level, answer questions, and see if you remember the Ahkam correctly.
-      </p>
-
-      <div class="top-bar">
-        <div class="pill">
-          🎚 Level:
-          <select id="practice-difficulty" class="difficulty-select">
-            <option value="beginner">Beginner (letters)</option>
-            <option value="medium">Medium (words)</option>
-            <option value="advanced">Advanced (sentences)</option>
-            <option value="mixed">Mixed</option>
-          </select>
-        </div>
-        <div class="pill">✅ Correct: <span class="value" id="practice-correct">0</span></div>
-        <div class="pill">❌ Wrong: <span class="value" id="practice-wrong">0</span></div>
-        <button class="btn secondary" id="practice-new">New Practice Round ▶</button>
-      </div>
-
-      <div class="card">
-        <div class="arabic-big" id="practice-arabic">نْ + ي</div>
-        <div class="question-text" id="practice-text">ما الحكم هنا؟</div>
-        <div class="options-grid" id="practice-options"></div>
-        <div class="status-line" id="practice-status"></div>
-        <button class="btn" id="practice-next">Next Question ▶</button>
-      </div>
-    </section>
-
-    <!-- GAMES MODE -->
-    <section id="games" class="card" style="display:none;">
-      <h2>Games – Gold Rush 🎮</h2>
-      <p class="lesson-text">
-        Use what you learned! Answer Ahkam questions to collect gold coins.
-        The more correct answers, the more treasure you get.
-      </p>
-
-      <div class="top-bar">
-        <div class="pill">💰 Coins: <span class="value" id="coins">0</span></div>
-        <div class="pill">⭐ XP: <span class="value" id="xp">0</span></div>
-        <div class="pill">🔥 Streak: <span class="value" id="streak">0</span></div>
-        <div class="pill">
-          🎚 Difficulty:
-          <select id="game-difficulty" class="difficulty-select">
-            <option value="beginner">Beginner</option>
-            <option value="medium">Medium</option>
-            <option value="advanced">Advanced</option>
-            <option value="mixed">Mixed</option>
-          </select>
-        </div>
-        <button class="btn secondary" id="start-round">Start Gold Rush ▶</button>
-        <div class="music-controls">
-          🎵 Soft Nasheed
-          <button class="btn" id="music-toggle">Mute</button>
-          <input type="range" id="music-volume" min="0" max="1" step="0.05" value="0.4" />
-        </div>
-      </div>
-
-      <div class="card" id="game-question-card">
-        <div class="gold-bar">
-          <div class="gold-fill" id="gold-fill"></div>
-          <div class="gold-label" id="gold-label">Treasure: 0%</div>
-        </div>
-        <div class="arabic-big" id="game-arabic">نْ</div>
-        <div class="question-text" id="game-text">ما الحكم هنا؟</div>
-        <div class="options-grid" id="game-options"></div>
-        <div class="status-line" id="game-status"></div>
-        <div class="event-log" id="game-event"></div>
-        <button class="btn" id="game-next">Next Question ▶</button>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    Ahkam Master – Learn, practice, then play.
-  </footer>
-
-  <!-- Background nasheed (you provide nasheed.mp3 in the same folder) -->
-  <audio id="nasheed" loop>
-    <source src="nasheed.mp3" type="audio/mpeg" />
-  </audio>
-
-  <script>
-    // ============================================================
-    // MODULE: MODE SWITCHING
-    // ============================================================
-    const modeButtons = document.querySelectorAll('.mode-button');
-    const sections = {
-      learn: document.getElementById('learn'),
-      practice: document.getElementById('practice'),
-      games: document.getElementById('games')
-    };
-
-    modeButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const mode = btn.dataset.mode;
-        modeButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        Object.keys(sections).forEach(key => {
-          sections[key].style.display = key === mode ? 'block' : 'none';
-        });
+<script>
+  const modeButtons=document.querySelectorAll('.mode-button');
+  const sections={learn:document.getElementById('learn'),practice:document.getElementById('practice'),games:document.getElementById('games')};
+  modeButtons.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const mode=btn.dataset.mode;
+      modeButtons.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      Object.keys(sections).forEach(key=>{
+        sections[key].style.display=key===mode?'block':'none';
       });
     });
+  });
 
-    // ============================================================
-    // MODULE: QUESTION BANK (BEGINNER / MEDIUM / ADVANCED)
-    // ============================================================
-    const beginnerQuestions = [
-      // Noon Sakinah & Tanween
-      {
-        arabic: "نْ + ي",
-        text: "نْ متبوعة بـ ي في تركيب مثل: «مَنْ يَقول». ما الحكم؟",
-        options: ["إظهار", "إدغام بغنة", "إقلاب", "إخفاء"],
-        correct: 1,
-        rule: "إدغام بغنة مع حرف الياء."
-      },
-      {
-        arabic: "نْ + ن",
-        text: "نْ متبوعة بـ ن في تركيب مثل: «مِنْ نِعمة». ما الحكم؟",
-        options: ["إظهار", "إدغام بغنة", "إقلاب", "إخفاء"],
-        correct: 1,
-        rule: "إدغام بغنة مع حرف النون."
-      },
-      {
-        arabic: "نْ + م",
-        text: "نْ متبوعة بـ م في تركيب مثل: «مِنْ مَال». ما الحكم؟",
-        options: ["إظهار", "إدغام بغنة", "إقلاب", "إخفاء"],
-        correct: 1,
-        rule: "إدغام بغنة مع حرف الميم."
-      },
-      {
-        arabic: "نْ + و",
-        text: "نْ متبوعة بـ و في تركيب مثل: «مِنْ وَقْت». ما الحكم؟",
-        options: ["إظهار", "إدغام بغنة", "إقلاب", "إخفاء"],
-        correct: 1,
-        rule: "إدغام بغنة مع حرف الواو."
-      },
-      {
-        arabic: "نْ + ل",
-        text: "نْ متبوعة بـ ل في تركيب مثل: «مِنْ لَدُن». ما الحكم؟",
-        options: ["إدغام بغير غنة", "إدغام بغنة", "إخفاء", "إقلاب"],
-        correct: 0,
-        rule: "إدغام بغير غنة مع حرف اللام."
-      },
-      {
-        arabic: "نْ + ر",
-        text: "نْ متبوعة بـ ر في تركيب مثل: «مِنْ رَبِّه». ما الحكم؟",
-        options: ["إدغام بغير غنة", "إدغام بغنة", "إخفاء", "إقلاب"],
-        correct: 0,
-        rule: "إدغام بغير غنة مع حرف الراء."
-      },
-      {
-        arabic: "نْ + ب",
-        text: "نْ متبوعة بـ ب في تركيب مثل: «مِنْ بَعْد». ما الحكم؟",
-        options: ["إخفاء", "إقلاب إلى ميم", "إظهار", "إدغام"],
-        correct: 1,
-        rule: "إقلاب النون إلى ميم مع غنة."
-      },
-      {
-        arabic: "نْ + ت",
-        text: "نْ متبوعة بـ ت في تركيب مثل: «مِنْ تَحت». ما الحكم؟",
-        options: ["إظهار", "إخفاء", "إدغام", "إقلاب"],
-        correct: 1,
-        rule: "إخفاء مع غنة لأن التاء من حروف الإخفاء."
-      },
-      {
-        arabic: "نْ + د",
-        text: "نْ متبوعة بـ د في تركيب مثل: «مِنْ دُون». ما الحكم؟",
-        options: ["إظهار", "إخفاء", "إدغام", "إقلاب"],
-        correct: 1,
-        rule: "إخفاء مع غنة لأن الدال من حروف الإخفاء."
-      },
-      {
-        arabic: "نْ + س",
-        text: "نْ متبوعة بـ س في تركيب مثل: «مِنْ سَبيل». ما الحكم؟",
-        options: ["إظهار", "إخفاء", "إدغام", "إقلاب"],
-        correct: 1,
-        rule: "إخفاء مع غنة لأن السين من حروف الإخفاء."
-      },
-
-      // Meem Sakinah
-      {
-        arabic: "مْ + ب",
-        text: "مْ متبوعة بـ ب في تركيب مثل: «يُمْبِر». ما الحكم؟",
-        options: ["إخفاء شفوي", "إدغام شفوي", "إظهار شفوي", "قلقلة"],
-        correct: 0,
-        rule: "إخفاء شفوي مع غنة عند الميم قبل الباء."
-      },
-      {
-        arabic: "مْ + م",
-        text: "مْ متبوعة بـ م في تركيب مثل: «عَمْمَال». ما الحكم؟",
-        options: ["إخفاء شفوي", "إدغام شفوي", "إظهار شفوي", "قلقلة"],
-        correct: 1,
-        rule: "إدغام شفوي للميمين مع غنة."
-      },
-      {
-        arabic: "مْ + ق",
-        text: "مْ متبوعة بـ ق في تركيب مثل: «يَمْقُول». ما الحكم؟",
-        options: ["إخفاء شفوي", "إدغام شفوي", "إظهار شفوي", "قلقلة"],
-        correct: 2,
-        rule: "إظهار شفوي لأن الحرف بعد الميم ليس باء ولا ميم."
-      },
-
-      // Qalqalah letters
-      {
-        arabic: "قْ (وسط الكلمة)",
-        text: "حرف ق ساكن في وسط كلمة مثل: «أَقْطع». ما نوع القلقلة؟",
-        options: ["قلقلة صغرى", "قلقلة كبرى", "غنة", "مد"],
-        correct: 0,
-        rule: "قلقلة صغرى داخل الكلمة."
-      },
-      {
-        arabic: "قْ (نهاية الكلمة)",
-        text: "حرف ق ساكن في آخر كلمة عند الوقف مثل: «الحَقْ». ما نوع القلقلة؟",
-        options: ["قلقلة كبرى", "قلقلة صغرى", "غنة", "مد لازم"],
-        correct: 0,
-        rule: "قلقلة كبرى عند الوقف."
-      },
-
-      // Laam Shamsiyyah & Qamariyyah
-      {
-        arabic: "الشَّمس",
-        text: "في كلمة «الشَّمس»، ما نوع اللام؟",
-        options: ["لام قمرية", "لام شمسية", "إخفاء", "إدغام"],
-        correct: 1,
-        rule: "لام شمسية، لا تُنطق والسين تُشدّد."
-      },
-      {
-        arabic: "القَمَر",
-        text: "في كلمة «القَمَر»، ما نوع اللام؟",
-        options: ["لام شمسية", "لام قمرية", "إخفاء", "إدغام"],
-        correct: 1,
-        rule: "لام قمرية تُنطق بوضوح."
-      },
-
-      // Madd
-      {
-        arabic: "قَالَ",
-        text: "في كلمة «قَالَ»، الألف فيها أي نوع من المد؟",
-        options: ["مد طبيعي", "مد لازم", "مد جائز منفصل", "مد واجب متصل"],
-        correct: 0,
-        rule: "مد طبيعي بمقدار حركتين."
-      },
-      {
-        arabic: "يَقُولُونَ",
-        text: "في كلمة «يَقُولُونَ»، الواو فيها أي نوع من المد؟",
-        options: ["مد طبيعي", "مد لازم", "مد جائز منفصل", "مد واجب متصل"],
-        correct: 0,
-        rule: "مد طبيعي على الواو."
-      }
-    ];
-
-    const mediumQuestions = [
-      {
-        arabic: "مَنْيَقول",
-        text: "في كلمة «مَنْيَقول»، نْ متبوعة بـ ي. ما الحكم؟",
-        options: ["إظهار", "إدغام بغنة", "إقلاب", "إخفاء"],
-        correct: 1,
-        rule: "إدغام بغنة مع الياء."
-      },
-      {
-        arabic: "مِنْرَبِّه",
-        text: "في كلمة «مِنْرَبِّه»، نْ متبوعة بـ ر. ما الحكم؟",
-        options: ["إدغام بغير غنة", "إدغام بغنة", "إخفاء", "إقلاب"],
-        correct: 0,
-        rule: "إدغام بغير غنة مع الراء."
-      },
-      {
-        arabic: "مِنْبَعْد",
-        text: "في كلمة «مِنْبَعْد»، نْ متبوعة بـ ب. ما الحكم؟",
-        options: ["إخفاء", "إقلاب إلى ميم", "إظهار", "إدغام"],
-        correct: 1,
-        rule: "إقلاب النون إلى ميم."
-      },
-      {
-        arabic: "يُمْبِر",
-        text: "في كلمة «يُمْبِر»، مْ متبوعة بـ ب. ما الحكم؟",
-        options: ["إخفاء شفوي", "إدغام شفوي", "إظهار شفوي", "قلقلة"],
-        correct: 0,
-        rule: "إخفاء شفوي."
-      },
-      {
-        arabic: "عَمْمَال",
-        text: "في كلمة «عَمْمَال»، مْ متبوعة بـ م. ما الحكم؟",
-        options: ["إخفاء شفوي", "إدغام شفوي", "إظهار شفوي", "قلقلة"],
-        correct: 1,
-        rule: "إدغام شفوي."
-      },
-      {
-        arabic: "أَقْطع",
-        text: "في كلمة «أَقْطع»، ق ساكن في الوسط. ما نوع القلقلة؟",
-        options: ["قلقلة صغرى", "قلقلة كبرى", "غنة", "مد لازم"],
-        correct: 0,
-        rule: "قلقلة صغرى."
-      },
-      {
-        arabic: "الحَقْ",
-        text: "في كلمة «الحَقْ» عند الوقف، ما نوع القلقلة؟",
-        options: ["قلقلة كبرى", "قلقلة صغرى", "غنة", "مد طبيعي"],
-        correct: 0,
-        rule: "قلقلة كبرى."
-      },
-      {
-        arabic: "الشَّمس",
-        text: "في كلمة «الشَّمس»، ما نوع اللام؟",
-        options: ["لام قمرية", "لام شمسية", "إخفاء", "إدغام"],
-        correct: 1,
-        rule: "لام شمسية."
-      },
-      {
-        arabic: "القَمَر",
-        text: "في كلمة «القَمَر»، ما نوع اللام؟",
-        options: ["لام شمسية", "لام قمرية", "إخفاء", "إدغام"],
-        correct: 1,
-        rule: "لام قمرية."
-      },
-      {
-        arabic: "قَالَ",
-        text: "في كلمة «قَالَ»، الألف فيها أي نوع من المد؟",
-        options: ["مد طبيعي", "مد لازم", "مد جائز منفصل", "مد واجب متصل"],
-        correct: 0,
-        rule: "مد طبيعي."
-      }
-    ];
-
-    const advancedQuestions = [
-      {
-        arabic: "مَنْ يَعملْ خيرًا يَجِدْه",
-        text: "في هذه الجملة، ما الحكم على الدال الساكنة في «يَجِدْه» عند الوقف؟",
-        options: ["غنة", "قلقلة كبرى", "إخفاء", "مد لازم"],
-        correct: 1,
-        rule: "قلقلة كبرى عند الوقف على الدال."
-      },
-      {
-        arabic: "والنَّجمُ إذا هَوَى",
-        text: "في هذه الجملة، ما المجموعة الأبرز من الأحكام؟",
-        options: ["تفخيم + ترقيق + مد", "غنة فقط", "قلقلة فقط", "إخفاء فقط"],
-        correct: 0,
-        rule: "تفخيم في بعض الحروف، ترقيق في أخرى، مع وجود مد."
-      },
-      {
-        arabic: "قالَ الرَّجلُ الحَقَّ",
-        text: "في هذه الجملة، ما الحكم على القاف الساكنة في «الحَقَّ» عند الوقف؟",
-        options: ["غنة", "قلقلة كبرى", "إخفاء", "مد لازم"],
-        correct: 1,
-        rule: "قلقلة كبرى على القاف."
-      },
-      {
-        arabic: "إنَّما المؤمنونَ إخوةٌ",
-        text: "في هذه الجملة، ما الحكم على النون المشددة في «إنَّما»؟",
-        options: ["مد", "شدة مع غنة", "قلقلة", "إخفاء"],
-        correct: 1,
-        rule: "شدة مع غنة في النون المشددة."
-      },
-      {
-        arabic: "اهدِنا الصِّراطَ المستقيمَ",
-        text: "في هذه الجملة، ما الحكم على الصاد في «الصِّراط»؟",
-        options: ["ترقيق", "تفخيم", "إخفاء", "إظهار"],
-        correct: 1,
-        rule: "تفخيم حرف الصاد."
-      }
-    ];
-
-    function getPool(level) {
-      if (level === "beginner") return beginnerQuestions;
-      if (level === "medium") return mediumQuestions;
-      if (level === "advanced") return advancedQuestions;
-      return beginnerQuestions.concat(mediumQuestions, advancedQuestions);
+  const nasheed=document.getElementById('nasheed');
+  const musicToggle=document.getElementById('music-toggle');
+  const musicVolume=document.getElementById('music-volume');
+  nasheed.volume=parseFloat(musicVolume.value);
+  nasheed.play().catch(()=>{});
+  musicToggle.addEventListener('click',()=>{
+    if(nasheed.paused){
+      nasheed.play();
+      musicToggle.textContent='Mute';
+    }else{
+      nasheed.pause();
+      musicToggle.textContent='Play';
     }
+  });
+  musicVolume.addEventListener('input',()=>{
+    nasheed.volume=parseFloat(musicVolume.value);
+  });
 
-    function randomFrom(arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
-
-    // ============================================================
-    // MODULE: QUIZ ENGINE (PRACTICE)
-    // ============================================================
-    const practiceDifficultyEl = document.getElementById('practice-difficulty');
-    const practiceArabicEl = document.getElementById('practice-arabic');
-    const practiceTextEl = document.getElementById('practice-text');
-    const practiceOptionsEl = document.getElementById('practice-options');
-    const practiceStatusEl = document.getElementById('practice-status');
-    const practiceNextBtn = document.getElementById('practice-next');
-    const practiceNewBtn = document.getElementById('practice-new');
-    const practiceCorrectEl = document.getElementById('practice-correct');
-    const practiceWrongEl = document.getElementById('practice-wrong');
-
-    let practiceCorrect = 0;
-    let practiceWrong = 0;
-    let practiceQuestion = null;
-
-    function renderPracticeQuestion() {
-      const pool = getPool(practiceDifficultyEl.value);
-      practiceQuestion = randomFrom(pool);
-      practiceArabicEl.textContent = practiceQuestion.arabic;
-      practiceTextEl.textContent = practiceQuestion.text;
-      practiceStatusEl.textContent = "";
-      practiceOptionsEl.innerHTML = "";
-      practiceQuestion.options.forEach((opt, idx) => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.textContent = opt;
-        btn.addEventListener('click', () => handlePracticeAnswer(idx, btn));
-        practiceOptionsEl.appendChild(btn);
-      });
-    }
-
-    function handlePracticeAnswer(idx, btn) {
-      const allButtons = practiceOptionsEl.querySelectorAll('.option-btn');
-      allButtons.forEach(b => b.disabled = true);
-
-      if (idx === practiceQuestion.correct) {
-        btn.classList.add('correct');
-        practiceCorrect++;
-        practiceStatusEl.textContent = "صحيح! أحسنت 👏 القاعدة: " + practiceQuestion.rule;
-      } else {
-        btn.classList.add('wrong');
-        practiceWrong++;
-        practiceStatusEl.textContent = "خطأ، القاعدة الصحيحة: " + practiceQuestion.rule;
-      }
-      practiceCorrectEl.textContent = practiceCorrect;
-      practiceWrongEl.textContent = practiceWrong;
-    }
-
-    practiceNextBtn.addEventListener('click', renderPracticeQuestion);
-    practiceNewBtn.addEventListener('click', () => {
-      practiceCorrect = 0;
-      practiceWrong = 0;
-      practiceCorrectEl.textContent = "0";
-      practiceWrongEl.textContent = "0";
-      renderPracticeQuestion();
-    });
-
-    renderPracticeQuestion();
-
-    // ============================================================
-    // MODULE: GAMES (GOLD RUSH) USING SAME QUIZ ENGINE
-    // ============================================================
-    const coinsEl = document.getElementById('coins');
-    const xpEl = document.getElementById('xp');
-    const streakEl = document.getElementById('streak');
-    const gameDifficultyEl = document.getElementById('game-difficulty');
-    const gameArabicEl = document.getElementById('game-arabic');
-    const gameTextEl = document.getElementById('game-text');
-    const gameOptionsEl = document.getElementById('game-options');
-    const gameStatusEl = document.getElementById('game-status');
-    const gameEventEl = document.getElementById('game-event');
-    const gameNextBtn = document.getElementById('game-next');
-    const startRoundBtn = document.getElementById('start-round');
-    const goldFill = document.getElementById('gold-fill');
-    const goldLabel = document.getElementById('gold-label');
-
-    let coins = 0;
-    let xp = 0;
-    let streak = 0;
-    let gameQuestion = null;
-    let roundQuestions = 15;
-    let answeredThisRound = 0;
-
-    function updateHUD() {
-      coinsEl.textContent = coins;
-      xpEl.textContent = xp;
-      streakEl.textContent = streak;
-      const percent = Math.min(100, Math.floor((coins / 200) * 100));
-      goldFill.style.width = percent + "%";
-      goldLabel.textContent = "Treasure: " + percent + "%";
-    }
-
-    function renderGameQuestion() {
-      const pool = getPool(gameDifficultyEl.value);
-      gameQuestion = randomFrom(pool);
-      gameArabicEl.textContent = gameQuestion.arabic;
-      gameTextEl.textContent = gameQuestion.text;
-      gameStatusEl.textContent = "";
-      gameEventEl.textContent = "";
-      gameOptionsEl.innerHTML = "";
-      gameQuestion.options.forEach((opt, idx) => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.textContent = opt;
-        btn.addEventListener('click', () => handleGameAnswer(idx, btn));
-        gameOptionsEl.appendChild(btn);
-      });
-    }
-
-    function handleGameAnswer(idx, btn) {
-      const allButtons = gameOptionsEl.querySelectorAll('.option-btn');
-      allButtons.forEach(b => b.disabled = true);
-
-      answeredThisRound++;
-
-      if (idx === gameQuestion.correct) {
-        btn.classList.add('correct');
-        streak++;
-        let gainedXP = 5 + streak;
-        let gainedCoins = 10 + streak * 2;
-        xp += gainedXP;
-        coins += gainedCoins;
-        gameStatusEl.textContent = `صحيح! 🎉 +${gainedXP} خبرة، +${gainedCoins} عملة ذهبية. القاعدة: ${gameQuestion.rule}`;
-        triggerGameEvent(true);
-      } else {
-        btn.classList.add('wrong');
-        streak = 0;
-        gameStatusEl.textContent = "خطأ! 💡 القاعدة الصحيحة: " + gameQuestion.rule;
-        triggerGameEvent(false);
-      }
-
-      if (answeredThisRound >= roundQuestions) {
-        gameStatusEl.textContent += " 🎯 نهاية الجولة! اضغط «Start Gold Rush» لجولة جديدة.";
-      }
-
-      updateHUD();
-    }
-
-    function triggerGameEvent(correct) {
-      const roll = Math.random();
-      if (roll > 0.7) {
-        gameEventEl.textContent = "";
-        return;
-      }
-
-      if (correct) {
-        const goodEvents = [
-          () => {
-            const bonus = 10;
-            coins += bonus;
-            gameEventEl.textContent = `✨ كنز إضافي! +${bonus} عملة ذهبية.`;
-          },
-          () => {
-            const bonus = 8;
-            xp += bonus;
-            gameEventEl.textContent = `📘 زيادة في العلم! +${bonus} خبرة.`;
-          }
-        ];
-        randomFrom(goodEvents)();
-      } else {
-        const badEvents = [
-          () => {
-            const loss = Math.min(coins, 10);
-            coins -= loss;
-            gameEventEl.textContent = `💥 خسرت ${loss} من الذهب بسبب خطأ.`;
-          },
-          () => {
-            const lossXP = Math.min(xp, 6);
-            xp -= lossXP;
-            gameEventEl.textContent = `📉 نقص في الخبرة: -${lossXP}.`;
-          }
-        ];
-        randomFrom(badEvents)();
-      }
-      updateHUD();
-    }
-
-    startRoundBtn.addEventListener('click', () => {
-      answeredThisRound = 0;
-      streak = 0;
-      gameStatusEl.textContent = "جولة Gold Rush جديدة بدأت! ✨";
-      gameEventEl.textContent = "";
-      renderGameQuestion();
-      updateHUD();
-    });
-
-    gameNextBtn.addEventListener('click', () => {
-      if (answeredThisRound >= roundQuestions) {
-        gameStatusEl.textContent = "الجولة انتهت. اضغط «Start Gold Rush» لجولة جديدة.";
-        return;
-      }
-      renderGameQuestion();
-    });
-
-    // ============================================================
-    // MODULE: MUSIC (
+  const beginnerQuestions=[
+    {arabic:"نْ + ي",text:"نْ متبوعة بـ ي في تركيب مثل: «مَنْ يَقول». ما الحكم؟",options:["إظهار","إدغام بغنة","إقلاب","إخفاء"],correct:1,rule:"إدغام بغنة مع الياء."},
+    {arabic:"نْ + ن",text:"نْ متبوعة بـ ن في تركيب مثل: «مِنْ نِعمة». ما الحكم؟",options:["إظهار","إدغام بغنة","إقلاب","إخفاء"],correct:1,rule:"إدغام بغنة مع النون."},
+    {arabic:"نْ + م",text:"نْ متبوعة بـ م في تركيب مثل: «مِنْ مَال». ما الحكم؟",options:["إظهار","إدغام بغنة","إقلاب","إخفاء"],correct:1,rule:"إدغام بغنة مع الميم."},
+    {arabic:"نْ + و",text:"نْ متبوعة بـ و في تركيب مثل: «مِنْ وَقْت». ما الحكم؟",options:["إظهار","إدغام بغنة","إقلاب","إخفاء"],correct:1,rule:"إدغام بغنة مع الواو."},
+    {arabic:"نْ + ل",text:"نْ متبوعة بـ ل في تركيب مثل: «مِنْ لَدُن». ما الحكم؟",options:["إدغام بغير غنة","إدغام بغنة","إخفاء","إقلاب"],correct:0,rule:"إدغام بغير غنة مع اللام."},
+    {arabic:"نْ + ر",text:"نْ متبوعة بـ ر في تركيب مثل: «مِنْ رَبِّه». ما الحكم؟",options:["إدغام بغير غنة","إدغام بغنة","إخفاء","إقلاب"],correct:0,rule:"إدغام بغير غنة مع الراء."},
+    {arabic:"نْ + ب",text:"نْ متبوعة بـ ب في تركيب مثل: «مِنْ بَعْد». ما الحكم؟",options:["إخفاء","إقلاب إلى ميم","إظهار","إدغام"],correct:1,rule:"إقلاب النون إلى ميم."},
+    {arabic:"نْ + ت",text:"نْ متبوعة بـ ت في تركيب مثل: «مِنْ تَحت». ما الحكم؟",options:["إظهار","إخفاء","إدغام","إقلاب"],correct:1,rule:"إخفاء مع غنة."},
+    {arabic:"نْ + د",text:"نْ متبوعة بـ د في تركيب مثل: «مِنْ دُون». ما الحكم؟",options:["إظهار","إخفاء","إدغام","إقلاب"],correct:1,rule:"إخفاء مع غنة."},
+    {arabic:"نْ + س",text:"نْ متبوعة بـ س في تركيب مثل: «مِنْ سَبيل». ما الحكم؟",options:["إظهار","إخفاء","إدغام","إقلاب"],correct:1,rule:"إخفاء مع غنة."},
+    {arabic:"مْ + ب",text:"مْ متبوعة بـ ب في تركيب مثل: «يُمْبِر». ما الحكم؟",options:["إخفاء شفوي","إدغام شفوي","إظهار شفوي","قلقلة"],correct:0,rule:"إخفاء شفوي."},
+    {arabic:"مْ + م",text:"مْ متبوعة بـ م في تركيب مثل: «عَمْمَال». ما الحكم؟",options:["إخفاء شفوي","إدغام شفوي","إظهار شفوي","قلقلة"],correct:1,rule:"إدغام شفوي."},
+    {arabic:"مْ + ق",text:"مْ متبوعة بـ ق في تركيب مثل: «يَمْقُول». ما الحكم؟",options:["إخفاء شفوي","إدغام شفوي","إظهار شفوي","قلقلة"],correct:2,rule:"إظهار شفوي."},
+    {arabic:"قْ (وسط)",text:"ق ساكن في وسط كلمة مثل: «أَقْطع». ما نوع القلقلة؟",options:["قلقلة صغرى","قلقلة كبرى","غنة","مد"],correct:0,rule:"قلقلة صغرى."},
+    {arabic:"قْ (وقف)",text:"ق ساكن في آخر كلمة عند الوقف مثل: «الحَقْ». ما نوع القلقلة؟",options:["قلقلة كبرى","قلقلة صغرى","غنة","مد لازم"],correct:0,rule:"قلقلة كبرى."},
+    {arabic
