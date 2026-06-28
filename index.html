@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Ahkam Master</title>
+<title>Ahkam Master – Tajweed Game Hub</title>
 
 <style>
   :root {
+    --bg-gamer: radial-gradient(circle at top, #020617 0, #0f172a 60%);
     --bg-space: radial-gradient(circle at top, #1d283a 0, #020617 60%);
     --bg-candy: radial-gradient(circle at top, #fecdd3 0, #4c1d95 60%);
     --bg-islamic: radial-gradient(circle at top, #0f766e 0, #022c22 60%);
     --bg-cartoon: radial-gradient(circle at top, #fef3c7 0, #1f2937 60%);
-    --bg-gamer: radial-gradient(circle at top, #020617 0, #0f172a 60%);
-    --card: #0f172a;
+    --card: #0b1220;
     --accent: #f97316;
     --accent2: #22c55e;
     --accent3: #3b82f6;
@@ -153,28 +153,25 @@
     pointer-events: none;
   }
 
-  .big-arabic {
-    font-size: 70px;
+  .level-title {
+    font-size: 19px;
+    margin-bottom: 6px;
+    font-weight: 800;
+    color: #f97316;
     text-align: center;
-    margin: 12px 0;
-    color: #facc15;
   }
 
-  .rule-label {
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 999px;
+  .small-note {
     font-size: 13px;
-    margin: 4px;
-    color: #0f172a;
-    font-weight: 700;
+    color: #cbd5f5;
+    text-align: center;
   }
 
-  .rule-izhar { background: #22c55e; }
-  .rule-idgham-ghunnah { background: #3b82f6; }
-  .rule-idgham-no-ghunnah { background: #f97316; }
-  .rule-iqlab { background: #ec4899; }
-  .rule-ikhfa { background: #8b5cf6; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 12px;
+  }
 
   .btn {
     display: inline-block;
@@ -203,41 +200,11 @@
 
   .btn.secondary:hover { background: #94a3b8; }
 
-  .result {
-    margin-top: 8px;
-    font-size: 16px;
-    min-height: 24px;
+  .big-arabic {
+    font-size: 60px;
     text-align: center;
-    font-weight: 700;
-  }
-
-  .stars {
-    margin-top: 4px;
-    font-size: 18px;
+    margin: 12px 0;
     color: #facc15;
-    text-align: center;
-  }
-
-  .level-title {
-    font-size: 19px;
-    margin-bottom: 6px;
-    font-weight: 800;
-    color: #f97316;
-    text-align: center;
-  }
-
-  .level-title::before { content: "🎯 "; }
-
-  .small-note {
-    font-size: 13px;
-    color: #cbd5f5;
-    text-align: center;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 12px;
   }
 
   .question-text {
@@ -251,6 +218,21 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 8px;
+  }
+
+  .result {
+    margin-top: 8px;
+    font-size: 16px;
+    min-height: 24px;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .stars {
+    margin-top: 4px;
+    font-size: 18px;
+    color: #facc15;
+    text-align: center;
   }
 
   .game-hud {
@@ -335,6 +317,16 @@
     margin-bottom: 4px;
   }
 
+  .mode-pill {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #0f172a;
+    color: #e5e7eb;
+    font-size: 12px;
+    margin: 2px;
+  }
+
   footer {
     text-align: center;
     padding: 12px;
@@ -375,7 +367,7 @@
   }
 
   @media (max-width: 600px) {
-    .big-arabic { font-size: 50px; }
+    .big-arabic { font-size: 44px; }
     header {
       flex-direction: column;
       align-items: flex-start;
@@ -399,7 +391,7 @@
   <nav>
     <button onclick="showScreen('home')" id="nav-home" class="active">Home</button>
     <button onclick="showScreen('noon')" id="nav-noon">Noon & Tanween</button>
-    <button onclick="showScreen('meem')" id="nav-meem">Meem Sakinah</button>
+    <button onclick="showScreen('meem')" id="nav-meem">Meem</button>
     <button onclick="showScreen('madd')" id="nav-madd">Madd</button>
     <button onclick="showScreen('ghunnah')" id="nav-ghunnah">Ghunnah</button>
     <button onclick="showScreen('qalqalah')" id="nav-qalqalah">Qalqalah</button>
@@ -422,7 +414,7 @@
     </select>
   </div>
   <div class="top-group">
-    <span>Random nasheed-style background playing automatically 🎵</span>
+    <span>Random nasheed-style background 🎵 (no instruments)</span>
   </div>
   <div class="top-group">
     <span class="coins-badge">Coins: <span id="global-coins">0</span></span>
@@ -434,63 +426,90 @@
 
 <!-- HOME -->
 <section id="screen-home">
-  <h1>Welcome to Ahkam Master</h1>
-  <p class="subtitle">Tap a world, then choose your game mode inside that world.</p>
+  <h1>Ahkam Worlds & Game Modes</h1>
+  <p class="subtitle">Choose a world, then pick a game mode inside it (Classic, Kit Mode, Challenge).</p>
 
   <div class="card">
-    <div class="level-title">Ahkam Worlds</div>
+    <div class="level-title">Worlds</div>
     <div class="grid">
       <div class="card">
         <strong>Noon Sakinah & Tanween</strong>
-        <p class="small-note">Izhar, Idgham, Iqlab, Ikhfa.</p>
+        <p class="small-note">Izhar, Idgham, Iqlab, Ikhfa with real Qur’an examples.</p>
+        <span class="mode-pill">Classic Quiz</span>
+        <span class="mode-pill">Kit Mode (Gimkit-style)</span>
+        <span class="mode-pill">Challenge Mode</span>
         <button class="btn" onclick="showScreen('noon')">Enter Noon World</button>
       </div>
       <div class="card">
         <strong>Meem Sakinah</strong>
         <p class="small-note">Ikhfa Shafawi, Idgham Shafawi, Izhar Shafawi.</p>
+        <span class="mode-pill">Classic Quiz</span>
+        <span class="mode-pill">Kit Mode</span>
+        <span class="mode-pill">Challenge Mode</span>
         <button class="btn" onclick="showScreen('meem')">Enter Meem World</button>
       </div>
       <div class="card">
         <strong>Madd (Elongation)</strong>
-        <p class="small-note">Natural & secondary Madd types.</p>
+        <p class="small-note">Natural & secondary Madd types with full words.</p>
+        <span class="mode-pill">Classic Quiz</span>
+        <span class="mode-pill">Kit Mode</span>
+        <span class="mode-pill">Challenge Mode</span>
         <button class="btn" onclick="showScreen('madd')">Enter Madd World</button>
       </div>
       <div class="card">
         <strong>Ghunnah</strong>
-        <p class="small-note">Nasal sound of 2 counts.</p>
-        <button class="btn" onclick="showScreen('ghunnah')">Practice Ghunnah</button>
+        <p class="small-note">Nasalization in real Qur’an phrases.</p>
+        <span class="mode-pill">Classic Quiz</span>
+        <span class="mode-pill">Kit Mode</span>
+        <span class="mode-pill">Challenge Mode</span>
+        <button class="btn" onclick="showScreen('ghunnah')">Enter Ghunnah World</button>
       </div>
       <div class="card">
         <strong>Qalqalah</strong>
-        <p class="small-note">Minor & major echoing sound.</p>
-        <button class="btn" onclick="showScreen('qalqalah')">Practice Qalqalah</button>
+        <p class="small-note">Minor & major echoing in full words.</p>
+        <span class="mode-pill">Classic Quiz</span>
+        <span class="mode-pill">Kit Mode</span>
+        <span class="mode-pill">Challenge Mode</span>
+        <button class="btn" onclick="showScreen('qalqalah')">Enter Qalqalah World</button>
       </div>
       <div class="card">
         <strong>Laam Rules</strong>
-        <p class="small-note">Laam Shamsiyyah & Laam Qamariyyah.</p>
-        <button class="btn" onclick="showScreen('laam')">Practice Laam</button>
+        <p class="small-note">Solar & lunar Lam in Qur’an examples.</p>
+        <span class="mode-pill">Classic Quiz</span>
+        <span class="mode-pill">Kit Mode</span>
+        <span class="mode-pill">Challenge Mode</span>
+        <button class="btn" onclick="showScreen('laam')">Enter Laam World</button>
       </div>
       <div class="card">
         <strong>Waqf (Stopping)</strong>
-        <p class="small-note">Stopping signs & behavior.</p>
-        <button class="btn" onclick="showScreen('waqf')">Practice Waqf</button>
+        <p class="small-note">Stopping signs in actual ayat.</p>
+        <span class="mode-pill">Classic Quiz</span>
+        <span class="mode-pill">Kit Mode</span>
+        <span class="mode-pill">Challenge Mode</span>
+        <button class="btn" onclick="showScreen('waqf')">Enter Waqf World</button>
       </div>
       <div class="card">
-        <strong>Sifaat (Characteristics)</strong>
-        <p class="small-note">Tafkheem, Tarqeeq & more.</p>
-        <button class="btn" onclick="showScreen('sifaat')">Practice Sifaat</button>
+        <strong>Sifaat</strong>
+        <p class="small-note">Heavy/light letters in Qur’an words.</p>
+        <span class="mode-pill">Classic Quiz</span>
+        <span class="mode-pill">Kit Mode</span>
+        <span class="mode-pill">Challenge Mode</span>
+        <button class="btn" onclick="showScreen('sifaat')">Enter Sifaat World</button>
       </div>
       <div class="card">
-        <strong>Foundational Rules</strong>
+        <strong>Foundations</strong>
         <p class="small-note">Hamzat al-Wasl, silent letters, connection rules.</p>
-        <button class="btn" onclick="showScreen('foundations')">Practice Foundations</button>
+        <span class="mode-pill">Classic Quiz</span>
+        <span class="mode-pill">Kit Mode</span>
+        <span class="mode-pill">Challenge Mode</span>
+        <button class="btn" onclick="showScreen('foundations')">Enter Foundations World</button>
       </div>
     </div>
   </div>
 
   <div class="card">
-    <div class="level-title">Power-Up Shop</div>
-    <p class="small-note">Buy power-ups with coins and use them inside any world.</p>
+    <div class="level-title">Global Shop (Gimkit-style)</div>
+    <p class="small-note">Earn coins in any world, then buy upgrades that help in all modes.</p>
     <div class="shop-grid">
       <div class="shop-item">
         <div class="shop-item-title">Double Points</div>
@@ -510,61 +529,58 @@
         <div class="shop-item-cost">Cost: 25 coins</div>
         <button class="btn secondary" onclick="buyPowerUp('freeze')">Buy</button>
       </div>
+      <div class="shop-item">
+        <div class="shop-item-title">Bonus Income</div>
+        <div class="shop-item-desc">Every correct answer gives +2 extra coins.</div>
+        <div class="shop-item-cost">Cost: 40 coins</div>
+        <button class="btn secondary" onclick="buyPowerUp('income')">Buy</button>
+      </div>
     </div>
     <p class="small-note" id="powerup-info">
-      Owned power-ups — Double: <span id="owned-double">0</span>,
+      Owned — Double: <span id="owned-double">0</span>,
       Hint: <span id="owned-hint">0</span>,
-      Freeze: <span id="owned-freeze">0</span>.
+      Freeze: <span id="owned-freeze">0</span>,
+      Income Boost: <span id="owned-income">0</span>.
     </p>
   </div>
 </section>
 
-<!-- NOON & TANWEEN -->
+<!-- TEMPLATE FOR WORLDS -->
+<!-- Each world: mode select (Classic / Kit / Challenge), HUD, question, options -->
+
+<!-- NOON WORLD -->
 <section id="screen-noon" style="display:none;">
-  <h1>Noon Sakinah (نْ) & Tanween (ــًــٍــٌ)</h1>
-  <p class="subtitle">Izhar, Idgham (with & without Ghunnah), Iqlab, Ikhfa.</p>
+  <h1>Noon Sakinah & Tanween</h1>
+  <p class="subtitle">Izhar, Idgham (with & without Ghunnah), Iqlab, Ikhfa using real Qur’an words.</p>
 
   <div class="card">
-    <div class="level-title">Rules Overview</div>
-    <p class="small-note">
-      Noon Sakinah and Tanween have 4 main rules:
-    </p>
-    <div style="text-align:center; margin-top:8px;">
-      <span class="rule-label rule-izhar">Izhar (إظهار) — Clear</span>
-      <span class="rule-label rule-idgham-ghunnah">Idgham with Ghunnah: ي ن م و</span>
-      <span class="rule-label rule-idgham-no-ghunnah">Idgham without Ghunnah: ل ر</span>
-      <span class="rule-label rule-iqlab">Iqlab (إقلاب) — to Meem</span>
-      <span class="rule-label rule-ikhfa">Ikhfa (إخفاء) — Concealment</span>
+    <div class="level-title">Choose Game Mode</div>
+    <p class="small-note">Classic = normal quiz, Kit Mode = earn money & buy upgrades, Challenge = faster timer & streak bonuses.</p>
+    <div style="text-align:center;">
+      <select id="noon-mode" class="top-select">
+        <option value="classic">Classic Quiz</option>
+        <option value="kit">Kit Mode (Gimkit-style)</option>
+        <option value="challenge">Challenge Mode</option>
+      </select>
+      <button class="btn secondary" onclick="startWorld('noon'); randomNoon();">Start Game</button>
     </div>
   </div>
 
   <div class="card">
-    <div class="level-title">Noon & Tanween Game</div>
-    <p class="small-note">Choose a game mode, then answer as many as you can.</p>
-
-    <div style="text-align:center; margin-bottom:8px;">
-      <label style="font-size:13px;color:#cbd5f5;">Game Mode:
-        <select id="noon-mode" class="top-select" style="margin-left:4px;">
-          <option value="classic">Classic Quiz</option>
-          <option value="battle">Battle Mode</option>
-          <option value="adventure">Adventure Mode</option>
-        </select>
-      </label>
-      <button class="btn secondary" onclick="startWorld('noon'); randomNoon();">Start Game</button>
-    </div>
-
+    <div class="level-title">Noon Game</div>
     <div class="game-hud">
       <span>Score: <span id="noon-score">0</span></span>
       <span>Streak: <span id="noon-streak">0</span></span>
       <span>XP: <span id="noon-xp">0</span></span>
+      <span>Money: <span id="noon-money">0</span></span>
       <span class="timer-badge">Time: <span id="noon-timer">15</span>s</span>
       <div class="xp-bar">
         <div class="xp-fill" id="noon-xp-fill"></div>
       </div>
     </div>
 
-    <div class="big-arabic" id="noon-question">نْ + ب</div>
-    <p class="question-text" id="noon-question-text">What is the rule here?</p>
+    <div class="big-arabic" id="noon-question">مِنْ رَبِّهِمْ</div>
+    <p class="question-text" id="noon-question-text">What is the Ahkam rule on Noon/Tanween in this word/phrase?</p>
     <p class="small-note" id="noon-hint"></p>
     <div class="options">
       <button class="btn" onclick="answerNoon('izhar')">Izhar</button>
@@ -584,50 +600,38 @@
   </div>
 </section>
 
-<!-- MEEM SAKINAH -->
+<!-- MEEM WORLD -->
 <section id="screen-meem" style="display:none;">
-  <h1>Meem Sakinah (مْ)</h1>
-  <p class="subtitle">Ikhfa Shafawi, Idgham Shafawi, Izhar Shafawi.</p>
+  <h1>Meem Sakinah</h1>
+  <p class="subtitle">Ikhfa Shafawi, Idgham Shafawi, Izhar Shafawi with Qur’an examples.</p>
 
   <div class="card">
-    <div class="level-title">Rules Overview</div>
-    <p class="small-note">
-      Meem Sakinah has 3 main rules:
-    </p>
-    <div style="text-align:center; margin-top:8px;">
-      <span class="rule-label rule-ikhfa">Ikhfa Shafawi (إخفاء شفوي)</span>
-      <span class="rule-label rule-idgham-ghunnah">Idgham Shafawi (إدغام شفوي)</span>
-      <span class="rule-label rule-izhar">Izhar Shafawi (إظهار شفوي)</span>
+    <div class="level-title">Choose Game Mode</div>
+    <div style="text-align:center;">
+      <select id="meem-mode" class="top-select">
+        <option value="classic">Classic Quiz</option>
+        <option value="kit">Kit Mode (Gimkit-style)</option>
+        <option value="challenge">Challenge Mode</option>
+      </select>
+      <button class="btn secondary" onclick="startWorld('meem'); randomMeem();">Start Game</button>
     </div>
   </div>
 
   <div class="card">
     <div class="level-title">Meem Game</div>
-    <p class="small-note">Choose a mode, then start.</p>
-
-    <div style="text-align:center; margin-bottom:8px;">
-      <label style="font-size:13px;color:#cbd5f5;">Game Mode:
-        <select id="meem-mode" class="top-select" style="margin-left:4px;">
-          <option value="classic">Classic Quiz</option>
-          <option value="battle">Battle Mode</option>
-          <option value="adventure">Adventure Mode</option>
-        </select>
-      </label>
-      <button class="btn secondary" onclick="startWorld('meem'); randomMeem();">Start Game</button>
-    </div>
-
     <div class="game-hud">
       <span>Score: <span id="meem-score">0</span></span>
       <span>Streak: <span id="meem-streak">0</span></span>
       <span>XP: <span id="meem-xp">0</span></span>
+      <span>Money: <span id="meem-money">0</span></span>
       <span class="timer-badge">Time: <span id="meem-timer">15</span>s</span>
       <div class="xp-bar">
         <div class="xp-fill" id="meem-xp-fill"></div>
       </div>
     </div>
 
-    <div class="big-arabic" id="meem-question">مْ + ب</div>
-    <p class="question-text" id="meem-question-text">What is the rule here?</p>
+    <div class="big-arabic" id="meem-question">هُمْ بِهِ</div>
+    <p class="question-text" id="meem-question-text">What is the rule on Meem Sakinah here?</p>
     <p class="small-note" id="meem-hint"></p>
     <div class="options">
       <button class="btn" onclick="answerMeem('ikhfa')">Ikhfa Shafawi</button>
@@ -645,51 +649,38 @@
   </div>
 </section>
 
-<!-- MADD -->
+<!-- MADD WORLD -->
 <section id="screen-madd" style="display:none;">
   <h1>Madd (Elongation)</h1>
-  <p class="subtitle">Natural Madd and secondary Madd types.</p>
+  <p class="subtitle">Natural & secondary Madd types in full Qur’an words.</p>
 
   <div class="card">
-    <div class="level-title">Madd Types</div>
-    <p class="small-note">
-      Natural Madd:<br>
-      Madd Tabee’i / Madd Asli (مد طبيعي)<br><br>
-      Secondary Madd:<br>
-      Madd Jaiz Munfasil (مد جائز منفصل)<br>
-      Madd Wajib Muttasil (مد واجب متصل)<br>
-      Madd Lazim (مد لازم)<br>
-      Madd ‘Arid Lissukoon (مد عارض للسكون)
-    </p>
+    <div class="level-title">Choose Game Mode</div>
+    <div style="text-align:center;">
+      <select id="madd-mode" class="top-select">
+        <option value="classic">Classic Quiz</option>
+        <option value="kit">Kit Mode (Gimkit-style)</option>
+        <option value="challenge">Challenge Mode</option>
+      </select>
+      <button class="btn secondary" onclick="startWorld('madd'); randomMadd();">Start Game</button>
+    </div>
   </div>
 
   <div class="card">
     <div class="level-title">Madd Game</div>
-    <p class="small-note">Choose a mode, then start.</p>
-
-    <div style="text-align:center; margin-bottom:8px;">
-      <label style="font-size:13px;color:#cbd5f5;">Game Mode:
-        <select id="madd-mode" class="top-select" style="margin-left:4px;">
-          <option value="classic">Classic Quiz</option>
-          <option value="battle">Battle Mode</option>
-          <option value="adventure">Adventure Mode</option>
-        </select>
-      </label>
-      <button class="btn secondary" onclick="startWorld('madd'); randomMadd();">Start Game</button>
-    </div>
-
     <div class="game-hud">
       <span>Score: <span id="madd-score">0</span></span>
       <span>Streak: <span id="madd-streak">0</span></span>
       <span>XP: <span id="madd-xp">0</span></span>
+      <span>Money: <span id="madd-money">0</span></span>
       <span class="timer-badge">Time: <span id="madd-timer">15</span>s</span>
       <div class="xp-bar">
         <div class="xp-fill" id="madd-xp-fill"></div>
       </div>
     </div>
 
-    <div class="big-arabic" id="madd-question">قَالُوا</div>
-    <p class="question-text" id="madd-question-text">What type of Madd is used?</p>
+    <div class="big-arabic" id="madd-question">جَاءَكُمْ</div>
+    <p class="question-text" id="madd-question-text">What type of Madd is in this word/phrase?</p>
     <p class="small-note" id="madd-hint"></p>
     <div class="options">
       <button class="btn" onclick="answerMadd('tabeei')">Madd Tabee’i</button>
@@ -709,45 +700,38 @@
   </div>
 </section>
 
-<!-- GHUNNAH -->
+<!-- GHUNNAH WORLD -->
 <section id="screen-ghunnah" style="display:none;">
   <h1>Ghunnah (Nasalization)</h1>
-  <p class="subtitle">Ghunnah (الغنة) — nasal sound of 2 counts.</p>
+  <p class="subtitle">Ghunnah in real Qur’an phrases (2 counts).</p>
 
   <div class="card">
-    <div class="level-title">Ghunnah Basics</div>
-    <p class="small-note">
-      Ghunnah is a nasal sound, usually on Noon (ن) and Meem (م), counted as 2 beats.
-    </p>
+    <div class="level-title">Choose Game Mode</div>
+    <div style="text-align:center;">
+      <select id="ghunnah-mode" class="top-select">
+        <option value="classic">Classic Quiz</option>
+        <option value="kit">Kit Mode (Gimkit-style)</option>
+        <option value="challenge">Challenge Mode</option>
+      </select>
+      <button class="btn secondary" onclick="startWorld('ghunnah'); randomGhunnah();">Start Game</button>
+    </div>
   </div>
 
   <div class="card">
     <div class="level-title">Ghunnah Game</div>
-    <p class="small-note">Choose a mode, then start.</p>
-
-    <div style="text-align:center; margin-bottom:8px;">
-      <label style="font-size:13px;color:#cbd5f5;">Game Mode:
-        <select id="ghunnah-mode" class="top-select" style="margin-left:4px;">
-          <option value="classic">Classic Quiz</option>
-          <option value="battle">Battle Mode</option>
-          <option value="adventure">Adventure Mode</option>
-        </select>
-      </label>
-      <button class="btn secondary" onclick="startWorld('ghunnah'); randomGhunnah();">Start Game</button>
-    </div>
-
     <div class="game-hud">
       <span>Score: <span id="ghunnah-score">0</span></span>
       <span>Streak: <span id="ghunnah-streak">0</span></span>
       <span>XP: <span id="ghunnah-xp">0</span></span>
+      <span>Money: <span id="ghunnah-money">0</span></span>
       <span class="timer-badge">Time: <span id="ghunnah-timer">15</span>s</span>
       <div class="xp-bar">
         <div class="xp-fill" id="ghunnah-xp-fill"></div>
       </div>
     </div>
 
-    <div class="big-arabic" id="ghunnah-question">إِنَّا</div>
-    <p class="question-text" id="ghunnah-question-text">Is there Ghunnah here?</p>
+    <div class="big-arabic" id="ghunnah-question">إِنَّا أَعْطَيْنَاكَ</div>
+    <p class="question-text" id="ghunnah-question-text">Is there Ghunnah here? Where?</p>
     <p class="small-note" id="ghunnah-hint"></p>
     <div class="options">
       <button class="btn" onclick="answerGhunnah(true)">Yes, there is Ghunnah</button>
@@ -764,45 +748,38 @@
   </div>
 </section>
 
-<!-- QALQALAH -->
+<!-- QALQALAH WORLD -->
 <section id="screen-qalqalah" style="display:none;">
   <h1>Qalqalah (Echoing Sound)</h1>
-  <p class="subtitle">Qalqalah Sughra (minor) & Qalqalah Kubra (major).</p>
+  <p class="subtitle">Minor & major Qalqalah in full Qur’an words.</p>
 
   <div class="card">
-    <div class="level-title">Qalqalah Basics</div>
-    <p class="small-note">
-      Qalqalah happens on ق ط ب ج د with an echoing sound, especially when stopping.
-    </p>
+    <div class="level-title">Choose Game Mode</div>
+    <div style="text-align:center;">
+      <select id="qalqalah-mode" class="top-select">
+        <option value="classic">Classic Quiz</option>
+        <option value="kit">Kit Mode (Gimkit-style)</option>
+        <option value="challenge">Challenge Mode</option>
+      </select>
+      <button class="btn secondary" onclick="startWorld('qalqalah'); randomQalqalah();">Start Game</button>
+    </div>
   </div>
 
   <div class="card">
     <div class="level-title">Qalqalah Game</div>
-    <p class="small-note">Choose a mode, then start.</p>
-
-    <div style="text-align:center; margin-bottom:8px;">
-      <label style="font-size:13px;color:#cbd5f5;">Game Mode:
-        <select id="qalqalah-mode" class="top-select" style="margin-left:4px;">
-          <option value="classic">Classic Quiz</option>
-          <option value="battle">Battle Mode</option>
-          <option value="adventure">Adventure Mode</option>
-        </select>
-      </label>
-      <button class="btn secondary" onclick="startWorld('qalqalah'); randomQalqalah();">Start Game</button>
-    </div>
-
     <div class="game-hud">
       <span>Score: <span id="qalqalah-score">0</span></span>
       <span>Streak: <span id="qalqalah-streak">0</span></span>
       <span>XP: <span id="qalqalah-xp">0</span></span>
+      <span>Money: <span id="qalqalah-money">0</span></span>
       <span class="timer-badge">Time: <span id="qalqalah-timer">15</span>s</span>
       <div class="xp-bar">
         <div class="xp-fill" id="qalqalah-xp-fill"></div>
       </div>
     </div>
 
-    <div class="big-arabic" id="qalqalah-question">أَحَدْ</div>
-    <p class="question-text" id="qalqalah-question-text">What type of Qalqalah?</p>
+    <div class="big-arabic" id="qalqalah-question">وَاللَّهُ أَحَدْ</div>
+    <p class="question-text" id="qalqalah-question-text">What type of Qalqalah appears when stopping here?</p>
     <p class="small-note" id="qalqalah-hint"></p>
     <div class="options">
       <button class="btn" onclick="answerQalqalah('sughra')">Qalqalah Sughra</button>
@@ -820,38 +797,30 @@
   </div>
 </section>
 
-<!-- LAAM -->
+<!-- LAAM WORLD -->
 <section id="screen-laam" style="display:none;">
   <h1>Rules of Laam (ل)</h1>
-  <p class="subtitle">Laam Shamsiyyah & Laam Qamariyyah.</p>
+  <p class="subtitle">Laam Shamsiyyah & Laam Qamariyyah in Qur’an examples.</p>
 
   <div class="card">
-    <div class="level-title">Laam Rules</div>
-    <p class="small-note">
-      Laam Shamsiyyah (لام شمسية) — Solar Lam (assimilated).<br>
-      Laam Qamariyyah (لام قمرية) — Lunar Lam (pronounced).
-    </p>
+    <div class="level-title">Choose Game Mode</div>
+    <div style="text-align:center;">
+      <select id="laam-mode" class="top-select">
+        <option value="classic">Classic Quiz</option>
+        <option value="kit">Kit Mode (Gimkit-style)</option>
+        <option value="challenge">Challenge Mode</option>
+      </select>
+      <button class="btn secondary" onclick="startWorld('laam'); randomLaam();">Start Game</button>
+    </div>
   </div>
 
   <div class="card">
     <div class="level-title">Laam Game</div>
-    <p class="small-note">Choose a mode, then start.</p>
-
-    <div style="text-align:center; margin-bottom:8px;">
-      <label style="font-size:13px;color:#cbd5f5;">Game Mode:
-        <select id="laam-mode" class="top-select" style="margin-left:4px;">
-          <option value="classic">Classic Quiz</option>
-          <option value="battle">Battle Mode</option>
-          <option value="adventure">Adventure Mode</option>
-        </select>
-      </label>
-      <button class="btn secondary" onclick="startWorld('laam'); randomLaam();">Start Game</button>
-    </div>
-
     <div class="game-hud">
       <span>Score: <span id="laam-score">0</span></span>
       <span>Streak: <span id="laam-streak">0</span></span>
       <span>XP: <span id="laam-xp">0</span></span>
+      <span>Money: <span id="laam-money">0</span></span>
       <span class="timer-badge">Time: <span id="laam-timer">15</span>s</span>
       <div class="xp-bar">
         <div class="xp-fill" id="laam-xp-fill"></div>
@@ -859,7 +828,7 @@
     </div>
 
     <div class="big-arabic" id="laam-question">الشَّمْسُ</div>
-    <p class="question-text" id="laam-question-text">What type of Laam?</p>
+    <p class="question-text" id="laam-question-text">Is this Laam Shamsiyyah or Laam Qamariyyah?</p>
     <p class="small-note" id="laam-hint"></p>
     <div class="options">
       <button class="btn" onclick="answerLaam('shamsiyyah')">Laam Shamsiyyah</button>
@@ -876,45 +845,38 @@
   </div>
 </section>
 
-<!-- WAQF -->
+<!-- WAQF WORLD -->
 <section id="screen-waqf" style="display:none;">
   <h1>Rules of Waqf (Stopping)</h1>
-  <p class="subtitle">Stopping signs and stopping behavior.</p>
+  <p class="subtitle">Stopping signs and behavior in real Qur’an text.</p>
 
   <div class="card">
-    <div class="level-title">Waqf Basics</div>
-    <p class="small-note">
-      Waqf rules (الوقف) help you know where to stop and continue in the Qur’an.
-    </p>
+    <div class="level-title">Choose Game Mode</div>
+    <div style="text-align:center;">
+      <select id="waqf-mode" class="top-select">
+        <option value="classic">Classic Quiz</option>
+        <option value="kit">Kit Mode (Gimkit-style)</option>
+        <option value="challenge">Challenge Mode</option>
+      </select>
+      <button class="btn secondary" onclick="startWorld('waqf'); randomWaqf();">Start Game</button>
+    </div>
   </div>
 
   <div class="card">
     <div class="level-title">Waqf Game</div>
-    <p class="small-note">Choose a mode, then start.</p>
-
-    <div style="text-align:center; margin-bottom:8px;">
-      <label style="font-size:13px;color:#cbd5f5;">Game Mode:
-        <select id="waqf-mode" class="top-select" style="margin-left:4px;">
-          <option value="classic">Classic Quiz</option>
-          <option value="battle">Battle Mode</option>
-          <option value="adventure">Adventure Mode</option>
-        </select>
-      </label>
-      <button class="btn secondary" onclick="startWorld('waqf'); randomWaqf();">Start Game</button>
-    </div>
-
     <div class="game-hud">
       <span>Score: <span id="waqf-score">0</span></span>
       <span>Streak: <span id="waqf-streak">0</span></span>
       <span>XP: <span id="waqf-xp">0</span></span>
+      <span>Money: <span id="waqf-money">0</span></span>
       <span class="timer-badge">Time: <span id="waqf-timer">15</span>s</span>
       <div class="xp-bar">
         <div class="xp-fill" id="waqf-xp-fill"></div>
       </div>
     </div>
 
-    <div class="big-arabic" id="waqf-question">مـ</div>
-    <p class="question-text" id="waqf-question-text">What should you do?</p>
+    <div class="big-arabic" id="waqf-question">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝</div>
+    <p class="question-text" id="waqf-question-text">At this sign, should you stop, continue, or is it optional?</p>
     <p class="small-note" id="waqf-hint"></p>
     <div class="options">
       <button class="btn" onclick="answerWaqf('stop')">Stop</button>
@@ -932,47 +894,38 @@
   </div>
 </section>
 
-<!-- SIFAAT -->
+<!-- SIFAAT WORLD -->
 <section id="screen-sifaat" style="display:none;">
   <h1>Sifaat (Characteristics of Letters)</h1>
-  <p class="subtitle">Tafkheem, Tarqeeq and other characteristics.</p>
+  <p class="subtitle">Tafkheem, Tarqeeq and other sifaat in Qur’an words.</p>
 
   <div class="card">
-    <div class="level-title">Main Sifaat</div>
-    <p class="small-note">
-      Tafkheem (تفخيم) — Heavy pronunciation.<br>
-      Tarqeeq (ترقيق) — Light pronunciation.<br>
-      Additional sifaat include: hams, jahr, shiddah, rikhwah, etc.
-    </p>
+    <div class="level-title">Choose Game Mode</div>
+    <div style="text-align:center;">
+      <select id="sifaat-mode" class="top-select">
+        <option value="classic">Classic Quiz</option>
+        <option value="kit">Kit Mode (Gimkit-style)</option>
+        <option value="challenge">Challenge Mode</option>
+      </select>
+      <button class="btn secondary" onclick="startWorld('sifaat'); randomSifaat();">Start Game</button>
+    </div>
   </div>
 
   <div class="card">
     <div class="level-title">Sifaat Game</div>
-    <p class="small-note">Choose a mode, then start.</p>
-
-    <div style="text-align:center; margin-bottom:8px;">
-      <label style="font-size:13px;color:#cbd5f5;">Game Mode:
-        <select id="sifaat-mode" class="top-select" style="margin-left:4px;">
-          <option value="classic">Classic Quiz</option>
-          <option value="battle">Battle Mode</option>
-          <option value="adventure">Adventure Mode</option>
-        </select>
-      </label>
-      <button class="btn secondary" onclick="startWorld('sifaat'); randomSifaat();">Start Game</button>
-    </div>
-
     <div class="game-hud">
       <span>Score: <span id="sifaat-score">0</span></span>
       <span>Streak: <span id="sifaat-streak">0</span></span>
       <span>XP: <span id="sifaat-xp">0</span></span>
+      <span>Money: <span id="sifaat-money">0</span></span>
       <span class="timer-badge">Time: <span id="sifaat-timer">15</span>s</span>
       <div class="xp-bar">
         <div class="xp-fill" id="sifaat-xp-fill"></div>
       </div>
     </div>
 
-    <div class="big-arabic" id="sifaat-question">ص</div>
-    <p class="question-text" id="sifaat-question-text">Tafkheem or Tarqeeq?</p>
+    <div class="big-arabic" id="sifaat-question">الصِّرَاطَ</div>
+    <p class="question-text" id="sifaat-question-text">Is the main letter here heavy (Tafkheem) or light (Tarqeeq)?</p>
     <p class="small-note" id="sifaat-hint"></p>
     <div class="options">
       <button class="btn" onclick="answerSifaat('tafkheem')">Tafkheem (Heavy)</button>
@@ -989,47 +942,38 @@
   </div>
 </section>
 
-<!-- FOUNDATIONS -->
+<!-- FOUNDATIONS WORLD -->
 <section id="screen-foundations" style="display:none;">
   <h1>Foundational Rules</h1>
-  <p class="subtitle">Hamzat al-Wasl, silent letters, connection & assimilation rules.</p>
+  <p class="subtitle">Hamzat al-Wasl, silent letters, connection & assimilation in Qur’an words.</p>
 
   <div class="card">
-    <div class="level-title">Overview</div>
-    <p class="small-note">
-      Hamzat al-Wasl (همزة الوصل)<br>
-      Silent Letters (الحروف غير الملفوظة)<br>
-      Connection & Assimilation rules
-    </p>
+    <div class="level-title">Choose Game Mode</div>
+    <div style="text-align:center;">
+      <select id="foundations-mode" class="top-select">
+        <option value="classic">Classic Quiz</option>
+        <option value="kit">Kit Mode (Gimkit-style)</option>
+        <option value="challenge">Challenge Mode</option>
+      </select>
+      <button class="btn secondary" onclick="startWorld('foundations'); randomFoundations();">Start Game</button>
+    </div>
   </div>
 
   <div class="card">
     <div class="level-title">Foundations Game</div>
-    <p class="small-note">Choose a mode, then start.</p>
-
-    <div style="text-align:center; margin-bottom:8px;">
-      <label style="font-size:13px;color:#cbd5f5;">Game Mode:
-        <select id="foundations-mode" class="top-select" style="margin-left:4px;">
-          <option value="classic">Classic Quiz</option>
-          <option value="battle">Battle Mode</option>
-          <option value="adventure">Adventure Mode</option>
-        </select>
-      </label>
-      <button class="btn secondary" onclick="startWorld('foundations'); randomFoundations();">Start Game</button>
-    </div>
-
     <div class="game-hud">
       <span>Score: <span id="foundations-score">0</span></span>
       <span>Streak: <span id="foundations-streak">0</span></span>
       <span>XP: <span id="foundations-xp">0</span></span>
+      <span>Money: <span id="foundations-money">0</span></span>
       <span class="timer-badge">Time: <span id="foundations-timer">15</span>s</span>
       <div class="xp-bar">
         <div class="xp-fill" id="foundations-xp-fill"></div>
       </div>
     </div>
 
-    <div class="big-arabic" id="foundations-question">ٱسْمُ</div>
-    <p class="question-text" id="foundations-question-text">Which foundational rule?</p>
+    <div class="big-arabic" id="foundations-question">ٱسْمِ رَبِّكَ</div>
+    <p class="question-text" id="foundations-question-text">Which foundational rule is highlighted here?</p>
     <p class="small-note" id="foundations-hint"></p>
     <div class="options">
       <button class="btn" onclick="answerFoundations('hamzat')">Hamzat al-Wasl</button>
@@ -1124,7 +1068,8 @@ let globalLevel = 1;
 let powerUps = {
   double: 0,
   hint: 0,
-  freeze: 0
+  freeze: 0,
+  income: 0
 };
 
 function updateGlobalHUD() {
@@ -1133,6 +1078,7 @@ function updateGlobalHUD() {
   document.getElementById("owned-double").textContent = powerUps.double;
   document.getElementById("owned-hint").textContent = powerUps.hint;
   document.getElementById("owned-freeze").textContent = powerUps.freeze;
+  document.getElementById("owned-income").textContent = powerUps.income;
 }
 
 function addGlobalXP(amount) {
@@ -1147,7 +1093,8 @@ function addGlobalXP(amount) {
 }
 
 function addCoins(amount) {
-  globalCoins += amount;
+  let bonus = powerUps.income * 2; // each income upgrade adds +2 coins
+  globalCoins += amount + bonus;
   updateGlobalHUD();
 }
 
@@ -1156,6 +1103,7 @@ function buyPowerUp(type) {
   if (type === "double") cost = 20;
   if (type === "hint") cost = 15;
   if (type === "freeze") cost = 25;
+  if (type === "income") cost = 40;
 
   if (globalCoins >= cost) {
     globalCoins -= cost;
@@ -1180,15 +1128,15 @@ function showPopup(text) {
 
 /* PER-WORLD GAME STATE */
 const worlds = {
-  noon:   { mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false },
-  meem:   { mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false },
-  madd:   { mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false },
-  ghunnah:{ mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false },
-  qalqalah:{ mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false },
-  laam:   { mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false },
-  waqf:   { mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false },
-  sifaat: { mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false },
-  foundations:{ mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false }
+  noon:   { mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false, money: 0 },
+  meem:   { mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false, money: 0 },
+  madd:   { mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false, money: 0 },
+  ghunnah:{ mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false, money: 0 },
+  qalqalah:{ mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false, money: 0 },
+  laam:   { mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false, money: 0 },
+  waqf:   { mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false, money: 0 },
+  sifaat: { mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false, money: 0 },
+  foundations:{ mode: "classic", score: 0, streak: 0, xp: 0, timer: 15, timerId: null, doubleActive: false, money: 0 }
 };
 
 function startWorld(world) {
@@ -1199,7 +1147,8 @@ function startWorld(world) {
   w.score = 0;
   w.streak = 0;
   w.xp = 0;
-  w.timer = 15;
+  w.money = 0;
+  w.timer = mode === "challenge" ? 10 : 15;
   w.doubleActive = false;
   updateWorldHUD(world);
   resetTimer(world);
@@ -1213,6 +1162,9 @@ function updateWorldHUD(world) {
   document.getElementById(world + "-streak").textContent = w.streak;
   document.getElementById(world + "-xp").textContent = w.xp;
   document.getElementById(world + "-timer").textContent = w.timer;
+  if (document.getElementById(world + "-money")) {
+    document.getElementById(world + "-money").textContent = w.money;
+  }
   const levelXP = Math.min(100, w.xp % 100);
   document.getElementById(world + "-xp-fill").style.width = levelXP + "%";
 }
@@ -1220,8 +1172,6 @@ function updateWorldHUD(world) {
 function resetTimer(world) {
   const w = worlds[world];
   if (w.timerId) clearInterval(w.timerId);
-  w.timer = 15;
-  updateWorldHUD(world);
   w.timerId = setInterval(() => {
     if (w.timer > 0) {
       w.timer--;
@@ -1237,23 +1187,40 @@ function addWorldPoints(world, correct) {
   const w = worlds[world];
   if (correct) {
     w.streak++;
-    let base = 10;
-    if (w.mode === "battle") base = 15;
-    if (w.mode === "adventure") base = 20;
-    const bonus = w.streak > 3 ? 5 : 0;
-    let total = base + bonus;
+    let baseScore = 10;
+    let baseXP = 10;
+    let moneyGain = 5;
+
+    if (w.mode === "kit") {
+      baseScore = 8;
+      baseXP = 12;
+      moneyGain = 10;
+    } else if (w.mode === "challenge") {
+      baseScore = 15;
+      baseXP = 15;
+      moneyGain = 6;
+    }
+
+    const streakBonus = w.streak > 3 ? 5 : 0;
+    let totalScore = baseScore + streakBonus;
     if (w.doubleActive) {
-      total *= 2;
+      totalScore *= 2;
+      baseXP *= 2;
+      moneyGain *= 2;
       w.doubleActive = false;
       showPopup("Double points used!");
     }
-    w.score += total;
-    w.xp += base;
-    addGlobalXP(base);
+
+    w.score += totalScore;
+    w.xp += baseXP;
+    w.money += moneyGain;
+    addGlobalXP(baseXP);
     addCoins(3);
   } else {
     w.streak = 0;
-    if (w.mode === "battle") w.score = Math.max(0, w.score - 5);
+    if (w.mode === "challenge") {
+      w.score = Math.max(0, w.score - 5);
+    }
   }
   updateWorldHUD(world);
 }
@@ -1293,50 +1260,50 @@ function freezeTimer(world) {
 function showHint(world) {
   let hintText = "";
   if (world === "noon") {
-    hintText = "Remember: ب → Ikhfa, ي ن م و → Idgham with Ghunnah, ل ر → without Ghunnah.";
+    hintText = "Look at the letter after Noon/Tanween: throat letters → Izhar, ي ن م و → Idgham with Ghunnah, ل ر → without Ghunnah, ب → Iqlab or Ikhfa depending on context.";
     document.getElementById("noon-hint").textContent = hintText;
   } else if (world === "meem") {
-    hintText = "ب and ف after Meem → Ikhfa Shafawi. Meem + Meem → Idgham Shafawi.";
+    hintText = "Meem + Meem → Idgham Shafawi, Meem + ب/ف → Ikhfa Shafawi, other letters → Izhar Shafawi.";
     document.getElementById("meem-hint").textContent = hintText;
   } else if (world === "madd") {
-    hintText = "Look for hamzah or sukoon after the Madd letter.";
+    hintText = "Check if there is hamzah or sukoon after the Madd letter to know the type.";
     document.getElementById("madd-hint").textContent = hintText;
   } else if (world === "ghunnah") {
-    hintText = "Ghunnah usually on Noon/Meem with shaddah.";
+    hintText = "Ghunnah usually appears on Noon/Meem with shaddah (ّ).";
     document.getElementById("ghunnah-hint").textContent = hintText;
   } else if (world === "qalqalah") {
-    hintText = "Qalqalah letters: ق ط ب ج د.";
+    hintText = "Qalqalah letters: ق ط ب ج د. Stopping on them with sukoon → Kubra.";
     document.getElementById("qalqalah-hint").textContent = hintText;
   } else if (world === "laam") {
     hintText = "Solar letters make Laam assimilated; lunar letters keep Laam pronounced.";
     document.getElementById("laam-hint").textContent = hintText;
   } else if (world === "waqf") {
-    hintText = "مـ must stop, لا do not stop, ج optional.";
+    hintText = "مـ must stop, لا do not stop, ج optional, قلى better to stop, صلى better to continue.";
     document.getElementById("waqf-hint").textContent = hintText;
   } else if (world === "sifaat") {
-    hintText = "Heavy letters: خص ضغط قظ.";
+    hintText = "Heavy letters: خص ضغط قظ. Others are usually light.";
     document.getElementById("sifaat-hint").textContent = hintText;
   } else if (world === "foundations") {
-    hintText = "Hamzat al-Wasl appears at beginning; silent letters are not pronounced.";
+    hintText = "Hamzat al-Wasl appears at beginning and drops in connected reading; silent letters are written but not pronounced.";
     document.getElementById("foundations-hint").textContent = hintText;
   }
   showPopup("Hint revealed!");
 }
 
-/* QUESTION POOLS (RANDOM) */
+/* QUESTION POOLS WITH REAL QUR’AN EXAMPLES */
 
 /* NOON GAME */
 const noonQuestions = [
-  { text: "نْ + ب", rule: "ikhfa", explain: "ب after Noon → Ikhfa." },
-  { text: "نْ + ر", rule: "idgham-no-ghunnah", explain: "ر → Idgham without Ghunnah." },
-  { text: "نْ + ي", rule: "idgham-ghunnah", explain: "ي → Idgham with Ghunnah." },
-  { text: "ــً + م", rule: "idgham-ghunnah", explain: "Tanween + م → Idgham with Ghunnah." },
-  { text: "نْ + ل", rule: "idgham-no-ghunnah", explain: "ل → Idgham without Ghunnah." },
-  { text: "ــٌ + ب", rule: "ikhfa", explain: "Tanween + ب → Ikhfa." },
-  { text: "نْ + ء", rule: "izhar", explain: "Throat letters → Izhar." },
-  { text: "ــٍ + ب", rule: "iqlab", explain: "Tanween + ب (Meem conversion) → Iqlab." },
-  { text: "نْ + ح", rule: "izhar", explain: "ح is throat letter → Izhar." },
-  { text: "ــً + ن", rule: "idgham-ghunnah", explain: "Tanween + ن → Idgham with Ghunnah." }
+  { text: "مِنْ رَبِّهِمْ", rule: "ikhfa", explain: "Tanween/Noon before ر in this phrase → Ikhfa." },
+  { text: "عَلِيمٌ حَكِيمٌ", rule: "ikhfa", explain: "Tanween followed by ح → Ikhfa." },
+  { text: "سَمِيعٌ عَلِيمٌ", rule: "ikhfa", explain: "Tanween followed by ع → Ikhfa." },
+  { text: "غَفُورٌ رَحِيمٌ", rule: "ikhfa", explain: "Tanween followed by ر → Ikhfa." },
+  { text: "مِنْ لَدُنْهُ", rule: "idgham-no-ghunnah", explain: "Noon followed by ل → Idgham without Ghunnah." },
+  { text: "مِنْ نُورٍ", rule: "idgham-ghunnah", explain: "Noon followed by ن → Idgham with Ghunnah." },
+  { text: "عَلِيمٌ خَبِيرٌ", rule: "izhar", explain: "Tanween followed by throat letter خ → Izhar." },
+  { text: "سَمِيعٌ بَصِيرٌ", rule: "iqlab", explain: "Tanween before ب with Meem conversion → Iqlab." },
+  { text: "إِنَّ اللَّهَ", rule: "idgham-ghunnah", explain: "Noon with shaddah → Ghunnah and Idgham." },
+  { text: "مِنْ أَهْلِهِ", rule: "izhar", explain: "Noon before throat letter أ → Izhar." }
 ];
 let noonIndex = 0;
 
@@ -1344,7 +1311,7 @@ function randomNoon() {
   noonIndex = Math.floor(Math.random() * noonQuestions.length);
   const q = noonQuestions[noonIndex];
   document.getElementById("noon-question").textContent = q.text;
-  document.getElementById("noon-question-text").textContent = "What is the rule here?";
+  document.getElementById("noon-question-text").textContent = "What is the Ahkam rule on Noon/Tanween here?";
   document.getElementById("noon-result").textContent = "";
   document.getElementById("noon-stars").textContent = "⭐ ⭐ ⭐";
   document.getElementById("noon-hint").textContent = "";
@@ -1354,383 +1321,4 @@ function randomNoon() {
 function answerNoon(rule) {
   const q = noonQuestions[noonIndex];
   const result = document.getElementById("noon-result");
-  if (rule === q.rule) {
-    playSound('sound-correct');
-    result.textContent = "Correct! " + q.explain;
-    result.classList.add("correct-anim");
-    addWorldPoints("noon", true);
-    setTimeout(() => result.classList.remove("correct-anim"), 300);
-  } else {
-    playSound('sound-wrong');
-    result.textContent = "Try again! " + q.explain;
-    result.classList.add("wrong-anim");
-    addWorldPoints("noon", false);
-    setTimeout(() => result.classList.remove("wrong-anim"), 300);
-    document.getElementById("noon-stars").textContent = "⭐ ⭐";
-  }
-}
-
-function nextNoonQuestion() {
-  randomNoon();
-}
-
-/* MEEM GAME */
-const meemQuestions = [
-  { text: "مْ + ب", rule: "ikhfa", explain: "ب after Meem → Ikhfa Shafawi." },
-  { text: "مْ + م", rule: "idgham", explain: "Meem + Meem → Idgham Shafawi." },
-  { text: "مْ + أ", rule: "izhar", explain: "Other letters → Izhar Shafawi." },
-  { text: "مْ + و", rule: "izhar", explain: "و → Izhar Shafawi." },
-  { text: "مْ + ف", rule: "ikhfa", explain: "ف after Meem → Ikhfa Shafawi." }
-];
-let meemIndex = 0;
-
-function randomMeem() {
-  meemIndex = Math.floor(Math.random() * meemQuestions.length);
-  const q = meemQuestions[meemIndex];
-  document.getElementById("meem-question").textContent = q.text;
-  document.getElementById("meem-question-text").textContent = "What is the rule here?";
-  document.getElementById("meem-result").textContent = "";
-  document.getElementById("meem-stars").textContent = "⭐ ⭐ ⭐";
-  document.getElementById("meem-hint").textContent = "";
-  resetTimer("meem");
-}
-
-function answerMeem(rule) {
-  const q = meemQuestions[meemIndex];
-  const result = document.getElementById("meem-result");
-  if (rule === q.rule) {
-    playSound('sound-correct');
-    result.textContent = "Correct! " + q.explain;
-    result.classList.add("correct-anim");
-    addWorldPoints("meem", true);
-    setTimeout(() => result.classList.remove("correct-anim"), 300);
-  } else {
-    playSound('sound-wrong');
-    result.textContent = "Try again! " + q.explain;
-    result.classList.add("wrong-anim");
-    addWorldPoints("meem", false);
-    setTimeout(() => result.classList.remove("wrong-anim"), 300);
-    document.getElementById("meem-stars").textContent = "⭐ ⭐";
-  }
-}
-
-function nextMeemQuestion() {
-  randomMeem();
-}
-
-/* MADD GAME */
-const maddQuestions = [
-  { text: "قَالُوا", rule: "tabeei", explain: "Simple Madd on alif → Madd Tabee’i." },
-  { text: "جَاءَ", rule: "muttasil", explain: "Madd + hamzah in same word → Madd Wajib Muttasil." },
-  { text: "فِي أَنْفُسِكُمْ", rule: "munfasil", explain: "Madd at end of word + hamzah in next → Madd Jaiz Munfasil." },
-  { text: "الصَّاخَّةُ", rule: "lazim", explain: "Permanent sukoon after Madd → Madd Lazim." },
-  { text: "قَالُواْ", rule: "arid", explain: "Stopping on sukoon after Madd → Madd ‘Arid Lissukoon." },
-  { text: "آمَنُوا", rule: "tabeei", explain: "Simple Madd on alif → Madd Tabee’i." }
-];
-let maddIndex = 0;
-
-function randomMadd() {
-  maddIndex = Math.floor(Math.random() * maddQuestions.length);
-  const q = maddQuestions[maddIndex];
-  document.getElementById("madd-question").textContent = q.text;
-  document.getElementById("madd-question-text").textContent = "What type of Madd is used?";
-  document.getElementById("madd-result").textContent = "";
-  document.getElementById("madd-stars").textContent = "⭐ ⭐ ⭐";
-  document.getElementById("madd-hint").textContent = "";
-  resetTimer("madd");
-}
-
-function answerMadd(rule) {
-  const q = maddQuestions[maddIndex];
-  const result = document.getElementById("madd-result");
-  if (rule === q.rule) {
-    playSound('sound-correct');
-    result.textContent = "Correct! " + q.explain;
-    result.classList.add("correct-anim");
-    addWorldPoints("madd", true);
-    setTimeout(() => result.classList.remove("correct-anim"), 300);
-  } else {
-    playSound('sound-wrong');
-    result.textContent = "Try again! " + q.explain;
-    result.classList.add("wrong-anim");
-    addWorldPoints("madd", false);
-    setTimeout(() => result.classList.remove("wrong-anim"), 300);
-    document.getElementById("madd-stars").textContent = "⭐ ⭐";
-  }
-}
-
-function nextMaddQuestion() {
-  randomMadd();
-}
-
-/* GHUNNAH GAME */
-const ghunnahQuestions = [
-  { text: "إِنَّا", has: true, explain: "Double Noon → Ghunnah." },
-  { text: "ثُمَّ", has: true, explain: "Double Meem → Ghunnah." },
-  { text: "قَالُوا", has: false, explain: "No Noon/Meem with shaddah → no Ghunnah." },
-  { text: "إِنَّكُمْ", has: true, explain: "Shaddah on Noon → Ghunnah." },
-  { text: "هُمْ", has: false, explain: "Single Meem without shaddah → no Ghunnah." }
-];
-let ghunnahIndex = 0;
-
-function randomGhunnah() {
-  ghunnahIndex = Math.floor(Math.random() * ghunnahQuestions.length);
-  const q = ghunnahQuestions[ghunnahIndex];
-  document.getElementById("ghunnah-question").textContent = q.text;
-  document.getElementById("ghunnah-question-text").textContent = "Is there Ghunnah here?";
-  document.getElementById("ghunnah-result").textContent = "";
-  document.getElementById("ghunnah-stars").textContent = "⭐ ⭐ ⭐";
-  document.getElementById("ghunnah-hint").textContent = "";
-  resetTimer("ghunnah");
-}
-
-function answerGhunnah(ans) {
-  const q = ghunnahQuestions[ghunnahIndex];
-  const result = document.getElementById("ghunnah-result");
-  if (ans === q.has) {
-    playSound('sound-correct');
-    result.textContent = "Correct! " + q.explain;
-    result.classList.add("correct-anim");
-    addWorldPoints("ghunnah", true);
-    setTimeout(() => result.classList.remove("correct-anim"), 300);
-  } else {
-    playSound('sound-wrong');
-    result.textContent = "Try again! " + q.explain;
-    result.classList.add("wrong-anim");
-    addWorldPoints("ghunnah", false);
-    setTimeout(() => result.classList.remove("wrong-anim"), 300);
-    document.getElementById("ghunnah-stars").textContent = "⭐ ⭐";
-  }
-}
-
-function nextGhunnahQuestion() {
-  randomGhunnah();
-}
-
-/* QALQALAH GAME */
-const qalqalahQuestions = [
-  { text: "أَحَدْ", type: "kubra", explain: "Stopping on د with sukoon → Qalqalah Kubra." },
-  { text: "يَقْطَعُونَ", type: "sughra", explain: "Moving letter with qalqalah inside word → Qalqalah Sughra." },
-  { text: "قَالُوا", type: "none", explain: "No qalqalah letter with sukoon → no Qalqalah." },
-  { text: "الْحَقُّ", type: "sughra", explain: "ق with sukoon inside word → Qalqalah Sughra." },
-  { text: "الْفَلَقْ", type: "kubra", explain: "Stopping on ق with sukoon → Qalqalah Kubra." }
-];
-let qalqalahIndex = 0;
-
-function randomQalqalah() {
-  qalqalahIndex = Math.floor(Math.random() * qalqalahQuestions.length);
-  const q = qalqalahQuestions[qalqalahIndex];
-  document.getElementById("qalqalah-question").textContent = q.text;
-  document.getElementById("qalqalah-question-text").textContent = "What type of Qalqalah?";
-  document.getElementById("qalqalah-result").textContent = "";
-  document.getElementById("qalqalah-stars").textContent = "⭐ ⭐ ⭐";
-  document.getElementById("qalqalah-hint").textContent = "";
-  resetTimer("qalqalah");
-}
-
-function answerQalqalah(type) {
-  const q = qalqalahQuestions[qalqalahIndex];
-  const result = document.getElementById("qalqalah-result");
-  if (type === q.type) {
-    playSound('sound-correct');
-    result.textContent = "Correct! " + q.explain;
-    result.classList.add("correct-anim");
-    addWorldPoints("qalqalah", true);
-    setTimeout(() => result.classList.remove("correct-anim"), 300);
-  } else {
-    playSound('sound-wrong');
-    result.textContent = "Try again! " + q.explain;
-    result.classList.add("wrong-anim");
-    addWorldPoints("qalqalah", false);
-    setTimeout(() => result.classList.remove("wrong-anim"), 300);
-    document.getElementById("qalqalah-stars").textContent = "⭐ ⭐";
-  }
-}
-
-function nextQalqalahQuestion() {
-  randomQalqalah();
-}
-
-/* LAAM GAME */
-const laamQuestions = [
-  { text: "الشَّمْسُ", type: "shamsiyyah", explain: "Laam is assimilated → Shamsiyyah." },
-  { text: "القَمَرُ", type: "qamariyyah", explain: "Laam is pronounced → Qamariyyah." },
-  { text: "الْبَيْتُ", type: "qamariyyah", explain: "Laam pronounced → Qamariyyah." },
-  { text: "النَّاسُ", type: "shamsiyyah", explain: "Laam assimilated → Shamsiyyah." }
-];
-let laamIndex = 0;
-
-function randomLaam() {
-  laamIndex = Math.floor(Math.random() * laamQuestions.length);
-  const q = laamQuestions[laamIndex];
-  document.getElementById("laam-question").textContent = q.text;
-  document.getElementById("laam-question-text").textContent = "What type of Laam?";
-  document.getElementById("laam-result").textContent = "";
-  document.getElementById("laam-stars").textContent = "⭐ ⭐ ⭐";
-  document.getElementById("laam-hint").textContent = "";
-  resetTimer("laam");
-}
-
-function answerLaam(type) {
-  const q = laamQuestions[laamIndex];
-  const result = document.getElementById("laam-result");
-  if (type === q.type) {
-    playSound('sound-correct');
-    result.textContent = "Correct! " + q.explain;
-    result.classList.add("correct-anim");
-    addWorldPoints("laam", true);
-    setTimeout(() => result.classList.remove("correct-anim"), 300);
-  } else {
-    playSound('sound-wrong');
-    result.textContent = "Try again! " + q.explain;
-    result.classList.add("wrong-anim");
-    addWorldPoints("laam", false);
-    setTimeout(() => result.classList.remove("wrong-anim"), 300);
-    document.getElementById("laam-stars").textContent = "⭐ ⭐";
-  }
-}
-
-function nextLaamQuestion() {
-  randomLaam();
-}
-
-/* WAQF GAME */
-const waqfQuestions = [
-  { text: "مـ", rule: "stop", explain: "مـ → must stop." },
-  { text: "ج", rule: "optional", explain: "ج → optional stop." },
-  { text: "لا", rule: "continue", explain: "لا → do not stop." },
-  { text: "قلى", rule: "stop", explain: "قلى → better to stop." },
-  { text: "صلى", rule: "continue", explain: "صلى → better to continue." }
-];
-let waqfIndex = 0;
-
-function randomWaqf() {
-  waqfIndex = Math.floor(Math.random() * waqfQuestions.length);
-  const q = waqfQuestions[waqfIndex];
-  document.getElementById("waqf-question").textContent = q.text;
-  document.getElementById("waqf-question-text").textContent = "What should you do?";
-  document.getElementById("waqf-result").textContent = "";
-  document.getElementById("waqf-stars").textContent = "⭐ ⭐ ⭐";
-  document.getElementById("waqf-hint").textContent = "";
-  resetTimer("waqf");
-}
-
-function answerWaqf(rule) {
-  const q = waqfQuestions[waqfIndex];
-  const result = document.getElementById("waqf-result");
-  if (rule === q.rule) {
-    playSound('sound-correct');
-    result.textContent = "Correct! " + q.explain;
-    result.classList.add("correct-anim");
-    addWorldPoints("waqf", true);
-    setTimeout(() => result.classList.remove("correct-anim"), 300);
-  } else {
-    playSound('sound-wrong');
-    result.textContent = "Try again! " + q.explain;
-    result.classList.add("wrong-anim");
-    addWorldPoints("waqf", false);
-    setTimeout(() => result.classList.remove("wrong-anim"), 300);
-    document.getElementById("waqf-stars").textContent = "⭐ ⭐";
-  }
-}
-
-function nextWaqfQuestion() {
-  randomWaqf();
-}
-
-/* SIFAAT GAME */
-const sifaatQuestions = [
-  { text: "ص", type: "tafkheem", explain: "ص is heavy → Tafkheem." },
-  { text: "س", type: "tarqeeq", explain: "س is light → Tarqeeq." },
-  { text: "ط", type: "tafkheem", explain: "ط is heavy → Tafkheem." },
-  { text: "ز", type: "tarqeeq", explain: "ز is light → Tarqeeq." }
-];
-let sifaatIndex = 0;
-
-function randomSifaat() {
-  sifaatIndex = Math.floor(Math.random() * sifaatQuestions.length);
-  const q = sifaatQuestions[sifaatIndex];
-  document.getElementById("sifaat-question").textContent = q.text;
-  document.getElementById("sifaat-question-text").textContent = "Tafkheem or Tarqeeq?";
-  document.getElementById("sifaat-result").textContent = "";
-  document.getElementById("sifaat-stars").textContent = "⭐ ⭐ ⭐";
-  document.getElementById("sifaat-hint").textContent = "";
-  resetTimer("sifaat");
-}
-
-function answerSifaat(type) {
-  const q = sifaatQuestions[sifaatIndex];
-  const result = document.getElementById("sifaat-result");
-  if (type === q.type) {
-    playSound('sound-correct');
-    result.textContent = "Correct! " + q.explain;
-    result.classList.add("correct-anim");
-    addWorldPoints("sifaat", true);
-    setTimeout(() => result.classList.remove("correct-anim"), 300);
-  } else {
-    playSound('sound-wrong');
-    result.textContent = "Try again! " + q.explain;
-    result.classList.add("wrong-anim");
-    addWorldPoints("sifaat", false);
-    setTimeout(() => result.classList.remove("wrong-anim"), 300);
-    document.getElementById("sifaat-stars").textContent = "⭐ ⭐";
-  }
-}
-
-function nextSifaatQuestion() {
-  randomSifaat();
-}
-
-/* FOUNDATIONS GAME */
-const foundationsQuestions = [
-  { text: "ٱسْمُ", rule: "hamzat", explain: "Hamzat al-Wasl at start." },
-  { text: "هٰذَا", rule: "silent", explain: "Silent alif in some words." },
-  { text: "يَدْخُلُونَ", rule: "connection", explain: "Connection & assimilation in recitation." },
-  { text: "ٱلْحَمْدُ", rule: "hamzat", explain: "Hamzat al-Wasl at start." },
-  { text: "ذٰلِكَ", rule: "silent", explain: "Silent alif in some words." }
-];
-let foundationsIndex = 0;
-
-function randomFoundations() {
-  foundationsIndex = Math.floor(Math.random() * foundationsQuestions.length);
-  const q = foundationsQuestions[foundationsIndex];
-  document.getElementById("foundations-question").textContent = q.text;
-  document.getElementById("foundations-question-text").textContent = "Which foundational rule?";
-  document.getElementById("foundations-result").textContent = "";
-  document.getElementById("foundations-stars").textContent = "⭐ ⭐ ⭐";
-  document.getElementById("foundations-hint").textContent = "";
-  resetTimer("foundations");
-}
-
-function answerFoundations(rule) {
-  const q = foundationsQuestions[foundationsIndex];
-  const result = document.getElementById("foundations-result");
-  if (rule === q.rule) {
-    playSound('sound-correct');
-    result.textContent = "Correct! " + q.explain;
-    result.classList.add("correct-anim");
-    addWorldPoints("foundations", true);
-    setTimeout(() => result.classList.remove("correct-anim"), 300);
-  } else {
-    playSound('sound-wrong');
-    result.textContent = "Try again! " + q.explain;
-    result.classList.add("wrong-anim");
-    addWorldPoints("foundations", false);
-    setTimeout(() => result.classList.remove("wrong-anim"), 300);
-    document.getElementById("foundations-stars").textContent = "⭐ ⭐";
-  }
-}
-
-function nextFoundationsQuestion() {
-  randomFoundations();
-}
-
-/* INIT */
-changeTheme();
-startRandomNasheed();
-updateGlobalHUD();
-showScreen('home');
-</script>
-
-</body>
-</html>
+  if (rule ===
