@@ -5,21 +5,34 @@
 <title>Ahkam Master</title>
 
 <style>
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --accent: #f97316;
+    --accent2: #22c55e;
+    --accent3: #3b82f6;
+    --text: #e5e7eb;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
   body {
     margin: 0;
     font-family: "Nunito", system-ui, sans-serif;
-    background: radial-gradient(circle at top, #ffe9b3 0, #fff7e9 40%, #ffffff 100%);
-    color: #333;
+    background: radial-gradient(circle at top, #1d283a 0, #020617 60%);
+    color: var(--text);
   }
 
   header {
-    background: linear-gradient(90deg, #ff8a00, #ff3d00);
+    background: linear-gradient(90deg, #f97316, #ec4899, #3b82f6);
     color: #fff;
     padding: 10px 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.4);
   }
 
   .left-header {
@@ -29,7 +42,7 @@
 
   .author {
     font-size: 11px;
-    opacity: 0.8;
+    opacity: 0.9;
   }
 
   .logo {
@@ -39,7 +52,7 @@
   }
 
   .logo::before {
-    content: "📖 ";
+    content: "🎮 ";
   }
 
   nav {
@@ -52,34 +65,35 @@
     padding: 6px 12px;
     border-radius: 999px;
     border: none;
-    background: #fff;
-    color: #ff3d00;
+    background: rgba(15,23,42,0.2);
+    color: #fff;
     font-weight: 700;
     cursor: pointer;
     font-size: 13px;
-    transition: transform 0.15s, background 0.15s;
+    transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
   }
 
   nav button:hover {
-    background: #ffe0d1;
+    background: rgba(15,23,42,0.4);
     transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.4);
   }
 
   nav button.active {
-    background: #ffd000;
-    color: #000;
+    background: #facc15;
+    color: #0f172a;
   }
 
   main {
     padding: 20px;
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
   }
 
   h1 {
     font-size: 28px;
     margin-bottom: 10px;
-    color: #ff3d00;
+    color: #f97316;
     text-align: center;
   }
 
@@ -87,7 +101,7 @@
     font-size: 16px;
     margin-bottom: 20px;
     text-align: center;
-    color: #555;
+    color: #cbd5f5;
   }
 
   .subtitle::before {
@@ -95,12 +109,12 @@
   }
 
   .card {
-    background: #ffffff;
+    background: var(--card);
     border-radius: 18px;
     padding: 18px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
     margin-bottom: 20px;
-    border: 2px solid #ffe6cc;
+    border: 1px solid rgba(148,163,184,0.4);
     position: relative;
     overflow: hidden;
   }
@@ -110,9 +124,9 @@
     position: absolute;
     top: -40px;
     right: -40px;
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle, rgba(255,138,0,0.25), transparent 60%);
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(248,113,113,0.35), transparent 60%);
     pointer-events: none;
   }
 
@@ -120,7 +134,7 @@
     font-size: 70px;
     text-align: center;
     margin: 12px 0;
-    color: #ff3d00;
+    color: #facc15;
   }
 
   .rule-label {
@@ -129,42 +143,43 @@
     border-radius: 999px;
     font-size: 13px;
     margin: 4px;
-    color: #fff;
-    font-weight: 600;
+    color: #0f172a;
+    font-weight: 700;
   }
 
-  .rule-izhar { background: #27ae60; }
-  .rule-idgham-ghunnah { background: #2980b9; }
-  .rule-idgham-no-ghunnah { background: #e67e22; }
-  .rule-iqlab { background: #e84393; }
-  .rule-ikhfa { background: #8e44ad; }
+  .rule-izhar { background: #22c55e; }
+  .rule-idgham-ghunnah { background: #3b82f6; }
+  .rule-idgham-no-ghunnah { background: #f97316; }
+  .rule-iqlab { background: #ec4899; }
+  .rule-ikhfa { background: #8b5cf6; }
 
   .btn {
     display: inline-block;
     margin: 6px;
     padding: 10px 16px;
-    background: #ff8a00;
-    color: #fff;
+    background: #f97316;
+    color: #0f172a;
     border-radius: 14px;
     border: none;
     cursor: pointer;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 800;
     transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
   }
 
   .btn:hover {
-    background: #ff3d00;
+    background: #fb923c;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.6);
   }
 
   .btn.secondary {
-    background: #888;
+    background: #64748b;
+    color: #e5e7eb;
   }
 
   .btn.secondary:hover {
-    background: #555;
+    background: #94a3b8;
   }
 
   .result {
@@ -178,25 +193,25 @@
   .stars {
     margin-top: 6px;
     font-size: 18px;
-    color: #f1c40f;
+    color: #facc15;
     text-align: center;
   }
 
   .level-title {
     font-size: 20px;
     margin-bottom: 8px;
-    font-weight: 700;
-    color: #ff8a00;
+    font-weight: 800;
+    color: #f97316;
     text-align: center;
   }
 
   .level-title::before {
-    content: "🎮 ";
+    content: "🎯 ";
   }
 
   .small-note {
     font-size: 13px;
-    color: #777;
+    color: #cbd5f5;
     text-align: center;
   }
 
@@ -223,7 +238,7 @@
     text-align: center;
     padding: 14px;
     font-size: 14px;
-    color: #777;
+    color: #9ca3af;
     margin-top: 40px;
   }
 
@@ -358,8 +373,8 @@
     </p>
     <div style="text-align:center; margin-top:8px;">
       <span class="rule-label rule-izhar">Izhar (إظهار) — Clear</span>
-      <span class="rule-label rule-idgham-ghunnah">Idgham with Ghunnah (ي ن م و)</span>
-      <span class="rule-label rule-idgham-no-ghunnah">Idgham without Ghunnah (ل ر)</span>
+      <span class="rule-label rule-idgham-ghunnah">Idgham with Ghunnah: ي ن م و</span>
+      <span class="rule-label rule-idgham-no-ghunnah">Idgham without Ghunnah: ل ر</span>
       <span class="rule-label rule-iqlab">Iqlab (إقلاب) — to Meem</span>
       <span class="rule-label rule-ikhfa">Ikhfa (إخفاء) — Concealment</span>
     </div>
@@ -424,15 +439,14 @@
   <div class="card">
     <div class="level-title">Madd Types</div>
     <p class="small-note">
-      Natural Madd (Madd Tabee’i / Asli) and secondary Madd:
+      Natural Madd:<br>
+      Madd Tabee’i / Madd Asli (مد طبيعي)<br><br>
+      Secondary Madd:<br>
+      Madd Jaiz Munfasil (مد جائز منفصل)<br>
+      Madd Wajib Muttasil (مد واجب متصل)<br>
+      Madd Lazim (مد لازم)<br>
+      Madd ‘Arid Lissukoon (مد عارض للسكون)
     </p>
-    <div style="text-align:center; margin-top:8px;">
-      <span class="rule-label rule-izhar">Madd Tabee’i / Asli (مد طبيعي)</span><br>
-      <span class="rule-label rule-idgham-ghunnah">Madd Jaiz Munfasil (مد جائز منفصل)</span>
-      <span class="rule-label rule-idgham-no-ghunnah">Madd Wajib Muttasil (مد واجب متصل)</span>
-      <span class="rule-label rule-iqlab">Madd Lazim (مد لازم)</span>
-      <span class="rule-label rule-ikhfa">Madd ‘Arid Lissukoon (مد عارض للسكون)</span>
-    </div>
   </div>
 
   <div class="card">
@@ -516,8 +530,8 @@
   <div class="card">
     <div class="level-title">Laam Rules</div>
     <p class="small-note">
-      Laam Shamsiyyah (لام شمسية) — assimilated (not pronounced clearly).<br>
-      Laam Qamariyyah (لام قمرية) — pronounced clearly.
+      Laam Shamsiyyah (لام شمسية) — Solar Lam (assimilated).<br>
+      Laam Qamariyyah (لام قمرية) — Lunar Lam (pronounced).
     </p>
   </div>
 
@@ -544,7 +558,7 @@
   <div class="card">
     <div class="level-title">Waqf Basics</div>
     <p class="small-note">
-      Waqf rules help you know where to stop and continue in the Qur’an.
+      Waqf rules (الوقف) help you know where to stop and continue in the Qur’an.
     </p>
   </div>
 
@@ -572,9 +586,9 @@
   <div class="card">
     <div class="level-title">Main Sifaat</div>
     <p class="small-note">
-      Tafkheem (تفخيم) — heavy pronunciation.<br>
-      Tarqeeq (ترقيق) — light pronunciation.<br>
-      Plus other sifaat like hams, jahr, shiddah, rikhwah, etc.
+      Tafkheem (تفخيم) — Heavy pronunciation.<br>
+      Tarqeeq (ترقيق) — Light pronunciation.<br>
+      Additional sifaat include: hams, jahr, shiddah, rikhwah, etc.
     </p>
   </div>
 
@@ -601,7 +615,9 @@
   <div class="card">
     <div class="level-title">Overview</div>
     <p class="small-note">
-      Hamzat al-Wasl (همزة الوصل), silent letters (الحروف غير الملفوظة), and connection rules help with smooth recitation.
+      Hamzat al-Wasl (همزة الوصل)<br>
+      Silent Letters (الحروف غير الملفوظة)<br>
+      Connection & Assimilation rules
     </p>
   </div>
 
@@ -627,7 +643,7 @@
   Made for kids learning Tajweed ❤️
 </footer>
 
-<!-- SIMPLE SOUND EFFECTS -->
+<!-- SOUND EFFECTS -->
 <audio id="sound-correct">
   <source src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" type="audio/ogg">
 </audio>
